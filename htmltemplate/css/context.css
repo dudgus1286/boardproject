@@ -25,7 +25,7 @@ img {
   /* 테두리 설정 */
   border-radius: 5px;
   border: 1px solid black;
-
+  margin: 5px;
   max-width: 950px;
 }
 .timelineContext .createDate {
@@ -42,6 +42,8 @@ img {
   border-bottom: 1px solid;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  padding: 10px;
+  padding-bottom: 20px;
 }
 /* 댓글수 */
 .timelineContext .nextPosts {
@@ -52,6 +54,8 @@ img {
   border-top: 1px solid black;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  padding: 10px;
+  padding-top: 20px;
 
   /* 텍스트 위치 */
   text-align: right;
@@ -59,11 +63,7 @@ img {
 
 /* 포스트 정보 영역 */
 .timelineContext .postInfo {
-  /* 테두리 설정 */
-  border-bottom: 1px dotted black;
-
-  /* 크기 지정 (자식 요소에 맞게) */
-  overflow: auto;
+padding: 5px;
 }
 /* 포스트 작성일자 정보 */
 .timelineContext .postInfo .postCreateDate {
@@ -71,6 +71,7 @@ img {
 }
 /* 포스트 작성자 정보 */
 .timelineContext .postInfo .writer {
+  padding: 5px;
   display: flex;
   align-items: center;
 }
@@ -79,6 +80,7 @@ img {
   /* 테두리 설정 */
   border: 2px dotted gray;
   border-radius: 50%;
+  margin-right: 15px;
 
   /* div 밖 영역 감추기 */
   overflow: hidden;
@@ -92,9 +94,14 @@ img {
   flex-shrink: 0;
 }
 
+/* 포스트 텍스트 영역 */
+.timelineContext .post .postText {
+  padding: 15px;
+}
+
 /* 포스트 이미지 영역 */
 .timelineContext .post .postImages {
-  /* background-color: pink; */
+  padding-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -102,6 +109,7 @@ img {
 .timelineContext .post .postImages .postImage {
   border: 1px solid black;
   border-radius: 5px;
+  margin: 5px;
   overflow: hidden;
   width: 200px;
   height: 200px;
@@ -112,7 +120,7 @@ img {
   /* 검정칠 */
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   left: 0;
   top: 0;
@@ -127,15 +135,14 @@ img {
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
-  min-width: 400px;
-  min-height: 400px;
   max-width: 90%;
   max-height: 90%;
+  overflow: auto;
+  position: absolute;
 
   /* 포지션, 플렉스 설정 */
-  position: absolute;
-  flex-flow: column;
   display: flex;
+  flex-flow: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -147,14 +154,13 @@ img {
 }
 .modalBody .modalBodyImage {
   background-color: green;
-  width: 100%;
-  height: 100%;
   text-align: center;
   flex-grow: 1;
 }
 
 .modalBody .modalBodyImage img {
-  max-height: 760px;
+  width: 100%;
+  height: auto;
 }
 .modalBody .modalBodyClose {
   background-color: blue;

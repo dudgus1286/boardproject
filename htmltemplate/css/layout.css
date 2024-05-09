@@ -42,48 +42,6 @@ footer {
 }
 
 /* 타임라인 */
-.timeline {
-  background-color: cadetblue;
-}
-/* 게시글 디자인 영역 시작 */
-.context {
-  background-color: aqua;
-  width: 100%;
-  max-width: 700px;
-  padding: 10px;
-  margin: 15px;
-  border-radius: 5px;
-  border: 1px solid black;
-  position: relative;
-}
-.postInfo {
-  position: relative;
-  margin: 30px 0 15px 0;
-}
-.postCreateDate {
-  position: absolute;
-  right: 0;
-}
-.postInfo .writer {
-}
-
-.postText,
-.postImage {
-  margin-bottom: 20px;
-}
-.prevPost {
-  background-color: darkcyan;
-  position: absolute;
-  width: 100%;
-  max-width: 600px;
-  top: -15px;
-  padding: 5px;
-  border: 1px solid black;
-}
-.nextPost {
-  border-top: 1px solid black;
-  padding: 10px;
-}
 /* 게시글 디자인 영역 끝 */
 
 /* 글타래 목록 */

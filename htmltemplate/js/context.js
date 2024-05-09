@@ -1,6 +1,6 @@
 const modal = document.querySelector(".modal");
 
-document.querySelector(".timelineContext").addEventListener("click", (e) => {
+document.querySelector(".timeline").addEventListener("click", (e) => {
   e.preventDefault();
   //   console.log(e.target);
   //   console.log(e.target.closest("div"));
@@ -10,7 +10,7 @@ document.querySelector(".timelineContext").addEventListener("click", (e) => {
   const eventTargetDiv = e.target.closest("div");
 
   if (eventTargetDiv.classList.contains("nextPostsCount")) {
-    const nextPostsList = document.querySelector(".nextPostsList");
+    const nextPostsList = eventTargetDiv.nextElementSibling;
 
     if (nextPostsList.classList.contains("hidden")) {
       nextPostsList.classList.remove("hidden");
@@ -25,7 +25,8 @@ document.querySelector(".timelineContext").addEventListener("click", (e) => {
   }
 });
 
-document.querySelector(".modalBodyCloseBtn").addEventListener("click", (e) => {
-  e.preventDefault();
-  modal.classList.add("hidden");
-});
+modal.addEventListener("click",(e)=>{
+  if (e.target.classList.contains("modal") || e.target.classList.contains("modalBodyCloseBtn")) {
+    modal.classList.add("hidden");
+  }
+})
