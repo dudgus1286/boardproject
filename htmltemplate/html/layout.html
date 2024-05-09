@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/layout.css" />
+  </head>
+  <body>
+    <header>
+      <h1>헤더</h1>
+      <h3>사이트 이름</h3>
+    </header>
+
+    <aside>
+      <h3>메뉴</h3>
+      <ul class="menu">
+        <li><a href="#">로그인</a></li>
+        <li><a href="#">회원가입</a></li>
+        <li><a href="#">메인홈 가기</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보러가기</a></li>
+        <li>로그아웃</li>
+        <li>계정설정</li>
+        <li><a href="#">내 프로필 가기</a></li>
+        <li><a href="#">글 작성하기</a></li>
+        <li><a href="#">글타래 관리하기</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <h3>메인 홈</h3>
+
+      <div class="searchFormDiv">
+        <h4>검색하기</h4>
+        <form action="" method="get" id="searchForm">
+          <div>
+            <select name="type" id="type">
+              <option value="text">텍스트</option>
+              <option value="user">작성자</option>
+              <option value="tag">태그</option>
+              <option value="thread">타래</option>
+            </select>
+            <input type="text" name="keyword" id="keyword" placeholder="키워드를 입력하시오" />
+          </div>
+          <div>
+            <label for="image">이미지 여부</label>
+            <input type="checkbox" name="image" id="image" value="true" />
+            <button type="submit">검색</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="timeline">
+        <h4>타임라인(메인, 프로필, 글타래)</h4>
+        <div class="context">
+          <div class="prevPost">
+            <p>(작성일자) 작성자 닉네임: 이전 글 내용 앞부분만 ㄴㅁㄴㄹㅇㅁㄴㄹㅁㄴㅇㅇㄴ...</p>
+          </div>
+
+          <div class="post">
+            <div class="postInfo">
+              <div class="postCreateDate">작성일: yyyy-MM-dd <span>(수정됨)</span></div>
+              <div class="writer">
+                <img src="http://via.placeholder.com/50.jpg" alt="" />
+                <span>작성자: 김모 씨</span>
+              </div>
+            </div>
+            <div class="postText">
+              게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+              consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet consectetur
+              adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime nihil voluptate
+              consequuntur expedita illum quis, doloremque aliquid quisquam.
+            </div>
+            <div class="postImage">
+              <img src="http://via.placeholder.com/160.jpg" alt="" />
+              <img src="http://via.placeholder.com/160.jpg" alt="" />
+              <img src="http://via.placeholder.com/160.jpg" alt="" />
+              <img src="http://via.placeholder.com/160.jpg" alt="" />
+            </div>
+          </div>
+
+          <div class="nextPost">댓글 개수 (0)</div>
+        </div>
+
+        <p>타임라인 끝</p>
+      </div>
+
+      <div class="threadList">
+        <h4>글타래 목록(메인, 프로필, 글타래 관리 페이지)</h4>
+        <div class="thread">
+          <div class="threadTitle">글타래 제목</div>
+          <div class="threadText">글타래 설명문</div>
+          <div class="threadDate">마지막 수정일 yyyy-MM-dd</div>
+          <div class="writer">작성자 홍길동1</div>
+        </div>
+        <div class="thread">
+          <div class="threadTitle">글타래 제목</div>
+          <div class="threadText">글타래 설명문</div>
+          <div class="threadDate">마지막 수정일 yyyy-MM-dd</div>
+          <div class="writer">작성자 홍길동2</div>
+        </div>
+        <div class="thread">
+          <div class="threadTitle">글타래 제목</div>
+          <div class="threadText">글타래 설명문</div>
+          <div class="threadDate">마지막 수정일 yyyy-MM-dd</div>
+          <div class="writer">작성자 홍길동3</div>
+        </div>
+        <p>글타래 끝</p>
+      </div>
+
+      <div class="pageList">
+        <h4>페이지 리스트</h4>
+        <ul>
+          <li>이전 페이지</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>10</li>
+          <li>다음 페이지</li>
+        </ul>
+      </div>
+      <p>메인 홈 끝</p>
+    </main>
+
+    <footer>
+      <div class="siteAbout">
+        <h3>하단</h3>
+        <p>사이트 정보</p>
+      </div>
+    </footer>
+  </body>
+</html>

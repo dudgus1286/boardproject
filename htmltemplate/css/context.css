@@ -1,0 +1,173 @@
+/* 기본 설정 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+img {
+  vertical-align: top;
+}
+.textBold {
+  font-weight: bold;
+}
+
+/* 기본 설정 끝 */
+
+/* 타임라인 포스트 전체 영역 */
+.timelineContext {
+  /* 배경색 */
+  background-color: aqua;
+
+  /* 테두리 설정 */
+  border-radius: 5px;
+  border: 1px solid black;
+
+  max-width: 950px;
+}
+.timelineContext .createDate {
+  font-size: 0.9em;
+  color: gray;
+}
+
+/* 이전글  */
+.timelineContext .prevPost {
+  /* 배경색 */
+  background-color: aquamarine;
+
+  /* 테두리 설정 */
+  border-bottom: 1px solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+/* 댓글수 */
+.timelineContext .nextPosts {
+  /* 배경색 */
+  background-color: aquamarine;
+
+  /* 테두리 설정 */
+  border-top: 1px solid black;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  /* 텍스트 위치 */
+  text-align: right;
+}
+
+/* 포스트 정보 영역 */
+.timelineContext .postInfo {
+  /* 테두리 설정 */
+  border-bottom: 1px dotted black;
+
+  /* 크기 지정 (자식 요소에 맞게) */
+  overflow: auto;
+}
+/* 포스트 작성일자 정보 */
+.timelineContext .postInfo .postCreateDate {
+  text-align: right;
+}
+/* 포스트 작성자 정보 */
+.timelineContext .postInfo .writer {
+  display: flex;
+  align-items: center;
+}
+/* 포스트 작성자 프사 영역 */
+.timelineContext .postInfo .writer .writerImg {
+  /* 테두리 설정 */
+  border: 2px dotted gray;
+  border-radius: 50%;
+
+  /* div 밖 영역 감추기 */
+  overflow: hidden;
+
+  /* 프로필 영역 사이즈 (이미지 사이즈 + 테두리 양쪽 크기) */
+  width: 54px;
+  height: 54px;
+
+  /* 왼쪽 지정, 플렉스 아이템 설정 */
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* 포스트 이미지 영역 */
+.timelineContext .post .postImages {
+  /* background-color: pink; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.timelineContext .post .postImages .postImage {
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+}
+
+/* 모달창 영역 */
+.modal {
+  /* 검정칠 */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  /* 플렉스 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalBody {
+  /* 배경색, 테두리, 모달창 크기 */
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  min-width: 400px;
+  min-height: 400px;
+  max-width: 90%;
+  max-height: 90%;
+
+  /* 포지션, 플렉스 설정 */
+  position: absolute;
+  flex-flow: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modalBody .modalBodyInfo {
+  background-color: pink;
+  width: 100%;
+  text-align: left;
+  flex-grow: 0;
+}
+.modalBody .modalBodyImage {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.modalBody .modalBodyImage img {
+  max-height: 760px;
+}
+.modalBody .modalBodyClose {
+  background-color: blue;
+  width: 100%;
+  text-align: right;
+  flex-grow: 0;
+}
+
+.modalBody .modalBodyCloseBtn {
+  width: 150px;
+  height: 50px;
+}
+
+.hidden {
+  display: none;
+}
