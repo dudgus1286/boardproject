@@ -9,19 +9,19 @@
   <body>
     <div class="timeline">
       <!-- DB 에 포스트 데이터가 있을 경우 자동 반복될 구역 -->
-      <div class="timelineContext">
+      <div class="timelineContainer">
         <div class="prevPost">
           <!-- 이전글이 있을 경우 이 구역을 표시 -->
           <p>
             <span class="createDate">(yyyy-MM-dd)</span>
             <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
             <a href="이전글개별글" class="prevText"
-              >이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore eligendi
-              consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!</a
+              >이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+              eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!</a
             >
           </p>
         </div>
-  
+
         <div class="postInfo">
           <!-- 본문 정보표시 영역 -->
           <div class="postCreateDate createDate">
@@ -43,7 +43,7 @@
             </span>
           </div>
         </div>
-  
+
         <div class="post">
           <!-- 본문 영역 -->
           <div class="postText">
@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-  
+
         <div class="nextPosts">
           <div class="nextPostsCount">
             <!-- 덧글 갯수 표시 영역 -->
@@ -110,7 +110,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="modal hidden">
       <div class="modalBody">
         <div class="modalBodyInfo">
@@ -118,7 +118,7 @@
           <p>원본글 링크</p>
         </div>
         <div class="modalBodyImage">
-          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)"/>
+          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
         </div>
         <div class="modalBodyClose">
           <button type="button" class="modalBodyCloseBtn">닫기</button>

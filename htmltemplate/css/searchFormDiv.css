@@ -1,0 +1,63 @@
+/* 기본 설정 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+img {
+  vertical-align: top;
+}
+.textBold {
+  font-weight: bold;
+}
+
+header {
+  background-color: pink;
+  position: sticky;
+  width: 100%;
+  height: 50px;
+}
+.searchFormDiv {
+  /* display: none; */
+  background-color: lightblue;
+  position: fixed;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+
+  /* margin-top: 50px; */
+}
+
+.searchFormDiv form {
+  padding: 10px;
+  max-width: 950px;
+  text-align: center;
+}
+.searchFormDiv .searchType {
+  width: 30%;
+  height: 3.5em;
+  padding: 1em;
+}
+
+.searchFormDiv .searchKeyword {
+  width: 65%;
+  height: 3.5em;
+  padding: 1em;
+}
+
+.searchFormDiv .searchBtnContainer {
+  text-align: right;
+  padding: 10px;
+}
+
+.searchFormDiv .searchBtnContainer .searchBtn {
+  /* background-color: red; */
+}
+
+main {
+  padding-top: 150px;
+}
