@@ -7,13 +7,29 @@
     <link rel="stylesheet" href="/htmltemplate/css/context.css" />
     <link rel="stylesheet" href="/htmltemplate/css/threadList.css" />
     <link rel="stylesheet" href="/htmltemplate/css/searchFormDiv.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
   </head>
   <body>
-    <!-- <header>
-      <h1>헤더</h1>
-    </header> -->
+    <aside>
+      <h1>메뉴</h1>
+      <ul class="menu">
+        <!-- 공통 -->
+        <li><a href="#">메인홈</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보기</a></li>
+        <!-- 로그아웃 상태 -->
+        <li><a href="#">로그인</a></li>
+        <li><a href="#">회원가입</a></li>
+        <!-- 로그인 상태 -->
+        <li><a href="#">내 프로필 가기</a></li>
+        <li><a href="#">글 작성하기</a></li>
+        <li><a href="#">글타래 관리하기</a></li>
+        <li><a href="#">계정설정</a></li>
+        <li><a href="#">로그아웃</a></li>
+      </ul>
+    </aside>
+
     <div class="searchFormDiv">
-      <h1>검색하기</h1>
+      <h2>검색하기</h2>
       <form action="" method="get" id="searchForm">
         <div class="searchTypeKeyword">
           <select name="type" id="type" class="searchType">
@@ -379,5 +395,21 @@
       autem officiis cum amet nesciunt corporis maxime, est recusandae ad mollitia illum, veritatis nemo temporibus explicabo laboriosam excepturi
       asperiores. Repudiandae, hic et.
     </main>
+
+    <div class="modal hidden">
+      <div class="modalBody">
+        <div class="modalBodyInfo">
+          <p>작성자: <span class="writerNickname textBold">김모 씨</span></p>
+          <p>원본글 링크</p>
+        </div>
+        <div class="modalBodyImage">
+          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
+        </div>
+        <div class="modalBodyClose">
+          <button type="button" class="modalBodyCloseBtn">닫기</button>
+        </div>
+      </div>
+    </div>
+    <script src="/htmltemplate/js/context.js"></script>
   </body>
 </html>

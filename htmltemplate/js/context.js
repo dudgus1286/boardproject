@@ -2,10 +2,6 @@ const modal = document.querySelector(".modal");
 
 document.querySelector(".timeline").addEventListener("click", (e) => {
   e.preventDefault();
-  //   console.log(e.target);
-  //   console.log(e.target.closest("div"));
-  //   console.log(e.target.tagName);
-  //   console.log(e.currentTarget);
 
   const eventTargetDiv = e.target.closest("div");
 
@@ -25,8 +21,8 @@ document.querySelector(".timeline").addEventListener("click", (e) => {
   }
 });
 
-modal.addEventListener("click",(e)=>{
+modal.addEventListener("click", (e) => {
   if (e.target.classList.contains("modal") || e.target.classList.contains("modalBodyCloseBtn")) {
     modal.classList.add("hidden");
   }
-})
+});

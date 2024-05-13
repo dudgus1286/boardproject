@@ -15,27 +15,31 @@ img {
   font-weight: bold;
 }
 
-header {
-  background-color: pink;
-  position: sticky;
-  width: 100%;
-  height: 50px;
-}
 .searchFormDiv {
   /* display: none; */
-  background-color: lightblue;
+  /* background-color: lightblue; */
+  background-color: rgba(173, 216, 230, 0.7);
   position: fixed;
+  top: 0;
   width: 100%;
-  height: auto;
+  max-width: 1460px;
+  height: 160px;
   z-index: 1;
 
   /* margin-top: 50px; */
+}
+
+.searchFormDiv h2 {
+  color: white;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 .searchFormDiv form {
   padding: 10px;
   max-width: 950px;
   text-align: center;
+  margin: 0 auto;
 }
 .searchFormDiv .searchType {
   width: 30%;
@@ -54,10 +58,19 @@ header {
   padding: 10px;
 }
 
-.searchFormDiv .searchBtnContainer .searchBtn {
-  /* background-color: red; */
+.searchFormDiv .searchImageCheckbox {
+  display: inline-block;
+  margin-right: 20px;
+}
+.searchFormDiv .searchBtn {
+  background-color: teal;
+  color: white;
+  border: 1px solid black;
+  font-size: 1.2em;
+  width: 150px;
+  height: 40px;
 }
 
-main {
-  padding-top: 150px;
-}
+/* main {
+  padding-top: 200px;
+} */

@@ -7,50 +7,57 @@
     <link rel="stylesheet" href="/htmltemplate/css/layout.css" />
     <link rel="stylesheet" href="/htmltemplate/css/context.css" />
     <link rel="stylesheet" href="/htmltemplate/css/threadList.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/searchFormDiv.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
   </head>
   <body>
-    <header>
-      <h1>헤더</h1>
-    </header>
+    <div class="searchFormDiv">
+      <h2>검색하기</h2>
+      <form action="" method="get" id="searchForm">
+        <div class="searchTypeKeyword">
+          <select name="type" id="type" class="searchType">
+            <!-- 글 검색 -->
+            <option value="text">텍스트</option>
+            <option value="user">작성자</option>
+            <option value="tag">태그</option>
+            <!-- 글타래 검색 -->
+            <option value="thread">이름</option>
+            <option value="thread">소개문구</option>
+            <option value="thread">작성자</option>
+            <option value="thread">태그</option>
+          </select>
+          <input type="text" name="keyword" id="keyword" placeholder="키워드를 입력하시오" class="searchKeyword" />
+        </div>
+        <div class="searchBtnContainer">
+          <div class="searchImageCheckbox">
+            <label for="image">이미지 여부</label>
+            <input type="checkbox" name="image" id="image" value="true" />
+          </div>
+          <button type="submit" class="searchBtn">검색</button>
+        </div>
+      </form>
+    </div>
 
     <aside>
-      <h3>메뉴</h3>
+      <h1>메뉴</h1>
       <ul class="menu">
+        <!-- 공통 -->
+        <li><a href="#">메인홈</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보기</a></li>
+        <!-- 로그아웃 상태 -->
         <li><a href="#">로그인</a></li>
         <li><a href="#">회원가입</a></li>
-        <li><a href="#">메인홈 가기</a></li>
-        <li><a href="#">최근에 바뀐 글타래 보러가기</a></li>
-        <li>로그아웃</li>
-        <li>계정설정</li>
+        <!-- 로그인 상태 -->
         <li><a href="#">내 프로필 가기</a></li>
         <li><a href="#">글 작성하기</a></li>
         <li><a href="#">글타래 관리하기</a></li>
+        <li><a href="#">계정설정</a></li>
+        <li><a href="#">로그아웃</a></li>
       </ul>
     </aside>
 
     <main>
       <h3>메인 홈</h3>
-
-      <div class="searchFormDiv">
-        <h4>검색하기</h4>
-        <form action="" method="get" id="searchForm">
-          <div>
-            <select name="type" id="type">
-              <option value="text">텍스트</option>
-              <option value="user">작성자</option>
-              <option value="tag">태그</option>
-              <option value="thread">타래</option>
-            </select>
-            <input type="text" name="keyword" id="keyword" placeholder="키워드를 입력하시오" />
-          </div>
-          <div>
-            <label for="image">이미지 여부</label>
-            <input type="checkbox" name="image" id="image" value="true" />
-            <button type="submit">검색</button>
-          </div>
-        </form>
-      </div>
-
       <div class="timeline">
         <!-- DB 에 포스트 데이터가 있을 경우 자동 반복될 구역 -->
         <div class="timelineContainer">

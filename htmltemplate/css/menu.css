@@ -1,0 +1,27 @@
+aside {
+  background-color: darkcyan;
+  position: fixed;
+  width: 450px;
+  height: 100%;
+  z-index: 2;
+  right: 0;
+  top: 0;
+}
+
+aside h1 {
+  color: white;
+  text-align: right;
+  padding: 5px;
+  margin: 10px;
+  border-bottom: 1px solid white;
+}
+
+aside ul {
+  padding: 20px;
+}
+
+aside ul li {
+  font-size: 1.5em;
+  list-style: none;
+  padding-bottom: 5px;
+}
