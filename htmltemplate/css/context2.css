@@ -1,7 +1,5 @@
 /* 메인 정렬 */
 main {
-  max-width: 1460px;
-  background-color: palevioletred;
   /* display: flex;
   flex-wrap: wrap;
   justify-content: center; */
@@ -75,8 +73,10 @@ main {
   border-radius: 5px;
   margin: 5px;
   overflow: hidden;
-  width: 200px;
-  height: 200px;
+  max-width: 500px;
+  max-height: 400px;
+  height: auto;
+  flex: 1 1 40%;
 }
 
 /* 댓글작성, 글타래 추가 영역 */
@@ -90,6 +90,38 @@ main {
   border-bottom-right-radius: 5px;
   padding: 10px;
   padding-top: 20px;
+}
+
+.replyThread .threadForm {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.threadForm #myThread {
+  width: 300px;
+  height: 2em;
+}
+.replyThread .replyForm {
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+.replyTextarea textarea {
+  width: 100%;
+  max-width: 950px;
+}
+.replyThread #text {
+  border: 1px solid gray;
+  resize: none;
+  margin: 5px auto;
+}
+.replyThread button {
+  height: 2em;
+  width: 100px;
+  background-color: darkcyan;
+  border: 1px solid black;
 }
 
 /* 모달창 영역 */

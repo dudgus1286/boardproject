@@ -1,0 +1,25 @@
+.userProfileBackground {
+  height: 200px;
+  background-color: pink;
+}
+
+.userProfileMain {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+.userProfileMainImg {
+  border: 2px solid gray;
+  border-radius: 15px;
+  margin: 15px;
+  margin-top: -150px;
+
+  /* div 밖 영역 감추기 */
+  overflow: hidden;
+
+  /* 프로필 영역 사이즈 (이미지 사이즈 + 테두리 양쪽 크기) */
+  width: 254px;
+  height: 254px;
+
+  float: left;
+}

@@ -19,7 +19,8 @@ img {
 .threadList {
   /* 테두리 설정 */
   max-width: 950px;
-  margin: 10px;
+  width: 95%;
+  margin: 10px auto;
 
   /* 플렉스 */
   display: flex;

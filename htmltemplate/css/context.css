@@ -116,8 +116,9 @@ main {
   border-radius: 5px;
   margin: 5px;
   overflow: hidden;
-  width: 200px;
+  max-width: 200px;
   height: 200px;
+  flex: 1 1 20%;
 }
 
 /* 모달창 영역 */

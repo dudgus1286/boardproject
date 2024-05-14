@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <div class="mainPost">
+      <div class="mainPost" id="mainPost">
         <div class="mainPostContainer">
           <div class="postInfo">
             <!-- 본문 정보표시 영역 -->
@@ -128,51 +128,55 @@
             <!-- 본문 영역 -->
             <div class="postText">
               <p>
-                <a href="개별글페이지">
-                  게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
-                  consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
-                  consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
-                  nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
-                  elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
-                  atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
-                  repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
-                  Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
-                </a>
+                게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet consectetur
+                adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime nihil voluptate
+                consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla id sed
+                consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta atque placeat ducimus.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae repellat repudiandae
+                optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate! Explicabo nulla numquam
+                ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
               </p>
             </div>
             <div class="postImages">
               <div class="postImage1 postImage">
-                <img src="http://via.placeholder.com/200.jpg" alt="" />
+                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
               </div>
               <div class="postImage2 postImage">
-                <img src="http://via.placeholder.com/200.jpg" alt="" />
+                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
               </div>
               <div class="postImage3 postImage">
-                <img src="http://via.placeholder.com/200.jpg" alt="" />
+                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
               </div>
               <div class="postImage4 postImage">
-                <img src="http://via.placeholder.com/200.jpg" alt="" />
+                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
               </div>
             </div>
           </div>
 
           <div class="replyThread">
             <div class="updateThread">
-              <form action="">
-                <label for="myThreadList" class="textBold">글타래에 추가하기</label>
-                <select name="myThreadList" id="myThreadList">
+              <form action="" method="get" class="threadForm" id="threadForm">
+                <label for="myThread" class="textBold">글타래에 추가하기</label>
+                <select name="myThread" id="myThread" form="threadForm">
                   <option value="thread1">글타래 1</option>
                   <option value="thread2">글타래 2</option>
                   <option value="thread3">글타래 3</option>
                 </select>
-                <button type="submit">추가하기</button>
+                <button type="submit" class="textBold">추가하기</button>
+                <input type="hidden" name="postNo" />
               </form>
             </div>
             <div class="createReply">
-              <form action="">
-                <label for="text" class="textBold">덧글 작성하기</label><br />
-                <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="4" cols="100"></textarea>
-                <button type="submit">올리기</button>
+              <form action="" method="get" class="replyForm">
+                <p>
+                  <label for="text" class="textBold">덧글 작성하기</label>
+                </p>
+                <div class="replyTextarea">
+                  <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br />
+                  <button type="submit" class="textBold">올리기</button>
+                </div>
+                <input type="hidden" name="postNo" />
               </form>
             </div>
           </div>
@@ -463,6 +467,7 @@
       </div>
     </main>
     <!-- <script src="/htmltemplate/js/context.js"></script> -->
-    <script src="/htmltemplate/js/context2.js"></script>
+    <!-- <script src="/htmltemplate/js/context2.js"></script> -->
+    <script src="/htmltemplate/js/test.js"></script>
   </body>
 </html>

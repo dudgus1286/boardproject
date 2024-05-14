@@ -4,15 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/htmltemplate/css/layout.css" />
     <link rel="stylesheet" href="/htmltemplate/css/context.css" />
-    <link rel="stylesheet" href="/htmltemplate/css/context2.css" />
     <link rel="stylesheet" href="/htmltemplate/css/threadList.css" />
     <link rel="stylesheet" href="/htmltemplate/css/searchFormDiv.css" />
     <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/mainHeader.css" />
   </head>
   <body>
-    <div class="searchFormDiv">
+    <div class="searchFormDiv hidden">
       <h2>검색하기</h2>
       <form action="" method="get" id="searchForm">
         <div class="searchTypeKeyword">
@@ -39,7 +38,7 @@
       </form>
     </div>
 
-    <aside>
+    <aside class="hidden">
       <h1>메뉴</h1>
       <ul class="menu">
         <!-- 공통 -->
@@ -58,7 +57,26 @@
     </aside>
 
     <main>
-      <h3>메인 홈</h3>
+      <div class="mainHeader">
+        <div class="userProfileBackground"></div>
+        <div class="userProfile">
+          <div class="userProfileMain">
+            <div class="userProfileMainImg">
+              <img src="http://via.placeholder.com/250.jpg" alt="" />
+            </div>
+            <div class="userProfileNickname">
+              <h1>닉네임</h1>
+            </div>
+            <div class="userProfileBio">
+              <div class="userProfileText">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. At quidem commodi quisquam veritatis, quibusdam aut, suscipit hic obcaecati,
+                molestiae dolorum explicabo est. Aperiam maxime porro, recusandae at facere dolores provident!
+              </div>
+              <div class="userProfileBtn">등록한 글 보기 / 만든 글타래 보기</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="timeline">
         <!-- DB 에 포스트 데이터가 있을 경우 자동 반복될 구역 -->
         <div class="timelineContainer">
@@ -363,7 +381,6 @@
         </div>
       </div>
 
-      <!-- 쓰레드 목록 -->
       <div class="threadList">
         <div class="thread">
           <div class="postInfo">
@@ -535,133 +552,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 개별글 화면 -->
-      <div class="mainPost" id="mainPost">
-        <div class="mainPostContainer">
-          <div class="postInfo">
-            <!-- 본문 정보표시 영역 -->
-            <div class="postCreateDate createDate">
-              작성일:
-              <span>yyyy-MM-dd</span>
-              <span>(수정됨)</span>
-            </div>
-            <div class="writer">
-              <div class="writerImg">
-                <a href="게시글작성자">
-                  <img src="http://via.placeholder.com/50.jpg" alt="" />
-                </a>
-              </div>
-              <span class="writerNickname textBold">
-                <a href="게시글작성자">
-                  작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
-                  quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
-                </a>
-              </span>
-            </div>
-          </div>
-
-          <div class="post">
-            <!-- 본문 영역 -->
-            <div class="postText">
-              <p>
-                게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
-                consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime nihil voluptate
-                consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla id sed
-                consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta atque placeat ducimus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae repellat repudiandae
-                optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate! Explicabo nulla numquam
-                ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
-              </p>
-            </div>
-            <div class="postImages">
-              <div class="postImage1 postImage">
-                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
-              </div>
-              <div class="postImage2 postImage">
-                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
-              </div>
-              <div class="postImage3 postImage">
-                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
-              </div>
-              <div class="postImage4 postImage">
-                <img src="http://via.placeholder.com/500x400.jpg" alt="" />
-              </div>
-            </div>
-          </div>
-
-          <div class="replyThread">
-            <div class="updateThread">
-              <form action="" method="get" class="threadForm">
-                <label for="myThread" class="textBold">글타래에 추가하기</label>
-                <select name="myThread" id="myThread">
-                  <option value="thread1">글타래 1</option>
-                  <option value="thread2">글타래 2</option>
-                  <option value="thread3">글타래 3</option>
-                </select>
-                <input type="hidden" name="postNo" value="" />
-                <button type="submit" class="textBold">추가하기</button>
-              </form>
-            </div>
-            <div class="createReply">
-              <form action="" class="replyForm">
-                <p>
-                  <label for="text" class="textBold">덧글 작성하기</label>
-                </p>
-                <div class="replyTextarea">
-                  <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br />
-                  <button type="submit" class="textBold">올리기</button>
-                </div>
-                <input type="hidden" name="postNo" />
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pageList">
-        <h4>페이지 리스트</h4>
-        <ul>
-          <li>이전 페이지</li>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-          <li>6</li>
-          <li>7</li>
-          <li>8</li>
-          <li>9</li>
-          <li>10</li>
-          <li>다음 페이지</li>
-        </ul>
-      </div>
-      <p>메인 홈 끝</p>
     </main>
-
-    <footer>
-      <div class="siteAbout">
-        <h3>하단</h3>
-        <p>사이트 정보</p>
-      </div>
-    </footer>
-
-    <div class="modal hidden">
-      <div class="modalBody">
-        <div class="modalBodyInfo">
-          <p>작성자: <span class="writerNickname textBold">김모 씨</span></p>
-          <p>원본글 링크</p>
-        </div>
-        <div class="modalBodyImage">
-          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
-        </div>
-        <div class="modalBodyClose">
-          <button type="button" class="modalBodyCloseBtn">닫기</button>
-        </div>
-      </div>
-    </div>
-    <script src="/htmltemplate/js/context.js"></script>
-    <script src="/htmltemplate/js/context2.js"></script>
   </body>
 </html>
