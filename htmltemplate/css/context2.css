@@ -111,11 +111,11 @@ main {
 .replyTextarea textarea {
   width: 100%;
   max-width: 950px;
-}
-.replyThread #text {
   border: 1px solid gray;
   resize: none;
   margin: 5px auto;
+}
+.replyThread #text {
 }
 .replyThread button {
   height: 2em;

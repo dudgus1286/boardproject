@@ -5,9 +5,12 @@
 
 .userProfileMain {
   width: 100%;
-  max-width: 950px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 15px;
+  background-color: greenyellow;
 }
+
 .userProfileMainImg {
   border: 2px solid gray;
   border-radius: 15px;
@@ -22,4 +25,9 @@
   height: 254px;
 
   float: left;
+}
+
+.userProfileBtn {
+  margin-top: 15px;
+  text-align: right;
 }

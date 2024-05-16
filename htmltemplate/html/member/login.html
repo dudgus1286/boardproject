@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/htmltemplate/css/layout.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/login.css" />
+    <style>
+      main {
+        width: 100%;
+        max-width: 1470px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="hidden menutoggle">메뉴 열기</button>
+    <aside class="hidden">
+      <button>메뉴 접기</button>
+      <h1>메뉴</h1>
+      <ul class="menu">
+        <!-- 공통 -->
+        <li><a href="#">메인홈</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보기</a></li>
+        <!-- 로그아웃 상태 -->
+        <li><a href="#">로그인</a></li>
+        <li><a href="#">회원가입</a></li>
+        <!-- 로그인 상태 -->
+        <li><a href="#">내 프로필 가기</a></li>
+        <li><a href="#">글 작성하기</a></li>
+        <li><a href="#">글타래 관리하기</a></li>
+        <li><a href="#">계정설정</a></li>
+        <li><a href="#">로그아웃</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="member login">
+        <form action="">
+          <label for="username">아이디 : </label>
+          <input type="text" name="username" id="username" /><br />
+          <label for="password">비밀번호 : </label>
+          <input type="password" name="password" id="password" />
+          <div></div>
+          <button type="submit">로그인하기</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/htmltemplate/css/layout.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/editProfile.css" />
+    <style>
+      main {
+        max-width: 1470px;
+        width: 100%;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="hidden menutoggle">메뉴 열기</button>
+    <aside class="">
+      <button>메뉴 접기</button>
+      <h1>메뉴</h1>
+      <ul class="menu">
+        <!-- 공통 -->
+        <li><a href="#">메인홈</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보기</a></li>
+        <!-- 로그아웃 상태 -->
+        <li><a href="#">로그인</a></li>
+        <li><a href="#">회원가입</a></li>
+        <!-- 로그인 상태 -->
+        <li><a href="#">내 프로필 가기</a></li>
+        <li><a href="#">글 작성하기</a></li>
+        <li><a href="#">글타래 관리하기</a></li>
+        <li><a href="#">계정설정</a></li>
+        <li><a href="#">로그아웃</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="editNickname">
+        <form action="" method="post">
+          <h3>닉네임 변경</h3>
+          <label for="nickname" class="textBold">변경할 닉네임 : </label>
+          <input type="text" name="nickname" id="nickname" />
+          <button type="submit">닉네임 변경</button>
+        </form>
+
+        <form action="" method="post">
+          <h3>프로필 이미지 변경</h3>
+          <label for="nickname" class="textBold">이미지 선택 : </label>
+          <input type="file" name="" id="" />
+          <button type="submit">이미지 저장</button>
+        </form>
+
+        <form action="" method="post">
+          <h3>프로필 헤더 이미지 변경</h3>
+          <label for="nickname" class="textBold">이미지 선택 : </label>
+          <input type="file" name="" id="" />
+          <button type="submit">이미지 저장</button>
+        </form>
+
+        <form action="" method="post">
+          <h3>비밀번호 변경</h3>
+          <label for="currentPassword">현재 비밀번호 : </label>
+          <input type="password" name="currentPassword" id="currentPassword" />
+          <div></div>
+          <label for="currentPassword">새 비밀번호 : </label>
+          <input type="password" name="newPassword" id="newPassword" />
+          <div></div>
+          <label for="currentPassword">새 비밀번호 다시 입력: </label>
+          <input type="password" name="newPasswordAgain" id="newPasswordAgain" />
+          <div></div>
+          <button type="submit">비밀번호 변경</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/htmltemplate/css/layout.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/menu.css" />
+    <link rel="stylesheet" href="/htmltemplate/css/post.css" />
+    <style>
+      main {
+        max-width: 1470px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="hidden menutoggle">메뉴 열기</button>
+    <aside class="">
+      <button>메뉴 접기</button>
+      <h1>메뉴</h1>
+      <ul class="menu">
+        <!-- 공통 -->
+        <li><a href="#">메인홈</a></li>
+        <li><a href="#">최근에 바뀐 글타래 보기</a></li>
+        <!-- 로그아웃 상태 -->
+        <li><a href="#">로그인</a></li>
+        <li><a href="#">회원가입</a></li>
+        <!-- 로그인 상태 -->
+        <li><a href="#">내 프로필 가기</a></li>
+        <li><a href="#">글 작성하기</a></li>
+        <li><a href="#">글타래 관리하기</a></li>
+        <li><a href="#">계정설정</a></li>
+        <li><a href="#">로그아웃</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="createPost">
+        <form action="" method="post">
+          <div class="privacyCheck">
+            <label for="privacy" class="textBold">공개범위 </label>
+            <input type="radio" name="privacy" id="public" /> 전체공개 <input type="radio" name="privacy" id="member" /> 회원한테만 공개
+          </div>
+          <div class="postText">
+            <p>
+              <label for="text" class="textBold">텍스트</label>
+            </p>
+            <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea>
+            <button type="submit" class="textBold postSubmitBtn">올리기</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

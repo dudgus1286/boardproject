@@ -15,6 +15,10 @@ main {
   padding-top: 160px;
 }
 
+.textBold {
+  font-weight: bold;
+}
+
 footer {
   background-color: darkseagreen;
   text-align: center;

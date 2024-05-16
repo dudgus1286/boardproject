@@ -1,0 +1,30 @@
+body {
+  background-color: gray;
+}
+.registerFormDiv {
+  background-color: yellowgreen;
+  width: 95%;
+  max-width: 950px;
+  margin: 0 auto;
+
+  padding: 10px;
+}
+
+.privacyCheck {
+  margin-bottom: 20px;
+}
+
+.createPost textarea {
+  width: 100%;
+  max-width: 950px;
+  border: 1px solid gray;
+  resize: none;
+  margin: 5px auto;
+}
+
+.postSubmitBtn {
+  height: 2em;
+  width: 100px;
+  background-color: darkcyan;
+  border: 1px solid black;
+}
