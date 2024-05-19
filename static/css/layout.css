@@ -31,13 +31,12 @@ img {
   color: gray;
   font-size: 0.9em;
 }
-/*  */
 
-/* 메뉴토글 */
-.menutoggle {
+.toggle {
   font-size: 1.2em;
   border: none;
   background-color: transparent;
+  text-shadow: 0 0 10px gray;
 }
 /*  */
 

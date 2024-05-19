@@ -1,13 +1,13 @@
-// 메뉴 화면 관련 스크립트
-//
-// 메뉴 관련 변수 설정
+// 토글 관련 스크립트
+// 관련 변수 설정
 const aside = document.querySelector("aside");
 const main = document.querySelector("main");
 const footer = document.querySelector("footer");
 const searchFormDiv = document.querySelector(".searchFormDiv");
 const mainMenuToggle = document.querySelector("main button");
 
-// 메뉴 버튼 클릭 이벤트
+//
+// 메뉴토글 버튼 클릭 이벤트
 aside.querySelector("button").addEventListener("click", (e) => {
   e.preventDefault();
   aside.classList.add("hidden");
@@ -42,3 +42,19 @@ if (window.innerWidth <= 1742) {
     footer.style.margin = "0 auto";
   }
 }
+
+//
+// 검색창 버튼 클릭 이벤트
+searchFormDiv.querySelector(".searchtoggle").addEventListener("click", (e)=>{
+  e.preventDefault();
+  searchFormDiv.classList.add("hidden");
+  document.querySelector(".searchFormDiv + .searchtoggle").classList.remove("hidden");
+  document.querySelector(".searchFormMargin").style.marginTop = "0"
+})
+
+document.querySelector(".searchFormDiv + .searchtoggle").addEventListener("click", (e)=>{
+  e.preventDefault();
+  document.querySelector(".searchFormDiv + .searchtoggle").classList.add("hidden");
+  searchFormDiv.classList.remove("hidden");
+  document.querySelector(".searchFormMargin").style.marginTop = "160px"
+})

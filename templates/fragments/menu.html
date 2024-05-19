@@ -9,7 +9,7 @@
   </head>
   <body>
     <aside class="menu">
-      <button class="menutoggle textBold">메뉴 접기</button>
+      <button class="toggle menutoggle textBold">메뉴 접기</button>
       <h2>메뉴</h2>
       <ul class="menu">
         <!-- 공통 -->
@@ -29,12 +29,12 @@
 
     <main>
       <!-- 메뉴 펼침 버튼 -->
-      <button class="menutoggle hidden textBold">메뉴 펼치기</button>
+      <button class="toggle menutoggle hidden textBold">메뉴 펼치기</button>
       <div class="mainHeader">
         <!-- 프로필 상단, 글타래 설명문구, 검색폼이 들어가는 곳 -->
         <div class="searchFormDiv">
           <h2>검색하기</h2>
-          <button class="searchtoggle">검색창 닫기</button>
+          <button class="toggle searchtoggle textBold">검색창 닫기</button>
           <form action="" method="get" id="searchForm">
             <div class="searchTypeKeyword">
               <select name="type" id="type" class="searchType">
@@ -59,8 +59,9 @@
             </div>
           </form>
         </div>
+        <button class="toggle searchtoggle textBold hidden">검색창 열기</button>
       </div>
-      <div class="mainContainer">
+      <div class="mainContainer searchFormMargin">
         <!-- 타임라인, 개별글, 글타래 목록, 멤버 관련 페이지 들어가는 곳 -->
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, quasi magni assumenda cupiditate reiciendis iste ullam, quod quidem
@@ -146,6 +147,6 @@
         nulla nam porro accusamus eveniet. Nisi ducimus similique a maxime explicabo.
       </div>
     </footer>
-    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/toggle.js"></script>
   </body>
 </html>
