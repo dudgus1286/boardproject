@@ -105,14 +105,17 @@ main .mainHeader {
 
 /* 하단 */
 footer {
-  background-color: green;
   width: 100%;
   max-width: 1600px;
 }
 
 footer .footerContainer {
-  background-color: greenyellow;
+  background-color: darkgray;
+  color: white;
   max-width: 1250px;
   margin: 0 auto;
+  text-align: center;
+  height: 100px;
+  padding: 30px;
 }
 /*  */
