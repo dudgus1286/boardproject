@@ -99,7 +99,12 @@ main .menutoggle {
 
 main .mainHeader {
   /* 메인 메뉴토글 사이 */
-  margin-top: 30px;
+  margin-top: 35px;
+}
+
+/* 검색창 상관없이 상단 여백용 */
+main .mainHeader .timelineHeader {
+  height: 25px;
 }
 /*  */
 
@@ -112,7 +117,7 @@ footer {
 footer .footerContainer {
   background-color: darkgray;
   color: white;
-  max-width: 1250px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
   height: 100px;

@@ -1,4 +1,4 @@
-// 토글 관련 스크립트
+// 메뉴, 검색창 토글 관련 스크립트
 // 관련 변수 설정
 const aside = document.querySelector("aside");
 const main = document.querySelector("main");
@@ -56,5 +56,5 @@ document.querySelector(".searchFormDiv + .searchtoggle").addEventListener("click
   e.preventDefault();
   document.querySelector(".searchFormDiv + .searchtoggle").classList.add("hidden");
   searchFormDiv.classList.remove("hidden");
-  document.querySelector(".searchFormMargin").style.marginTop = "160px"
+  document.querySelector(".searchFormMargin").style.marginTop = "180px"
 })

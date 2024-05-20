@@ -6,8 +6,6 @@
   max-width: 1600px;
   height: 160px;
   z-index: 1;
-
-  /* margin-top: 50px; */
 }
 
 .searchFormDiv h2 {
@@ -67,5 +65,5 @@
 }
 
 .searchFormMargin {
-  margin-top: 160px;
+  margin-top: 180px;
 }
