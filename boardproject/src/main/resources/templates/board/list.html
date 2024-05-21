@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}">
+    <link rel="stylesheet" th:href="@{/css/individualPost.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+  </th:block>
+  <div layout:fragment="mainHeader" class="mainHeader">
+    <!-- 검색폼 -->
+    <div class="searchFormDiv">
+      <h2>검색하기</h2>
+      <button class="toggle searchtoggle textBold">검색창 닫기</button>
+      <form th:action="@{variable}" method="get" id="searchForm">
+        <div class="searchTypeKeyword">
+          <select name="type" id="type" class="searchType">
+            <!-- 글 검색 -->
+            <option value="text">텍스트</option>
+            <option value="user">작성자</option>
+            <option value="tag">태그</option>
+            <!-- 글타래 검색 -->
+            <option value="thread">이름</option>
+            <option value="thread">소개문구</option>
+            <option value="thread">작성자</option>
+            <option value="thread">태그</option>
+          </select>
+          <input type="text" name="keyword" id="keyword" placeholder="키워드를 입력하시오" class="searchKeyword" />
+        </div>
+        <div class="searchBtnContainer">
+          <div class="searchImageCheckbox">
+            <label for="image">이미지 여부</label>
+            <input type="checkbox" name="image" id="image" value="true" />
+          </div>
+          <button type="submit" class="searchBtn">검색</button>
+        </div>
+      </form>
+    </div>
+    <!-- 검색폼이 있을경우 펼침 버튼 -->
+    <button class="toggle searchtoggle textBold hidden">검색창 열기</button>
+
+    <!-- 검색폼 여부와 상관없이 상단 여백 -->
+    <div class="timelineHeader"></div>
+  </div>
+
+  <div layout:fragment="mainContainer" class="mainContainer searchFormMargin">
+    <!-- 메인홈 타임라인 -->
+        <div class="timelineContainer postContainer">
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="individualPost">
+            <div class="prevPost">
+              <p>
+                <span class="createDate">(yyyy-MM-dd)</span>
+                <a href="이전글작성자" class="prevNickname textBold">작성자</a>:
+                <a href="이전글개별글" class="prevText">
+                  이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint omnis harum ea tempore sequi! Ea sed dolore
+                  eligendi consectetur dicta cum provident soluta quasi odio fugiat ad nobis, facilis veniam!
+                </a>
+              </p>
+            </div>
+
+            <div class="postInfo">
+              <div class="postCreateDate createDate">
+                작성일:
+                <span>yyyy-MM-dd</span>
+                <span>(수정됨)</span>
+              </div>
+              <div class="writer">
+                <div class="writerImg">
+                  <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt="" />
+                  </a>
+                </div>
+                <span class="writerNickname textBold">
+                  <a href="게시글작성자">
+                    작성자: 김모 씨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error est totam laudantium veniam. Adipisci, delectus
+                    quaerat quas ratione nostrum illum? Minima inventore adipisci suscipit amet itaque
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="post">
+              <div class="postText">
+                <p>
+                  <a href="개별글페이지">
+                    게시글 텍스트 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam facilis, iure veniam dicta accusantium eos? Eum optio
+                    consequatur sed minima tenetur iure porro modi magnam omnis sequi. Laboriosam, quae similique. Lorem ipsum, dolor sit amet
+                    consectetur adipisicing elit. Officia commodi iste laboriosam vitae unde quasi est nesciunt quibusdam excepturi aperiam, maxime
+                    nihil voluptate consequuntur expedita illum quis, doloremque aliquid quisquam. Lorem ipsum dolor, sit amet consectetur adipisicing
+                    elit. Nulla id sed consequuntur atque tenetur eveniet iusto, minima, omnis error esse aperiam, ad dolor voluptas ex? Hic soluta
+                    atque placeat ducimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quidem, perferendis fugit sequi ab alias vitae
+                    repellat repudiandae optio! Laudantium doloribus, deserunt alias dolore expedita debitis! Quae, quisquam. Architecto, voluptate!
+                    Explicabo nulla numquam ducimus, odit praesentium doloribus voluptas ratione! Rem rerum cumque, nam per
+                  </a>
+                </p>
+              </div>
+              <div class="postImages">
+                <div class="postImage1 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage2 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage3 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+                <div class="postImage4 postImage">
+                  <img src="http://via.placeholder.com/200.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="nextPosts">
+              <div class="nextPostsCount">
+                <p class="textBold">
+                  덧글 개수:
+                  <span>(0)</span>
+                </p>
+              </div>
+              <div class="nextPostsList hidden">
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+                <div class="nextPost">
+                  <p>
+                    <span class="createDate">(yyyy-MM-dd)</span>
+                    <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
+                    <a href="댓글개별글" class="nextText">이전 글 내용 앞부분만 Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          <!-- 이미지 모달 -->
+          <div class="modal hidden">
+            <div class="modalBody">
+              <div class="modalBodyInfo">
+                <p>작성자: <span class="writerNickname textBold">김모 씨</span></p>
+                <p>원본글 링크</p>
+              </div>
+              <div class="modalBodyImage">
+                <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
+              </div>
+              <div class="modalBodyClose">
+                <button type="button" class="modalBodyCloseBtn">닫기</button>
+              </div>
+            </div>
+          </div>
+  </div>
+
+  <th:block layout:fragment="javascript">
+    <script th:src="@{/js/toggle.js}"></script>
+    <script th:src="@{/js/postContainerEvent.js}"></script>
+    <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
+  </th:block>
+</html>
