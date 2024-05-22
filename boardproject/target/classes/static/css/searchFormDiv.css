@@ -1,0 +1,69 @@
+.searchFormDiv {
+  background-color: rgba(173, 216, 230, 0.7);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1600px;
+  height: 160px;
+  z-index: 1;
+}
+
+.searchFormDiv h2 {
+  color: gray;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.searchFormDiv form {
+  padding: 10px;
+  max-width: 950px;
+  text-align: center;
+  margin: 0 auto;
+}
+.searchFormDiv .searchType {
+  width: 30%;
+  height: 3.5em;
+  padding: 1em;
+}
+
+.searchFormDiv .searchKeyword {
+  width: 65%;
+  height: 3.5em;
+  padding: 1em;
+}
+
+.searchFormDiv .searchBtnContainer {
+  text-align: right;
+  padding: 10px;
+}
+
+.searchFormDiv .searchImageCheckbox {
+  display: inline-block;
+  margin-right: 20px;
+}
+.searchFormDiv .searchBtn {
+  background-color: teal;
+  color: white;
+  border: 1px solid black;
+  font-size: 1.2em;
+  width: 150px;
+  height: 40px;
+}
+
+.searchFormDiv .searchtoggle {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  color: teal;
+}
+
+.searchFormDiv + .searchtoggle {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  color: teal;
+}
+
+.searchFormMargin {
+  margin-top: 150px;
+}

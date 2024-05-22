@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}">
+  </th:block>
+  <div layout:fragment="mainHeader">
+    <!-- 검색폼 -->
+    <div class="searchFormDiv">
+      <h2>검색하기</h2>
+      <button class="toggle searchtoggle textBold">검색창 닫기</button>
+      <form th:action="@{variable}" method="get" id="searchForm">
+        <div class="searchTypeKeyword">
+          <select name="type" id="type" class="searchType">
+            <!-- 글 검색 -->
+            <option value="text">텍스트</option>
+            <option value="user">작성자</option>
+            <option value="tag">태그</option>
+            <!-- 글타래 검색 -->
+            <option value="thread">이름</option>
+            <option value="thread">소개문구</option>
+            <option value="thread">작성자</option>
+            <option value="thread">태그</option>
+          </select>
+          <input type="text" name="keyword" id="keyword" placeholder="키워드를 입력하시오" class="searchKeyword" />
+        </div>
+        <div class="searchBtnContainer">
+          <div class="searchImageCheckbox">
+            <label for="image">이미지 여부</label>
+            <input type="checkbox" name="image" id="image" value="true" />
+          </div>
+          <button type="submit" class="searchBtn">검색</button>
+        </div>
+      </form>
+    </div>
+    <!-- 검색폼이 있을경우 펼침 버튼 -->
+    <button class="toggle searchtoggle textBold hidden">검색창 열기</button>
+  </div>
+
+  <div layout:fragment="mainContainer">
+    <h1>test</h1>
+  </div>
+
+  <th:block layout:fragment="javascript">
+    <script th:src="@{/js/toggle.js}"></script>
+    <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
+  </th:block>
+</html>
