@@ -19,6 +19,11 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
+    public final QBaseEntity _super = new QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
     public final StringPath nickname = createString("nickname");
 
     public final StringPath password = createString("password");
@@ -26,6 +31,9 @@ public class QUser extends EntityPathBase<User> {
     public final EnumPath<com.example.boardproject.constant.MemberRole> role = createEnum("role", com.example.boardproject.constant.MemberRole.class);
 
     public final NumberPath<Long> uno = createNumber("uno", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final StringPath userId = createString("userId");
 

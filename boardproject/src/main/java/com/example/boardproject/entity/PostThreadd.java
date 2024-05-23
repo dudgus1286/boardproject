@@ -28,7 +28,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
-public class PostThread {
+public class PostThreadd {
 
     @Id
     @SequenceGenerator(name = "pt_seq_gen", sequenceName = "pt_seq", allocationSize = 1, initialValue = 1)
@@ -39,7 +39,7 @@ public class PostThread {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Threadd thread;
+    private Threadd threadd;
 
     @CreatedDate
     private LocalDateTime createdDate;

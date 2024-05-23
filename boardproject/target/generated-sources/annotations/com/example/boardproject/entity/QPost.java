@@ -22,13 +22,21 @@ public class QPost extends EntityPathBase<Post> {
 
     public static final QPost post = new QPost("post");
 
-    public final QPost lastReference;
+    public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QPost originalReference;
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final NumberPath<Long> lastReference = createNumber("lastReference", Long.class);
+
+    public final NumberPath<Long> originalReference = createNumber("originalReference", Long.class);
 
     public final NumberPath<Long> pno = createNumber("pno", Long.class);
 
     public final StringPath text = createString("text");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final QUser writer;
 
@@ -50,8 +58,6 @@ public class QPost extends EntityPathBase<Post> {
 
     public QPost(Class<? extends Post> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.lastReference = inits.isInitialized("lastReference") ? new QPost(forProperty("lastReference"), inits.get("lastReference")) : null;
-        this.originalReference = inits.isInitialized("originalReference") ? new QPost(forProperty("originalReference"), inits.get("originalReference")) : null;
         this.writer = inits.isInitialized("writer") ? new QUser(forProperty("writer")) : null;
     }
 
