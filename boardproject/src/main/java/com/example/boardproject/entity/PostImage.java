@@ -1,5 +1,6 @@
 package com.example.boardproject.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class PostImage {
     @Id
     @SequenceGenerator(name = "post_img_seq_gen", sequenceName = "post_img_seq", allocationSize = 1, initialValue = 1)

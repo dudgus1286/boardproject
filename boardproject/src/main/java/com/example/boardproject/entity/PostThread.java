@@ -1,12 +1,14 @@
 package com.example.boardproject.entity;
 
-import jakarta.persistence.Column;
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
@@ -23,18 +25,19 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Thread extends BaseEntity {
+public class PostThread {
+
     @Id
-    @SequenceGenerator(name = "thread_seq_gen", sequenceName = "thread_seq", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "thread_seq_gen")
-    private Long tno;
-
-    @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
-    private String text;
+    @SequenceGenerator(name = "pt_seq_gen", sequenceName = "pt_seq", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pt_seq_gen")
+    private Long ptid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User creater;
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Thread thread;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
 }
