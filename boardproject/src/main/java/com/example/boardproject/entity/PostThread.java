@@ -3,8 +3,10 @@ package com.example.boardproject.entity;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EntityListeners(value = AuditingEntityListener.class)
 public class PostThread {
 
     @Id
@@ -36,7 +39,7 @@ public class PostThread {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Thread thread;
+    private Threadd thread;
 
     @CreatedDate
     private LocalDateTime createdDate;

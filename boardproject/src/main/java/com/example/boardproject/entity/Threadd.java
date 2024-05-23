@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Thread extends BaseEntity {
+public class Threadd extends BaseEntity {
     @Id
     @SequenceGenerator(name = "thread_seq_gen", sequenceName = "thread_seq", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "thread_seq_gen")
