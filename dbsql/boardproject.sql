@@ -49,3 +49,6 @@ SELECT * FROM 테이블명 WHERE 글ID = x.최초글ID;
 	-- (개별글 객체, [개별글에 달린 댓글리스트], [[개별글보다 먼저 올라온 상위글 리스트], 미싱링크 참거짓 판별용 변수])
 	-- 을 모두 담는 오브젝트 객체
 	-- 웹사이트를 구현할 때는 dto로 변환해야 함
+
+SELECT * FROM POST p WHERE p.LAST_REFERENCE = 87 ORDER BY CREATED_AT ;
+

@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@ToString
+@ToString(exclude = "writer")
 @Getter
 @Setter
 @AllArgsConstructor
