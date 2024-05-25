@@ -27,7 +27,7 @@ public class QThreadd extends EntityPathBase<Threadd> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    public final QUser creater;
+    public final QUser creator;
 
     public final StringPath text = createString("text");
 
@@ -56,7 +56,7 @@ public class QThreadd extends EntityPathBase<Threadd> {
 
     public QThreadd(Class<? extends Threadd> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.creater = inits.isInitialized("creater") ? new QUser(forProperty("creater")) : null;
+        this.creator = inits.isInitialized("creator") ? new QUser(forProperty("creator")) : null;
     }
 
 }

@@ -35,5 +35,5 @@ public class Threadd extends BaseEntity {
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User creater;
+    private User creator;
 }

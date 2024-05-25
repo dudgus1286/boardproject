@@ -68,20 +68,6 @@ public class PostRepositoryTest {
         });
     }
 
-    // 포스트 수정 테스트
-    @Test
-    public void updatePostTest() {
-        Post post = postRepository.findById(3L).get();
-        post.setText("Update text...");
-        postRepository.save(post);
-    }
-
-    // 포스트 삭제 테스트
-    @Test
-    public void deletePostTest() {
-        postRepository.deleteById(47L);
-    }
-
     // 더미 포스트 생성 2 (최상단글 바로 밑 댓글)
     @Test
     public void insertPostTest2() {
@@ -128,6 +114,76 @@ public class PostRepositoryTest {
                     .lastReference(randPost.getPno())
                     .build());
         });
+    }
+
+    // 랜덤하게 글에 달리는 더미 이미지 생성
+    @Test
+    public void insertPostImageTest() {
+        LongStream.rangeClosed(1L, 120L).forEach(i -> {
+            // 사진 입력할 게시글 조회
+                Post post = postRepository.findById(i).get();
+
+                // 0 ~ 5 까지의 숫자
+                int randomNo = (int) (Math.random() * 6);
+
+                // 최소 0 개부터 최대 4개까지의 이미지 삽입
+                for (int j = 1; j < randomNo; j++) {
+                    postImageRepository.save(PostImage.builder()
+                            // .uuid(UUID.randomUUID().toString())
+                            .post(post)
+                            .imgName("img" + j + ".jpg")
+                            .build());
+                }
+        });
+    }
+
+    // 메인홈, 이전글리스트에 표시할 게시글 한 개 조회
+    @Transactional
+    @Test
+    public void getListRowTest(){
+        // 게시글 조회
+        Post post = postRepository.findById(61L).get();
+        System.out.println(post);
+
+        // 게시글 작성자 조회
+        User user = post.getWriter();
+        System.out.println(user);
+
+        // 해당 게시글에 삽입된 이미지 조회
+        List<PostImage> imgList = postImageRepository.findByPostOrderByInoAsc(post);
+        for (PostImage postImage : imgList) {
+            System.out.println(postImage);
+        }
+
+        // 해당 게시글이 다른 댓글의 댓글인지 확인해서 상위글 찾기
+        Boolean prevPostCheck = post.getPno() != post.getOriginalReference(); 
+        Post prevPost = new Post();
+        User prevPostWriter = new User();
+        if (prevPostCheck) {
+            prevPost = postRepository.findById(post.getLastReference()).get();
+            prevPostWriter = prevPost.getWriter();
+        }
+        System.out.println(prevPostCheck);
+        System.out.println(prevPost);
+        System.out.println(prevPostWriter);
+
+        // 해당 게시글에 달린 댓글 리스트와 개수 찾기
+        List<Post> replyList = postRepository.findByLastReferenceOrderByCreatedAtAsc(post.getPno());
+        List<Long> replyWriterUno = new ArrayList<>();
+        for (Post reply : replyList) {
+            replyWriterUno.add(reply.getWriter().getUno());
+        }
+        List<User> replyWriterList = userRepository.findAllById(replyWriterUno);
+
+        int replyCount = replyList.size();
+        System.out.println(replyCount);
+        for (Post post2 : replyList) {
+            System.out.println(post2);
+        }
+        for (User user2 : replyWriterList) {
+            System.out.println(user2);
+        }
+        
     }
 
     // 포스트에 상위글이 있는지, 처음으로 작성된 글인지 확인하기
@@ -241,29 +297,18 @@ public class PostRepositoryTest {
 
     }
 
-    // 랜덤하게 글에 달리는 더미 이미지 생성
+    // 포스트 수정 테스트
     @Test
-    public void insertPostImageTest() {
-        LongStream.rangeClosed(1L, 120L).forEach(i -> {
-            // 사진 입력할 게시글 조회
-            try {
-                Post post = postRepository.findById(i).get();
+    public void updatePostTest() {
+        Post post = postRepository.findById(3L).get();
+        post.setText("Update text...");
+        postRepository.save(post);
+    }
 
-                // 0 ~ 5 까지의 숫자
-                int randomNo = (int) (Math.random() * 6);
-
-                // 최소 0 개부터 최대 4개까지의 이미지 삽입
-                for (int j = 1; j < randomNo; j++) {
-                    postImageRepository.save(PostImage.builder()
-                            // .uuid(UUID.randomUUID().toString())
-                            .post(post)
-                            .imgName("img" + j + ".jpg")
-                            .build());
-                }
-            } catch (Exception e) {
-                //
-            }
-        });
+    // 포스트 삭제 테스트
+    @Test
+    public void deletePostTest() {
+        postRepository.deleteById(47L);
     }
 
     // 게시글의 이미지와 함께 조회
@@ -285,7 +330,7 @@ public class PostRepositoryTest {
         LongStream.rangeClosed(1L, 120L).forEach(i -> {
             User user = User.builder().uno(i).build();
             threaddRepository.save(
-                    Threadd.builder().creater(user).title("Threadd... " + i).text("Threadd text... " + i).build());
+                    Threadd.builder().creator(user).title("Threadd... " + i).text("Threadd text... " + i).build());
         });
     }
 
