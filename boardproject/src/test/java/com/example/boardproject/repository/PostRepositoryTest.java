@@ -22,7 +22,6 @@ import com.example.boardproject.entity.PostImage;
 import com.example.boardproject.entity.PostThreadd;
 import com.example.boardproject.entity.Threadd;
 import com.example.boardproject.entity.User;
-import com.example.boardproject.repository.total.TotalPostListObject;
 
 import jakarta.transaction.Transactional;
 
@@ -368,67 +367,67 @@ public class PostRepositoryTest {
         }
     }
 
-    @Transactional
-    @Test
-    public void queryTest() {
-        List<Object[]> result = postRepository.findAllWithPrevPost();
-        List<Post> posts = postRepository.findAll();
-        List<PostImage> postImages = postImageRepository.findAll();
+    // @Transactional
+    // @Test
+    // public void queryTest() {
+    //     List<Object[]> result = postRepository.findAllWithPrevPost();
+    //     List<Post> posts = postRepository.findAll();
+    //     List<PostImage> postImages = postImageRepository.findAll();
 
-        List<TotalPostListObject> totalObj = new ArrayList<>();
-        for (Object[] objects : result) {
-            TotalPostListObject total = new TotalPostListObject();
+    //     List<TotalPostListObject> totalObj = new ArrayList<>();
+    //     for (Object[] objects : result) {
+    //         TotalPostListObject total = new TotalPostListObject();
 
-            Post post = (Post) objects[0];
-            User writer = (User) objects[1];
+    //         Post post = (Post) objects[0];
+    //         User writer = (User) objects[1];
 
-            Post prevPost = (Post) objects[2];
-            User prevPostWriter = (User) objects[3];
+    //         Post prevPost = (Post) objects[2];
+    //         User prevPostWriter = (User) objects[3];
 
-            List<PostImage> postImgList = new ArrayList<>();
-            for (PostImage image : postImages) {
-                if (image.getPost() == post) {
-                    postImgList.add(image);
-                }
-            }
+    //         List<PostImage> postImgList = new ArrayList<>();
+    //         for (PostImage image : postImages) {
+    //             if (image.getPost() == post) {
+    //                 postImgList.add(image);
+    //             }
+    //         }
 
-            List<Post> replyList = new ArrayList<>();
-            for (Post p : posts) {
-                if (p.getPno() != p.getOriginalReference() && p.getLastReference() == post.getPno()) {
-                    replyList.add(p);
-                }
-            }
+    //         List<Post> replyList = new ArrayList<>();
+    //         for (Post p : posts) {
+    //             if (p.getPno() != p.getOriginalReference() && p.getLastReference() == post.getPno()) {
+    //                 replyList.add(p);
+    //             }
+    //         }
 
-            total.setPost(post);
-            total.setWriter(writer);
-            total.setPrevPost(prevPost);
-            total.setPrevPostWriter(prevPostWriter);
-            total.setPostImages(postImgList);
-            total.setReplies(replyList);
+    //         total.setPost(post);
+    //         total.setWriter(writer);
+    //         total.setPrevPost(prevPost);
+    //         total.setPrevPostWriter(prevPostWriter);
+    //         total.setPostImages(postImgList);
+    //         total.setReplies(replyList);
 
-            totalObj.add(total);
-        }
+    //         totalObj.add(total);
+    //     }
 
-        for (TotalPostListObject postObject : totalObj) {
-            System.out.println("현재 글 : " + postObject.getPost());
-            System.out.println("작성자 : " + postObject.getWriter());
-            System.out.println("이전 글 : " + postObject.getPrevPost());
-            System.out.println("이전 글 작성자 : " + postObject.getPrevPostWriter());
+    //     for (TotalPostListObject postObject : totalObj) {
+    //         System.out.println("현재 글 : " + postObject.getPost());
+    //         System.out.println("작성자 : " + postObject.getWriter());
+    //         System.out.println("이전 글 : " + postObject.getPrevPost());
+    //         System.out.println("이전 글 작성자 : " + postObject.getPrevPostWriter());
 
-            List<PostImage> totalImages = postObject.getPostImages();
-            System.out.println("이미지 목록 출력");
-            System.out.println(totalImages);
-            for (PostImage img : totalImages) {
-                System.out.println(img);
-            }
+    //         List<PostImage> totalImages = postObject.getPostImages();
+    //         System.out.println("이미지 목록 출력");
+    //         System.out.println(totalImages);
+    //         for (PostImage img : totalImages) {
+    //             System.out.println(img);
+    //         }
 
-            List<Post> totalReply = postObject.getReplies();
-            System.out.println("댓글 목록 출력");
-            System.out.println(totalReply);
-            for (Post reply : totalReply) {
-                System.out.println(reply);
-            }
-            System.out.println("");
-        }
-    }
+    //         List<Post> totalReply = postObject.getReplies();
+    //         System.out.println("댓글 목록 출력");
+    //         System.out.println(totalReply);
+    //         for (Post reply : totalReply) {
+    //             System.out.println(reply);
+    //         }
+    //         System.out.println("");
+    //     }
+    // }
 }

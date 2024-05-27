@@ -2,6 +2,7 @@ package com.example.boardproject.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,7 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // 원글 pno 를 기준으로 댓글 리스트 반환
     List<Post> findByLastReferenceOrderByCreatedAtAsc(Long pno);
 
-    @Query("select distinct p1 , u1 , p2 , u2 " +
+    @Query("select p1 , u1 , p2 , u2 " +
             " from Post p1 " +
             " left join User u1 on p1.writer = u1 " +
             " left join Post p2 on p1.lastReference = p2.pno " +
@@ -19,7 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             " order by p1.pno asc ")
     List<Object[]> findAllWithPrevPost();
 
-    @Query("select distinct p1 , u1 " +
+    @Query("select p1 , u1 " +
             " from Post p1 " +
             " left join User u1 on p1.writer = u1 ")
     List<Object[]> findAllWithUser();
