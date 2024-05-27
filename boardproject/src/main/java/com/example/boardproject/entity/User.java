@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@ToString
+@ToString (exclude = "password")
 @Getter
 @Setter
 @AllArgsConstructor

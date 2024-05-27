@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Vector;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
@@ -361,5 +362,52 @@ public class PostRepositoryTest {
         for (PostThreadd postThread : list) {
             System.out.println(postThread);
         }
+    }
+
+    @Test
+    public void queryTest( ) {
+        List<Object[]> postList1 = postRepository.findAllWithPrevPost();
+        List<Object[]> postList2 = postRepository.findAllWithUser();
+        List<PostImage> imgsList = postImageRepository.findAll();
+
+        // List<Object[]> result = new ArrayList<>();
+        
+        for (Object[] obj : postList1) {
+            Vector result = new Vector<>();
+            Post post = (Post) obj[0];
+            // result.add(post);
+
+            List<PostImage> postImages = new ArrayList<>();
+            for (PostImage pi : postImages) {
+                if (pi.getPost() == post) {
+                    postImages.add(pi);
+                }
+                result.add(postImages);
+            }
+            System.out.println(result);
+            // List<Object[]> replyList = new ArrayList<>();   
+            // for (Object[] obj2 : postList2) {
+            //     Post replyPost = (Post) obj2[0];
+            //     if (replyPost.getLastReference() == post.getPno()) {
+            //         replyList.add(obj);
+            //     }
+            // }
+        }
+
+
+        // for (Object[] objects : list) {
+        //     Post post = (Post) objects[0];
+        //     User user = (User) objects[1];
+        //     Post prevPost = (Post) objects[2];
+        //     User prevPostUser = (User) objects[3];
+        //     List<Post> replyList = postRepository.findByLastReferenceOrderByCreatedAtAsc(post.getPno());
+        //     System.out.println(post);
+        //     System.out.println(user);
+        //     System.out.println(prevPost);
+        //     System.out.println(prevPostUser);
+        //     for (Post post2 : replyList) {
+        //         System.out.println(post2);
+        //     }
+        // }
     }
 }

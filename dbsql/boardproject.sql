@@ -89,7 +89,7 @@ LEFT JOIN "MEMBER" m ON p.WRITER_UNO = m.UNO
 LEFT JOIN POST p2 ON p.last_reference = p2.pno
 LEFT JOIN POST_IMAGE pi2 ON p.pno = pi2.POST_PNO 
 LEFT JOIN POST p3 ON p.pno = p3.LAST_REFERENCE
-WHERE p.pno = 120
+WHERE p.pno = 20
 ORDER BY p.pno
 ;
 

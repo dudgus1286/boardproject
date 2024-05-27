@@ -1,5 +1,7 @@
 package com.example.boardproject.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -7,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,5 +50,8 @@ public class Post extends BaseEntity {
     // @ManyToOne(fetch = FetchType.LAZY)
     // private Post lastReference;
     private Long lastReference;
+
+    // @OneToMany(mappedBy = "post")
+    // private List<PostImage> postImages;
 
 }
