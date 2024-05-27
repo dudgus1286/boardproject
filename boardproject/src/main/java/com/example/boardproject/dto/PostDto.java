@@ -1,4 +1,5 @@
 package com.example.boardproject.dto;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PostDto {
     private Long pno;
-
     private String text;
 
     // 작성자 정보
@@ -34,4 +34,9 @@ public class PostDto {
 
     // 포스트이미지
     private List<PostImageDto> imgList;
+
+    // 이전글 정보
+    private Long prevPostPno;
+
+    // 댓글 목록
 }

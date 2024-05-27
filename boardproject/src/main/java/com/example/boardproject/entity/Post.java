@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@ToString(exclude = "writer")
+@ToString(exclude = { "writer" })
 @Getter
 @Setter
 @AllArgsConstructor
@@ -54,4 +54,6 @@ public class Post extends BaseEntity {
     // @OneToMany(mappedBy = "post")
     // private List<PostImage> postImages;
 
+    // @OneToMany(mappedBy = "prevPost")
+    // private List<Reply> replies;
 }

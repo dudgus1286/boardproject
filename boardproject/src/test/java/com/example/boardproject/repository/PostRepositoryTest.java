@@ -22,6 +22,7 @@ import com.example.boardproject.entity.PostImage;
 import com.example.boardproject.entity.PostThreadd;
 import com.example.boardproject.entity.Threadd;
 import com.example.boardproject.entity.User;
+import com.example.boardproject.repository.total.TotalPostListObject;
 
 import jakarta.transaction.Transactional;
 
@@ -75,8 +76,11 @@ public class PostRepositoryTest {
         LongStream.rangeClosed(31L, 60L).forEach(i -> {
             Long randPno = (long) ((int) (Math.random() * 29) + 1);
             Post randPost = postRepository.findById(randPno).get();
-            User user = User.builder().uno(i).build();
-            postRepository.save(Post.builder()
+
+            User user = userRepository.findById(i).get();
+
+            // 포스트 등록
+            Post reply = postRepository.save(Post.builder()
                     .text("text... " + i)
                     .writer(user)
                     .originalReference(randPost.getOriginalReference())
@@ -120,28 +124,28 @@ public class PostRepositoryTest {
     // 랜덤하게 글에 달리는 더미 이미지 생성
     @Test
     public void insertPostImageTest() {
-        LongStream.rangeClosed(1L, 120L).forEach(i -> {
+        LongStream.rangeClosed(1L, 60L).forEach(i -> {
             // 사진 입력할 게시글 조회
-                Post post = postRepository.findById(i).get();
+            Post post = postRepository.findById(i).get();
 
-                // 0 ~ 5 까지의 숫자
-                int randomNo = (int) (Math.random() * 6);
+            // 0 ~ 5 까지의 숫자
+            int randomNo = (int) (Math.random() * 6);
 
-                // 최소 0 개부터 최대 4개까지의 이미지 삽입
-                for (int j = 1; j < randomNo; j++) {
-                    postImageRepository.save(PostImage.builder()
-                            // .uuid(UUID.randomUUID().toString())
-                            .post(post)
-                            .imgName("img" + j + ".jpg")
-                            .build());
-                }
+            // 최소 0 개부터 최대 4개까지의 이미지 삽입
+            for (int j = 1; j < randomNo; j++) {
+                postImageRepository.save(PostImage.builder()
+                        // .uuid(UUID.randomUUID().toString())
+                        .post(post)
+                        .imgName("img" + j + ".jpg")
+                        .build());
+            }
         });
     }
 
     // 메인홈, 이전글리스트에 표시할 게시글 한 개 조회
     @Transactional
     @Test
-    public void getListRowTest(){
+    public void getListRowTest() {
         // 게시글 조회
         Post post = postRepository.findById(61L).get();
         System.out.println(post);
@@ -157,7 +161,7 @@ public class PostRepositoryTest {
         }
 
         // 해당 게시글이 다른 댓글의 댓글인지 확인해서 상위글 찾기
-        Boolean prevPostCheck = post.getPno() != post.getOriginalReference(); 
+        Boolean prevPostCheck = post.getPno() != post.getOriginalReference();
         Post prevPost = new Post();
         User prevPostWriter = new User();
         if (prevPostCheck) {
@@ -184,7 +188,7 @@ public class PostRepositoryTest {
         for (User user2 : replyWriterList) {
             System.out.println(user2);
         }
-        
+
     }
 
     // 포스트에 상위글이 있는지, 처음으로 작성된 글인지 확인하기
@@ -364,50 +368,67 @@ public class PostRepositoryTest {
         }
     }
 
+    @Transactional
     @Test
-    public void queryTest( ) {
-        List<Object[]> postList1 = postRepository.findAllWithPrevPost();
-        List<Object[]> postList2 = postRepository.findAllWithUser();
-        List<PostImage> imgsList = postImageRepository.findAll();
+    public void queryTest() {
+        List<Object[]> result = postRepository.findAllWithPrevPost();
+        List<Post> posts = postRepository.findAll();
+        List<PostImage> postImages = postImageRepository.findAll();
 
-        // List<Object[]> result = new ArrayList<>();
-        
-        for (Object[] obj : postList1) {
-            Vector result = new Vector<>();
-            Post post = (Post) obj[0];
-            // result.add(post);
+        List<TotalPostListObject> totalObj = new ArrayList<>();
+        for (Object[] objects : result) {
+            TotalPostListObject total = new TotalPostListObject();
 
-            List<PostImage> postImages = new ArrayList<>();
-            for (PostImage pi : postImages) {
-                if (pi.getPost() == post) {
-                    postImages.add(pi);
+            Post post = (Post) objects[0];
+            User writer = (User) objects[1];
+
+            Post prevPost = (Post) objects[2];
+            User prevPostWriter = (User) objects[3];
+
+            List<PostImage> postImgList = new ArrayList<>();
+            for (PostImage image : postImages) {
+                if (image.getPost() == post) {
+                    postImgList.add(image);
                 }
-                result.add(postImages);
             }
-            System.out.println(result);
-            // List<Object[]> replyList = new ArrayList<>();   
-            // for (Object[] obj2 : postList2) {
-            //     Post replyPost = (Post) obj2[0];
-            //     if (replyPost.getLastReference() == post.getPno()) {
-            //         replyList.add(obj);
-            //     }
-            // }
+
+            List<Post> replyList = new ArrayList<>();
+            for (Post p : posts) {
+                if (p.getPno() != p.getOriginalReference() && p.getLastReference() == post.getPno()) {
+                    replyList.add(p);
+                }
+            }
+
+            total.setPost(post);
+            total.setWriter(writer);
+            total.setPrevPost(prevPost);
+            total.setPrevPostWriter(prevPostWriter);
+            total.setPostImages(postImgList);
+            total.setReplies(replyList);
+
+            totalObj.add(total);
         }
 
+        for (TotalPostListObject postObject : totalObj) {
+            System.out.println("현재 글 : " + postObject.getPost());
+            System.out.println("작성자 : " + postObject.getWriter());
+            System.out.println("이전 글 : " + postObject.getPrevPost());
+            System.out.println("이전 글 작성자 : " + postObject.getPrevPostWriter());
 
-        // for (Object[] objects : list) {
-        //     Post post = (Post) objects[0];
-        //     User user = (User) objects[1];
-        //     Post prevPost = (Post) objects[2];
-        //     User prevPostUser = (User) objects[3];
-        //     List<Post> replyList = postRepository.findByLastReferenceOrderByCreatedAtAsc(post.getPno());
-        //     System.out.println(post);
-        //     System.out.println(user);
-        //     System.out.println(prevPost);
-        //     System.out.println(prevPostUser);
-        //     for (Post post2 : replyList) {
-        //         System.out.println(post2);
-        //     }
-        // }
+            List<PostImage> totalImages = postObject.getPostImages();
+            System.out.println("이미지 목록 출력");
+            System.out.println(totalImages);
+            for (PostImage img : totalImages) {
+                System.out.println(img);
+            }
+
+            List<Post> totalReply = postObject.getReplies();
+            System.out.println("댓글 목록 출력");
+            System.out.println(totalReply);
+            for (Post reply : totalReply) {
+                System.out.println(reply);
+            }
+            System.out.println("");
+        }
     }
 }
