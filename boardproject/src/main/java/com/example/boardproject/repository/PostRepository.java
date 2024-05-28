@@ -21,5 +21,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             " WHERE p1.text like :keyword")
     List<Object[]> findAllWithPrevPost(String keyword);
 
-    List<Post> findByLastReference(Long pno);
+    @Query("SELECT p FROM Post p WHERE p.lastReference in :postNums")
+    List<Post> findByLastReference(Long[] postNums);
 }
