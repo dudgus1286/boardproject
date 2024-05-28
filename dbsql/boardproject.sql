@@ -54,43 +54,6 @@ SELECT * FROM POST p WHERE p.LAST_REFERENCE = 61 ORDER BY CREATED_AT ASC ;
 
 -- 개별글을 기준으로 해당 게시글 작성자, 복수의 이미지, 있다면 상위의 글과 그 작성자, 있다면 하위의 글 목록과 그 작성자들을 가지고 오기
 -- 게시글과 작성자 찾기
-SELECT p1.PNO , p1.TEXT , m1.nickname, m1.UNO , M1.USER_ID  
-FROM POST p1 
-JOIN "MEMBER" m1 ON p1.WRITER_UNO = m1.UNO
-WHERE p1.pno = 31
-;
 
--- 댓글 갯수 찾기
-SELECT P2.LAST_REFERENCE , COUNT(*) 
-FROM POST p2
-WHERE P2.LAST_REFERENCE = 31
-GROUP BY p2.LAST_REFERENCE;
-
--- 댓글 목록 찾기
-SELECT *
-FROM POST p3
-WHERE p3.LAST_REFERENCE = 31
-ORDER BY p3.CREATED_AT ASC ;
-
--- 이미지 목록 찾기
-SELECT *
-FROM POST_IMAGE pi2 
-WHERE pi2.POST_PNO = 31;
-
--- 상위글 찾기
-SELECT p1.pno, p1.text, p2.pno, p2.text
-FROM POST p1
-JOIN POST p2 ON p1.last_reference = p2.PNO 
-WHERE p1.pno = 31
-
-SELECT p.PNO , m.USER_ID , p2.pno AS prevPost, pi2."PATH" , pi2.uuid,pi2.IMG_NAME, p3.pno AS reply
-FROM POST p 
-LEFT JOIN "MEMBER" m ON p.WRITER_UNO = m.UNO 
-LEFT JOIN POST p2 ON p.last_reference = p2.pno
-LEFT JOIN POST_IMAGE pi2 ON p.pno = pi2.POST_PNO 
-LEFT JOIN POST p3 ON p.pno = p3.LAST_REFERENCE
-WHERE p.pno = 20
-ORDER BY p.pno
-;
-
-SEL
+SELECT DISTINCT p.pno, pi2.* FROM post p LEFT JOIN POST_IMAGE pi2 ON pi2.POST_PNO = p.PNO 
+ORDER BY pno ASC ;
