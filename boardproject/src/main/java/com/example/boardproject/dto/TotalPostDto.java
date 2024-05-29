@@ -14,10 +14,10 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TotalPostListRowDto {
+public class TotalPostDto {
     private PostDto post;
 
-    private PostDto prevPost;
+    private List<PostDto> prevPostList;
 
     private List<PostDto> replyList;
 }
