@@ -1,7 +1,5 @@
 package com.example.boardproject.dto;
 
-
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -28,22 +26,22 @@ public class PageResultDto<DTO, EN> {
 
     private List<Integer> pageList;
 
-    public PageResultDto(Page<EN> result, Function<EN, DTO> fn ) {
+    public PageResultDto(Page<EN> result, Function<EN, DTO> fn) {
         this.dtoList = result.stream().map(fn).collect(Collectors.toList());
 
         this.totalPage = result.getTotalPages();
-        // 
+        //
     }
 
     public void makePageList(Pageable pageable) {
         this.page = pageable.getPageNumber() + 1;
         this.size = pageable.getPageSize();
 
-        int tempEnd = (int) (Math.ceil(page * 10.0)) *10;
+        int tempEnd = (int) (Math.ceil(page * 10.0)) * 10;
         this.start = tempEnd - 9;
         this.end = totalPage > tempEnd ? tempEnd : totalPage;
 
-        this.prev = start > 1 ;
+        this.prev = start > 1;
         this.next = totalPage > tempEnd;
 
         this.pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());

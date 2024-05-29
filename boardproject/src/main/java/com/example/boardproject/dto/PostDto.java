@@ -34,9 +34,4 @@ public class PostDto {
 
     // 포스트이미지
     private List<PostImageDto> imgList;
-
-    // 이전글 정보
-    private Long prevPostPno;
-
-    // 댓글 목록
 }
