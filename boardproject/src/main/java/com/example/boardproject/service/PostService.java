@@ -21,17 +21,6 @@ public interface PostService {
 
         Post post = row.getPost();
         User writer = row.getWriter();
-
-        List<PostImageDto> postImageDtos = row.getImageList().stream().map(i -> {
-            return PostImageDto.builder()
-                    .ino(i.getIno())
-                    .path(i.getPath())
-                    .uuid(i.getUuid())
-                    .imgName(i.getImgName())
-                    .build();
-        }).collect(Collectors.toList());
-        ;
-
         PostDto postDto = PostDto.builder()
                 .pno(post.getPno())
                 .text(post.getText())
@@ -42,27 +31,71 @@ public interface PostService {
                 .uno(writer.getUno())
                 .writerId(writer.getUserId())
                 .writerNickname(writer.getNickname())
-                .imgList(postImageDtos)
                 .build();
+
+        try {
+            List<PostImageDto> postImageDtos = new ArrayList<>();
+            if (row.getImageList() != null) {
+                postImageDtos = row.getImageList().stream().map(i -> {
+                    return PostImageDto.builder()
+                            .ino(i.getIno())
+                            .path(i.getPath())
+                            .uuid(i.getUuid())
+                            .imgName(i.getImgName())
+                            .build();
+                }).collect(Collectors.toList());
+                postDto.setImageList(postImageDtos);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         dto.setPost(postDto);
 
-        post = row.getPrevPost();
-        writer = row.getPrevPostWriter();
-        List<PostDto> prevPostList = new ArrayList<>();
-        postDto = PostDto.builder()
-                .pno(post.getPno())
-                .text(post.getText())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .originalReference(post.getOriginalReference())
-                .lastReference(post.getLastReference())
-                .uno(writer.getUno())
-                .writerId(writer.getUserId())
-                .writerNickname(writer.getNickname())
-                .build();
-        prevPostList.add(postDto);
-        dto.setPrevPostList(prevPostList);
+        try {
+            if (row.getPrevPost() != null) {
+                post = row.getPrevPost();
+                writer = row.getPrevPostWriter();
+                List<PostDto> prevPostList = new ArrayList<>();
+                postDto = PostDto.builder()
+                        .pno(post.getPno())
+                        .text(post.getText())
+                        .createdAt(post.getCreatedAt())
+                        .updatedAt(post.getUpdatedAt())
+                        .originalReference(post.getOriginalReference())
+                        .lastReference(post.getLastReference())
+                        .uno(writer.getUno())
+                        .writerId(writer.getUserId())
+                        .writerNickname(writer.getNickname())
+                        .build();
+                prevPostList.add(postDto);
+                dto.setPrevPostList(prevPostList);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
+        try {
+            if (row.getReplyList() != null) {
+                List<PostDto> replyList = new ArrayList<>();
+                for (Post reply : row.getReplyList()) {
+                    postDto = PostDto.builder()
+                            .pno(reply.getPno())
+                            .text(reply.getText())
+                            .createdAt(reply.getCreatedAt())
+                            .updatedAt(reply.getUpdatedAt())
+                            .originalReference(reply.getOriginalReference())
+                            .lastReference(reply.getLastReference())
+                            .uno(reply.getWriter().getUno())
+                            .writerId(reply.getWriter().getUserId())
+                            .writerNickname(reply.getWriter().getNickname())
+                            .build();
+                    replyList.add(postDto);
+                }
+                dto.setReplyList(replyList);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         return dto;
     }
 }

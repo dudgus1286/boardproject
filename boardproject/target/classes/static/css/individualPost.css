@@ -72,6 +72,11 @@
   flex-shrink: 0;
 }
 
+/* 포스트 전체 영역 */
+.individualPost .post {
+  padding-bottom: 30px;
+}
+
 /* 포스트 텍스트 영역 */
 .individualPost .post .postText {
   padding: 15px;
@@ -79,7 +84,6 @@
 
 /* 포스트 이미지 영역 */
 .individualPost .post .postImages {
-  padding-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

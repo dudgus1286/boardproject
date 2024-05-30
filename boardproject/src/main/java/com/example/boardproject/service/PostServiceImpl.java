@@ -39,6 +39,7 @@ public class PostServiceImpl implements PostService {
 
         List<Object[]> result1 = new ArrayList<>();
         if (requestDto.getType().equals("t")) {
+            requestDto.setKeyword("%" + requestDto.getKeyword() + "%");
             result1 = postRepository.findAllWithPrevPost(requestDto.getKeyword());
         } else {
             result1 = postRepository.findAllWithPrevPost();
@@ -81,7 +82,8 @@ public class PostServiceImpl implements PostService {
 
             List<Post> replyList = new ArrayList<>();
             for (Post post : replies) {
-                if (row.getPost().getPno() == post.getLastReference()) {
+                if (row.getPost().getPno() == post.getLastReference()
+                        && post.getPno() != post.getOriginalReference()) {
                     replyList.add(post);
                 }
             }

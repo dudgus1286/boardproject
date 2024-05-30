@@ -21,6 +21,7 @@ import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.entity.Post;
 import com.example.boardproject.entity.PostImage;
 import com.example.boardproject.entity.User;
+import com.example.boardproject.total.TotalPost;
 import com.example.boardproject.total.TotalPostListRow;
 
 import jakarta.transaction.Transactional;
@@ -203,5 +204,37 @@ public class PostRepositoryTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void getRow() {
+        TotalPost result = new TotalPost();
+        List<Object[]> result1 = postRepository.findWithPrevPost(31L);
+
+        Post prevPost = new Post();
+        User prevPostWriter = new User();
+
+        for (Object[] obj : result1) {
+            result.setPost((Post) obj[0]);
+            result.setWriter((User) obj[1]);
+
+            prevPost = (Post) obj[2];
+            prevPostWriter = (User) obj[3];
+        }
+
+        result.setImageList(postImageRepository.findByPost(result.getPost()));
+
+        Long[] pno = { result.getPost().getPno() };
+        List<Post> replies = postRepository.findByLastReference(pno);
+        List<Long> postNumsList = new ArrayList<>();
+        for (Post reply : replies) {
+            if (reply.getPno() != reply.getOriginalReference()) {
+                postNumsList.add(reply.getPno());
+            }
+        }
+        Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
+
+        List<PostImage> images = postImageRepository.findByPost(replies);
+
     }
 }

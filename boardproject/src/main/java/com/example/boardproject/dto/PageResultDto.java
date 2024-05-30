@@ -30,14 +30,14 @@ public class PageResultDto<DTO, EN> {
         this.dtoList = result.stream().map(fn).collect(Collectors.toList());
 
         this.totalPage = result.getTotalPages();
-        //
+        makePageList(result.getPageable());
     }
 
     public void makePageList(Pageable pageable) {
         this.page = pageable.getPageNumber() + 1;
         this.size = pageable.getPageSize();
 
-        int tempEnd = (int) (Math.ceil(page * 10.0)) * 10;
+        int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;
         this.start = tempEnd - 9;
         this.end = totalPage > tempEnd ? tempEnd : totalPage;
 

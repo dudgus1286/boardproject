@@ -23,6 +23,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                         " ORDER BY p1.pno DESC")
         List<Object[]> findAllWithPrevPost(String keyword);
 
+        @Query("SELECT p1, u1, p2, u2 FROM Post p1 " +
+                        " LEFT JOIN User u1 on p1.writer = u1 " +
+                        " LEFT JOIN Post p2 on p1.lastReference = p2.pno " +
+                        " LEFT JOIN User u2 on p2.writer = u2 " +
+                        " WHERE p1.pno = :pno " +
+                        " ORDER BY p1.pno DESC")
+        List<Object[]> findWithPrevPost(Long pno);
+
         @Query("SELECT p FROM Post p WHERE p.lastReference in :postNums")
         List<Post> findByLastReference(Long[] postNums);
 }

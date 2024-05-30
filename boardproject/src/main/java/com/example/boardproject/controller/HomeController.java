@@ -15,7 +15,7 @@ public class HomeController {
     @GetMapping("/")
     public String getMain() {
         log.info("getMain()");
-        return "redirect:/board/list";
+        return "redirect:/post/list";
     }
 
     @ResponseBody

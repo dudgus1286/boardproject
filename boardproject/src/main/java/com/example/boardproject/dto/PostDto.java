@@ -33,5 +33,5 @@ public class PostDto {
     private LocalDateTime updatedAt;
 
     // 포스트이미지
-    private List<PostImageDto> imgList;
+    private List<PostImageDto> imageList;
 }
