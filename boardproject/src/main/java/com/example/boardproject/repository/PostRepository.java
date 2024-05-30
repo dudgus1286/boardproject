@@ -33,4 +33,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
         @Query("SELECT p FROM Post p WHERE p.lastReference in :postNums")
         List<Post> findByLastReference(Long[] postNums);
+
+        List<Post> findByLastReference(Long pno);
 }

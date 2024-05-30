@@ -208,8 +208,9 @@ public class PostRepositoryTest {
 
     @Test
     public void getRow() {
+        Long pno = 47L;
         TotalPost result = new TotalPost();
-        List<Object[]> result1 = postRepository.findWithPrevPost(31L);
+        List<Object[]> result1 = postRepository.findWithPrevPost(pno);
 
         Post prevPost = new Post();
         User prevPostWriter = new User();
@@ -221,20 +222,19 @@ public class PostRepositoryTest {
             prevPost = (Post) obj[2];
             prevPostWriter = (User) obj[3];
         }
-
         result.setImageList(postImageRepository.findByPost(result.getPost()));
 
-        Long[] pno = { result.getPost().getPno() };
+        System.out.println(result);
+
+        // 댓글 처리 (댓글의 댓글 리스트, 이미지 리스트)
         List<Post> replies = postRepository.findByLastReference(pno);
-        List<Long> postNumsList = new ArrayList<>();
-        for (Post reply : replies) {
-            if (reply.getPno() != reply.getOriginalReference()) {
-                postNumsList.add(reply.getPno());
+        if (replies.size() > 0) {
+            for (Post reply : replies) {
+                if (reply.getPno() != reply.getOriginalReference()) {
+                    System.out.println(reply);
+                }
             }
         }
-        Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
-
-        List<PostImage> images = postImageRepository.findByPost(replies);
 
     }
 }
