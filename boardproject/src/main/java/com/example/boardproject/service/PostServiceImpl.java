@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService {
                     .post(post)
                     .writer(writer)
                     .build();
-            if (post != prevPost) {
+            if (prevPost != null) {
                 row.setPrevPost(prevPost);
                 row.setPrevPostWriter(prevPostWriter);
             }
@@ -82,8 +82,7 @@ public class PostServiceImpl implements PostService {
 
             List<Post> replyList = new ArrayList<>();
             for (Post post : replies) {
-                if (row.getPost().getPno() == post.getLastReference()
-                        && post.getPno() != post.getOriginalReference()) {
+                if (row.getPost().getPno() == post.getLastReference()) {
                     replyList.add(post);
                 }
             }
