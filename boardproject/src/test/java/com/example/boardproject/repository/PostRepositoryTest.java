@@ -209,31 +209,64 @@ public class PostRepositoryTest {
     @Test
     public void getRow() {
         Long pno = 47L;
-        TotalPost result = new TotalPost();
+        TotalPost totalPost = new TotalPost();
         List<Object[]> result1 = postRepository.findWithPrevPost(pno);
 
         Post prevPost = new Post();
         User prevPostWriter = new User();
 
         for (Object[] obj : result1) {
-            result.setPost((Post) obj[0]);
-            result.setWriter((User) obj[1]);
+            totalPost.setPost((Post) obj[0]);
+            totalPost.setWriter((User) obj[1]);
 
             prevPost = (Post) obj[2];
             prevPostWriter = (User) obj[3];
         }
-        result.setImageList(postImageRepository.findByPost(result.getPost()));
-
-        System.out.println(result);
+        totalPost.setImageList(postImageRepository.findByPost(totalPost.getPost()));
 
         // 댓글 처리 (댓글의 댓글 리스트, 이미지 리스트)
+        // 개별글 id로 댓글 조회
         List<Post> replies = postRepository.findByLastReference(pno);
+
+        // 댓글과 댓글의 댓글, 이미지 등을 담을 리스트 생성
+        List<TotalPostListRow> replyList = new ArrayList<>();
+
+        // 댓글이 한 개 이상일 경우
         if (replies.size() > 0) {
+            // 댓글의 댓글을 조회하기 위한 아이디 담을 리스트, 배열 생성
+            List<Long> postNumsList = new ArrayList<>();
+
+            // 조회한 전체 댓글 목록으로 반복문
             for (Post reply : replies) {
+                // 조건에 맞는 포스트를 댓글 리스트, 댓댓글 조회용 리스트에 담음.
                 if (reply.getPno() != reply.getOriginalReference()) {
-                    System.out.println(reply);
+                    TotalPostListRow replyRow = new TotalPostListRow();
+                    replyRow.setPost(reply);
+                    replyList.add(replyRow);
+                    postNumsList.add(reply.getPno());
                 }
             }
+
+            // 댓댓글 조회
+            Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
+            List<Post> reReplies = postRepository.findByLastReference(postNums);
+
+            // 댓글리스트 기준으로 반복
+            for (int i = 0; i < replyList.size(); i++) {
+                TotalPostListRow row = replyList.get(i);
+                List<Post> reReplyList = new ArrayList<>();
+                for (Post reReply : reReplies) {
+                    if (reReply.getLastReference() == row.getPost().getPno()) {
+                        reReplyList.add(reReply);
+                    }
+                }
+                
+                if (reReplyList.size() > 0) {
+                    row.setReplyList(reReplyList);
+                    replyList.set(i, row);
+                }
+            }
+
         }
 
     }
