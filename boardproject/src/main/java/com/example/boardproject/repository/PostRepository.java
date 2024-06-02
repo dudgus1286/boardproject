@@ -35,4 +35,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         List<Post> findByLastReference(Long[] postNums);
 
         List<Post> findByLastReference(Long pno);
+
+        @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.lastReference in :postNums")
+        List<Object[]> findByLastReferenceWithWriter(Long[] postNums);
+
+        @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.lastReference = :pno")
+        List<Object[]> findByLastReferenceWithWriter(Long pno);
+
+        @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.pno = :pno")
+        List<Object[]> findByPnoWithWriter(Long pno);
 }

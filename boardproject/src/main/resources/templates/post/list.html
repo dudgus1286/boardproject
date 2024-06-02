@@ -99,8 +99,9 @@
                 </p>
               </div>
               <div class="nextPostsList hidden">
-                <div class="nextPost" th:each="reply : ${post.replyList}">
+                <div class="nextPost" th:each="reply, idx : ${post.replyList}">
                   <p>
+                    <!-- <span th:text="${post.replyList[idx.index].writerNickname}"></span> -->
                     <span class="createDate" th:text="${#temporals.format(reply.createdAt,'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
                     <a href="댓글작성자" class="nextNickname textBold" th:text="${reply.writerNickname}">작성자</a>:
                     <a href="댓글개별글" class="nextText" th:text="${reply.text}">댓글 내용</a>

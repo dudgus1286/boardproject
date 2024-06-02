@@ -31,4 +31,6 @@ public class TotalPostListRow {
     private List<PostImage> imageList;
 
     private List<Post> replyList;
+
+    private List<User> replyWriters;
 }
