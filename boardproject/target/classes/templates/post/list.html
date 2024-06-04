@@ -50,7 +50,7 @@
               <p>
                 <span class="createDate" th:text="${#temporals.format(prevPost.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
                 <a href="이전글작성자" class="prevNickname textBold" th:text="${prevPost.writerNickname}">작성자</a>:
-                <a href="이전글개별글" class="prevText" th:text="${prevPost.text}">
+                <a th:href="@{read(pno=${prevPost.pno})}" class="prevText" th:text="${prevPost.text}">
                   이전 글 내용
                 </a>
               </p>
@@ -79,7 +79,7 @@
             <div class="post">
               <div class="postText">
                 <p>
-                  <a href="개별글페이지" th:text="${post.post.text}">
+                  <a href="개별글페이지" th:text="${post.post.text}" th:href="@{read(pno=${post.post.pno})}">
                     게시글 텍스트
                   </a>
                 </p>
@@ -104,7 +104,7 @@
                     <!-- <span th:text="${post.replyList[idx.index].writerNickname}"></span> -->
                     <span class="createDate" th:text="${#temporals.format(reply.createdAt,'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
                     <a href="댓글작성자" class="nextNickname textBold" th:text="${reply.writerNickname}">작성자</a>:
-                    <a href="댓글개별글" class="nextText" th:text="${reply.text}">댓글 내용</a>
+                    <a th:href="@{read(pno=${reply.pno})}" class="nextText" th:text="${reply.text}">댓글 내용</a>
                   </p>
                 </div>
               </div>

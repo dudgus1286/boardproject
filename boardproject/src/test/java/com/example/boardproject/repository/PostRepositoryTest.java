@@ -4,6 +4,7 @@ import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.LongStream;
 
@@ -84,10 +85,10 @@ public class PostRepositoryTest {
 
     @Test
     public void insertPost2() {
-        LongStream.rangeClosed(61L, 90L).forEach(l -> {
+        LongStream.rangeClosed(91L, 120L).forEach(l -> {
             User user = User.builder().uno(l).build();
 
-            Long randPno = (long) (Math.random() * 30) + 31;
+            Long randPno = (long) (Math.random() * 30) + 61;
             Post randPost = postRepository.findById(randPno).get();
 
             Post newPost = postRepository.save(Post.builder()
@@ -240,89 +241,84 @@ public class PostRepositoryTest {
             prevPostWriter = (User) obj[3];
         }
 
-        // // 개별글의 이미지 리스트 조회
-        // totalPost.setImageList(postImageRepository.findByPost(totalPost.getPost()));
+        // 개별글의 이미지 리스트 조회
+        totalPost.setImageList(postImageRepository.findByPost(totalPost.getPost()));
 
-        // // 댓글 처리 (댓글의 댓글 리스트, 이미지 리스트)
-        // // 개별글 id로 댓글 조회
-        // List<Object[]> replies = postRepository.findByLastReferenceWithWriter(pno);
-        // // 댓글에 대한 정보들을 담을 리스트 생성
-        // List<TotalPostListRow> replyList = new ArrayList<>();
-        // // 댓글이 조회된 경우
-        // if (replies.size() > 0) {
-        // // 댓글의 댓글을 조회하기 위한 아이디 담을 리스트, 배열 생성
-        // List<Long> postNumsList = new ArrayList<>();
-        // List<Post> posts = new ArrayList<>();
+        // 댓글 처리 (댓글의 댓글 리스트, 이미지 리스트)
+        // 개별글 id로 댓글 조회
+        List<Object[]> replies = postRepository.findByLastReferenceWithWriter(pno);
+        // 댓글에 대한 정보들을 담을 리스트 생성
+        List<TotalPostListRow> replyList = new ArrayList<>();
+        // 댓글이 조회된 경우
+        if (replies.size() > 0) {
+            // 댓글의 댓글을 조회하기 위한 아이디 담을 리스트, 배열 생성
+            List<Long> postNumsList = new ArrayList<>();
+            List<Post> posts = new ArrayList<>();
 
-        // // 조회한 전체 댓글 목록으로 반복문
-        // for (Object[] reply : replies) {
-        // TotalPostListRow replyRow = new TotalPostListRow();
-        // Post post = (Post) reply[0];
-        // replyRow.setPost(post);
-        // replyRow.setWriter((User) reply[1]);
-        // replyList.add(replyRow);
+            // 조회한 전체 댓글 목록으로 반복문
+            for (Object[] reply : replies) {
+                TotalPostListRow replyRow = new TotalPostListRow();
+                Post post = (Post) reply[0];
+                replyRow.setPost(post);
+                replyRow.setWriter((User) reply[1]);
+                replyList.add(replyRow);
 
-        // postNumsList.add(post.getPno());
-        // posts.add(post);
-        // }
+                postNumsList.add(post.getPno());
+                posts.add(post);
+            }
 
-        // // 댓댓글 조회
-        // Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
-        // List<Object[]> reReplies =
-        // postRepository.findByLastReferenceWithWriter(postNums);
+            // 댓댓글 조회
+            Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
+            List<Object[]> reReplies = postRepository.findByLastReferenceWithWriter(postNums);
 
-        // // 댓글에 달린 이미지 전부 조회
-        // List<PostImage> replyImages = postImageRepository.findByPost(posts);
+            // 댓글에 달린 이미지 전부 조회
+            List<PostImage> replyImages = postImageRepository.findByPost(posts);
 
-        // // 개별글에 달린 댓글리스트 기준으로 반복
-        // for (int i = 0; i < replyList.size(); i++) {
-        // TotalPostListRow row = replyList.get(i);
+            // 개별글에 달린 댓글리스트 기준으로 반복
+            for (int i = 0; i < replyList.size(); i++) {
+                TotalPostListRow row = replyList.get(i);
 
-        // // 댓댓글 담을 리스트 생성
-        // List<Post> reReplyList = new ArrayList<>();
-        // List<User> reReplyWriter = new ArrayList<>();
-        // // 조회한 댓댓글로 반복문
-        // for (Object[] reReply : reReplies) {
-        // Post post = (Post) reReply[0];
-        // if (post.getLastReference() == row.getPost().getPno()) {
-        // reReplyList.add(post);
-        // reReplyWriter.add((User) reReply[1]);
-        // }
-        // }
+                // 댓댓글 담을 리스트 생성
+                List<Post> reReplyList = new ArrayList<>();
+                List<User> reReplyWriter = new ArrayList<>();
+                // 조회한 댓댓글로 반복문
+                for (Object[] reReply : reReplies) {
+                    Post post = (Post) reReply[0];
+                    if (post.getLastReference() == row.getPost().getPno()) {
+                        reReplyList.add(post);
+                        reReplyWriter.add((User) reReply[1]);
+                    }
+                }
 
-        // // 댓글에 달린 이미지 담을 리스트 생성
-        // List<PostImage> replyImageList = new ArrayList<>();
-        // // 조회한 이미지들로 반복문
-        // for (PostImage pi : replyImages) {
-        // if (pi.getPost() == row.getPost()) {
-        // replyImageList.add(pi);
-        // }
-        // }
+                // 댓글에 달린 이미지 담을 리스트 생성
+                List<PostImage> replyImageList = new ArrayList<>();
+                // 조회한 이미지들로 반복문
+                for (PostImage pi : replyImages) {
+                    if (pi.getPost() == row.getPost()) {
+                        replyImageList.add(pi);
+                    }
+                }
 
-        // // 댓글리스트에 데이터 추가
-        // if (reReplyList.size() > 0 && replyImageList.size() > 0) {
-        // row.setReplyList(reReplyList);
-        // row.setReplyWriters(reReplyWriter);
-        // row.setImageList(replyImageList);
-        // replyList.set(i, row);
-        // } else if (reReplyList.size() > 0) {
-        // row.setReplyList(reReplyList);
-        // row.setReplyWriters(reReplyWriter);
-        // replyList.set(i, row);
-        // } else if (replyImageList.size() > 0) {
-        // row.setImageList(replyImageList);
-        // replyList.set(i, row);
-        // }
-        // }
+                // 댓글리스트에 데이터 추가
+                if (reReplyList.size() > 0 && replyImageList.size() > 0) {
+                    row.setReplyList(reReplyList);
+                    row.setReplyWriters(reReplyWriter);
+                    row.setImageList(replyImageList);
+                    replyList.set(i, row);
+                } else if (reReplyList.size() > 0) {
+                    row.setReplyList(reReplyList);
+                    row.setReplyWriters(reReplyWriter);
+                    replyList.set(i, row);
+                } else if (replyImageList.size() > 0) {
+                    row.setImageList(replyImageList);
+                    replyList.set(i, row);
+                }
+            }
 
-        // // 댓글리스트를 개별글 데이터로 추가
-        // totalPost.setReplList(replyList);
+            // 댓글리스트를 개별글 데이터로 추가
+            totalPost.setReplList(replyList);
 
-        // }
-
-        System.out.println(totalPost.getPost().getLastReference());
-        System.out.println(totalPost.getPost().getOriginalReference());
-        System.out.println(prevPost);
+        }
 
         // originalReference와 lastReference를 기준으로 이전글을 조회해서 리스트로 담기
         // 이전글 정보를 모두 담을 리스트 생성
@@ -342,18 +338,18 @@ public class PostRepositoryTest {
                 prevPostRow.setWriter(prevPostWriter);
                 prevPostRow.setImageList(postImageRepository.findByPost(prevPost));
                 List<Object[]> objects = postRepository.findByLastReferenceWithWriter(prevPost.getPno());
-                List<Post> replyList = new ArrayList<>();
-                List<User> replyWriter = new ArrayList<>();
+                List<Post> prevPostReplyList = new ArrayList<>();
+                List<User> prevPostReplyWriter = new ArrayList<>();
                 if (objects != null) {
                     for (Object[] obj : objects) {
                         if ((Post) obj[0] != totalPost.getPost()) {
-                            replyList.add((Post) obj[0]);
-                            replyWriter.add((User) obj[1]);
+                            prevPostReplyList.add((Post) obj[0]);
+                            prevPostReplyWriter.add((User) obj[1]);
                         }
                     }
-                    if (replyList.size() > 0) {
-                        prevPostRow.setReplyList(replyList);
-                        prevPostRow.setReplyWriters(replyWriter);
+                    if (prevPostReplyList.size() > 0) {
+                        prevPostRow.setReplyList(prevPostReplyList);
+                        prevPostRow.setReplyWriters(prevPostReplyWriter);
                     }
                 }
             } else {
@@ -381,15 +377,15 @@ public class PostRepositoryTest {
                     }
                     oriPostRow.setImageList(postImageRepository.findByPost(oriPost));
                     List<Object[]> object2s = postRepository.findByLastReferenceWithWriter(oriPost.getPno());
-                    List<Post> replyList = new ArrayList<>();
-                    List<User> replyWriter = new ArrayList<>();
+                    List<Post> oriPostReplyList = new ArrayList<>();
+                    List<User> oriPostReplyWriter = new ArrayList<>();
                     if (object2s != null) {
                         for (Object[] obj : object2s) {
-                            replyList.add((Post) obj[0]);
-                            replyWriter.add((User) obj[1]);
+                            oriPostReplyList.add((Post) obj[0]);
+                            oriPostReplyWriter.add((User) obj[1]);
                         }
-                        oriPostRow.setReplyList(replyList);
-                        oriPostRow.setReplyWriters(replyWriter);
+                        oriPostRow.setReplyList(oriPostReplyList);
+                        oriPostRow.setReplyWriters(oriPostReplyWriter);
                     }
                 } else {
                     totalPost.setOriCheck(false);
@@ -407,14 +403,18 @@ public class PostRepositoryTest {
                             prevPostRow.setPost((Post) objects2[0]);
                             prevPostRow.setWriter((User) objects2[1]);
                             prevPostRow.setImageList(postImageRepository.findByPost((Post) objects2[0]));
-                            List<Object[]> replies = postRepository
+                            List<Object[]> prevPostReplies = postRepository
                                     .findByLastReferenceWithWriter(prevPostRow.getPost().getPno());
-                            if (replies != null) {
+                            if (prevPostReplies != null) {
                                 List<Post> post = new ArrayList<>();
                                 List<User> user = new ArrayList<>();
-                                for (Object[] objects3 : replies) {
-                                    post.add((Post) objects3[0]);
-                                    user.add((User) objects3[1]);
+                                for (Object[] objects3 : prevPostReplies) {
+                                    Post p = (Post) objects3[0];
+                                    Post p1 = prevPostList.get(prevPostList.size() - 1).getPost();
+                                    if (p.getPno() != p1.getPno()) {
+                                        post.add(p);
+                                        user.add((User) objects3[1]);
+                                    }
                                 }
                                 prevPostRow.setReplyList(post);
                                 prevPostRow.setReplyWriters(user);
@@ -422,8 +422,6 @@ public class PostRepositoryTest {
                         }
                     }
                 }
-                System.out.println(prevPostRow.getPost().getPno());
-                System.out.println(totalPost.getPost().getOriginalReference());
 
                 if (oriPostRow != null) {
                     prevPostList.add(oriPostRow);
@@ -431,12 +429,19 @@ public class PostRepositoryTest {
             }
 
             if (prevPostList != null) {
+                Collections.reverse(prevPostList);
                 totalPost.setPrevPostList(prevPostList);
             }
         }
 
         for (TotalPostListRow row : totalPost.getPrevPostList()) {
-            System.out.println(row);
+            System.out.println(row.getPost().getPno());
+            for (Post reply : row.getReplyList()) {
+                System.out.println("\t" + reply.getPno());
+            }
+        }
+        for (TotalPostListRow row : totalPost.getReplList()) {
+            System.out.println(row.getPost().getPno());
         }
 
     }

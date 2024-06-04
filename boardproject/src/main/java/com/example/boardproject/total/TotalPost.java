@@ -30,7 +30,7 @@ public class TotalPost {
 
     private List<TotalPostListRow> replList;
 
-    private Boolean oriCheck;
+    private Boolean oriCheck = true;
 
-    private Boolean linkCheck;
+    private Boolean linkCheck = true;
 }

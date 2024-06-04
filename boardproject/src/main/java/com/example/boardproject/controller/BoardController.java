@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.dto.PageResultDto;
+import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
@@ -27,13 +28,15 @@ public class BoardController {
     @GetMapping("/list")
     public void getList(@ModelAttribute("requestDto") PageRequestDto requestDto, Model model) {
         log.info("getList()");
-        PageResultDto<TotalPostDto, TotalPostListRow> rDto = service.getList(requestDto);
+        PageResultDto<TotalListRowDto, TotalPostListRow> rDto = service.getList(requestDto);
         model.addAttribute("result", rDto);
     }
 
     @GetMapping("/read")
     public void getRead(@ModelAttribute("requestDto") PageRequestDto requestDto, Long pno, Model model) {
         log.info("getRead() " + pno);
+        TotalPostDto dto = service.getRow(pno);
+        model.addAttribute("result", dto);
     }
 
 }

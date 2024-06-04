@@ -14,13 +14,10 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TotalPostDto {
+public class TotalListRowDto {
     private PostDto post;
 
-    private List<TotalListRowDto> prevPostList;
+    private List<PostDto> prevPostList;
 
-    private List<TotalListRowDto> replyList;
-
-    private Boolean oriCheck = true;
-    private Boolean linkCheck = true;
+    private List<PostDto> replyList;
 }

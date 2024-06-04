@@ -11,6 +11,10 @@
   width: 95%;
 }
 
+#mainPost {
+  background-color: red;
+}
+
 /* 이전글  */
 .individualPost .prevPost {
   /* 배경색 */
