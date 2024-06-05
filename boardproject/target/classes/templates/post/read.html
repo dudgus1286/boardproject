@@ -38,7 +38,7 @@
               <div class="post">
                 <div class="postText">
                   <p>
-                    <a th:href="@{read(pno=${prevPost.post.pno})}" th:text="${prevPost.post.text}">
+                    <a th:href="@{read#mainPost(pno=${prevPost.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" th:text="${prevPost.post.text}">
                       게시글 텍스트
                     </a>
                   </p>
@@ -62,7 +62,7 @@
                     <p>
                       <span class="createDate" th:text="${#temporals.format(prevPost.post.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
                       <a href="댓글작성자" class="nextNickname textBold" th:text="${prevReply.writerNickname}">작성자</a>:
-                      <a th:href="@{read(pno=${prevReply.pno})}" class="nextText" th:text="${prevReply.text}">댓글 내용</a>
+                      <a th:href="@{read#mainPost(pno=${prevReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${prevReply.text}">댓글 내용</a>
                     </p>
                   </div>
                 </div>
@@ -107,19 +107,43 @@
               </div>
   
               <div class="nextPosts">
-                <div class="nextPostsCount">
+                <p>
+                  <a th:href="@{list(page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn blueBtn">목록</a>
+                  <a href="#" class="mainPostBtn yellowBtn">수정</a>
+                  <a href="#" class="mainPostBtn redBtn">삭제</a>
+                </p>
+                <div class="replyThreadToggle">
                   <p class="textBold">
-                    asdf:
-                    <span>(0)</span>
+                    해당 글에 댓글 작성 / 글타래에 추가
                   </p>
                 </div>
-                <div class="nextPostsList hidden">
-                  <div class="nextPost">
-                    <p>
-                      <span class="createDate">(yyyy-MM-dd)</span>
-                      <a href="댓글작성자" class="nextNickname textBold">작성자</a>:
-                      <a href="댓글개별글" class="nextText">댓글 내용</a>
-                    </p>
+                <div class="replyThread hidden">
+                  <!-- 글타래 추가폼 -->
+                  <div class="updateThread">
+                    <form action="" method="get" class="threadForm" id="threadForm">
+                      <label for="myThread" class="textBold">글타래에 추가하기</label>
+                      <select name="myThread" id="myThread" form="threadForm">
+                        <option value="thread1">글타래 1</option>
+                        <option value="thread2">글타래 2</option>
+                        <option value="thread3">글타래 3</option>
+                      </select>
+                      <button type="submit" class="textBold">추가하기</button>
+                      <input type="hidden" name="postNo" th:value="${result.post.pno}"/>
+                    </form>
+                  </div>
+
+                  <!-- 댓글 작성폼 -->
+                  <div class="createReply">
+                    <form action="" method="get" class="replyForm">
+                      <p>
+                        <label for="text" class="textBold">덧글 작성하기</label>
+                      </p>
+                      <div class="replyTextarea">
+                        <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br />
+                        <button type="submit" class="textBold">올리기</button>
+                      </div>
+                      <input type="hidden" name="postNo" th:value="${result.post.pno}" />
+                    </form>
                   </div>
                 </div>
               </div>
@@ -152,7 +176,7 @@
               <div class="post">
                 <div class="postText">
                   <p>
-                    <a th:href="@{read(pno=${reply.post.pno})}" th:text="${reply.post.text}">
+                    <a th:href="@{read#mainPost(pno=${reply.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" th:text="${reply.post.text}">
                       게시글 텍스트
                     </a>
                   </p>
@@ -176,7 +200,7 @@
                     <p>
                       <span class="createDate" th:text="${#temporals.format(reReply.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
                       <a href="댓글작성자" class="nextNickname textBold" th:text="${reReply.writerNickname}">작성자</a>:
-                      <a th:href="@{read(pno=${reReply.pno})}" class="nextText" th:text="${reReply.text}">댓글 내용</a>
+                      <a th:href="@{read#mainPost(pno=${reReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${reReply.text}">댓글 내용</a>
                     </p>
                   </div>
                 </div>

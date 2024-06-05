@@ -6,13 +6,13 @@ const modal = document.querySelector(".modal");
 // 메인홈 타임라인
 postContainer.addEventListener("click", (e) => {
   const closestDiv = e.target.closest("div");
-  console.log(e.target);
-  console.log(closestDiv);
+  // console.log(e.target);
+  // console.log(closestDiv);
 
   if (closestDiv.classList.contains("postImage")) {
     // 이미지 모달창 띄우기
     modal.classList.remove("hidden");
-  } else if (closestDiv.classList.contains("nextPostsCount")) {
+  } else if (closestDiv.classList.contains("nextPostsCount") || closestDiv.classList.contains("replyThreadToggle")) {
     // 댓글 토글
     const nextPostsList = closestDiv.nextElementSibling;
 

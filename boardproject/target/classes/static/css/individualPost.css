@@ -11,10 +11,6 @@
   width: 95%;
 }
 
-#mainPost {
-  background-color: red;
-}
-
 /* 이전글  */
 .individualPost .prevPost {
   /* 배경색 */
@@ -100,4 +96,72 @@
   max-width: 200px;
   height: 200px;
   flex: 1 1 20%;
+}
+
+/* 개별글 페이지 */
+#mainPost {
+  background-color: coral;
+  max-width: 1250px;
+  width: 99%;
+  margin-bottom: 60px;
+}
+
+.replyThreadToggle {
+  margin-top: 10px;
+}
+
+.mainPostBtn {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.2em;
+  margin: 0.2em;
+}
+
+.blueBtn {
+  background-color: rgb(80, 170, 255);
+}
+
+.yellowBtn {
+  background-color: yellow;
+}
+
+.redBtn {
+  background-color: rgb(255, 30, 30);
+}
+
+.replyThread {
+  text-align: left;
+}
+
+.threadForm {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.threadForm #myThread {
+  width: 300px;
+  height: 2em;
+}
+
+.replyForm {
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+}
+.replyTextarea textarea {
+  width: 100%;
+  max-width: 950px;
+  border: 1px solid gray;
+  resize: none;
+  margin: 5px auto;
+}
+.replyThread #text {
+}
+.replyThread button {
+  height: 2em;
+  width: 100px;
+  background-color: darkcyan;
+  border: 1px solid black;
 }

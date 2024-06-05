@@ -42,8 +42,7 @@ public class PostServiceImpl implements PostService {
 
         List<Object[]> result1 = new ArrayList<>();
         if (requestDto.getType().equals("t")) {
-            requestDto.setKeyword("%" + requestDto.getKeyword() + "%");
-            result1 = postRepository.findAllWithPrevPost(requestDto.getKeyword());
+            result1 = postRepository.findAllWithPrevPost("%" + requestDto.getKeyword() + "%");
         } else {
             result1 = postRepository.findAllWithPrevPost();
         }

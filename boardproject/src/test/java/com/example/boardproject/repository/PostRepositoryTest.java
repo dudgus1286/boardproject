@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.boardproject.constant.MemberRole;
 import com.example.boardproject.dto.PageRequestDto;
+import com.example.boardproject.dto.PageResultDto;
+import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.entity.Post;
 import com.example.boardproject.entity.PostImage;
 import com.example.boardproject.entity.User;
@@ -117,46 +120,60 @@ public class PostRepositoryTest {
     @Transactional
     @Test
     public void getListTest() {
-        // 페이지 나누기 전 DB에서 데이터 조회
+        PageRequestDto requestDto = new PageRequestDto();
+
+        /// 페이지 나누기 전 DB에서 데이터 조회
         List<TotalPostListRow> list = new ArrayList<>();
 
-        PageRequestDto requestDto = new PageRequestDto();
         List<Object[]> result1 = new ArrayList<>();
         if (requestDto.getType().equals("t")) {
-            result1 = postRepository.findAllWithPrevPost(requestDto.getKeyword());
+            result1 = postRepository.findAllWithPrevPost("%" + requestDto.getKeyword() + "%");
         } else {
             result1 = postRepository.findAllWithPrevPost();
         }
 
+        // 메소드로 만들 영역 시작
+        // 포스트 조회
         List<Post> posts = new ArrayList<>();
         List<Long> postNumsList = new ArrayList<>();
         for (Object[] obj : result1) {
             Post post = (Post) obj[0];
             User writer = (User) obj[1];
-            Post prevPost = (Post) obj[2];
-            User prevPostWriter = (User) obj[3];
 
+            // 포스트 담기
             TotalPostListRow row = TotalPostListRow.builder()
                     .post(post)
                     .writer(writer)
                     .build();
-            if (prevPost != null) {
-                row.setPrevPost(prevPost);
-                row.setPrevPostWriter(prevPostWriter);
+
+            // 조회된 데이터 중 이전에 작성된 글이 있다면 이전글도 담기
+            if (obj.length > 2) {
+                Post prevPost = (Post) obj[2];
+                User prevPostWriter = (User) obj[3];
+
+                if (prevPost != null) {
+                    row.setPrevPost(prevPost);
+                    row.setPrevPostWriter(prevPostWriter);
+                }
             }
+
+            // 출력할 리스트, 이미지와 댓글 조회용 리스트에 담기
             list.add(row);
             posts.add(post);
             postNumsList.add(post.getPno());
         }
 
         Long[] postNums = postNumsList.toArray(new Long[postNumsList.size()]);
-
+        // 조회한 포스트에 달린 이미지와 댓글 전부 조회
         List<PostImage> images = postImageRepository.findByPost(posts);
         List<Object[]> replies = postRepository.findByLastReferenceWithWriter(postNums);
 
+        // 포스트 별로 이미지, 댓글 나눠서 삽입
         for (int i = 0; i < list.size(); i++) {
+            // 개별 포스트 불려오기
             TotalPostListRow row = list.get(i);
 
+            // 포스트별 이미지 분류
             List<PostImage> imageList = new ArrayList<>();
             for (PostImage postImage : images) {
                 if (row.getPost().getPno() == postImage.getPost().getPno()) {
@@ -164,33 +181,31 @@ public class PostRepositoryTest {
                 }
             }
 
+            // 포스트별 댓글 분류
             List<Post> replyList = new ArrayList<>();
-            List<User> replyWriter = new ArrayList<>();
-            for (Object[] reply : replies) {
-                Post post = (Post) reply[0];
-                if (row.getPost().getPno() == post.getLastReference()) {
-                    replyList.add(post);
-                    replyWriter.add((User) reply[1]);
+            List<User> replyWriters = new ArrayList<>();
+            for (Object[] replyObj : replies) {
+                Post reply = (Post) replyObj[0];
+                if (row.getPost().getPno() == reply.getLastReference()) {
+                    replyList.add(reply);
+                    replyWriters.add((User) replyObj[1]);
                 }
             }
 
+            // 분류해서 리스트에 담긴 데이터가 있을 경우 row 에 담고 다시 리스트에 담기
             if (imageList.size() > 0 && replyList.size() > 0) {
                 row.setImageList(imageList);
                 row.setReplyList(replyList);
-                row.setReplyWriters(replyWriter);
-                list.set(i, row);
             } else if (imageList.size() > 0) {
                 row.setImageList(imageList);
-                list.set(i, row);
             } else if (replyList.size() > 0) {
                 row.setReplyList(replyList);
-                row.setReplyWriters(replyWriter);
-                list.set(i, row);
             }
+            list.set(i, row);
         }
+        // 메소드로 만들 영역 끝
 
         // 페이지 나누기
-        requestDto.setPage(9);
         Pageable pageable = requestDto.getPageable(Sort.by("post").descending());
 
         int start = (int) pageable.getOffset();
@@ -198,26 +213,10 @@ public class PostRepositoryTest {
 
         Page<TotalPostListRow> totalPageList = new PageImpl<>(list.subList(start, end), pageable, list.size());
 
-        System.out.println(totalPageList);
-        System.out.println(totalPageList.getNumber());
-        System.out.println(totalPageList.getNumberOfElements());
-        System.out.println(totalPageList.getSize());
-        System.out.println(totalPageList.getTotalElements());
-        System.out.println(totalPageList.getTotalPages());
-        System.out.println(totalPageList.getSort());
-        System.out.println(totalPageList.getPageable());
-        for (TotalPostListRow row : totalPageList.getContent()) {
-            System.out.println(row);
-            if (row.getReplyList() != null) {
-                // for (Post reply : row.getReplyList()) {
-                // System.out.println(reply.getWriter());
-                // }
-
-                for (int j = 0; j < row.getReplyList().size(); j++) {
-                    System.out.println(row.getReplyWriters().get(j));
-                }
-            }
-        }
+        // Function<TotalPostListRow, TotalListRowDto> fn = (entity ->
+        // entityToDto(entity));
+        // return new PageResultDto<TotalListRowDto, TotalPostListRow>(totalPageList,
+        // fn);
     }
 
     @Transactional
@@ -446,4 +445,20 @@ public class PostRepositoryTest {
 
     }
 
+    // @Test
+    // public void tttest() {
+    // LongStream.rangeClosed(5, 232).forEach(e -> {
+    // try {
+    // PostImage img = postImageRepository.findById(e).get();
+    // img.setPath("test");
+    // img.setUuid("uuid");
+    // postImageRepository.save(img);
+    // } catch (Exception i) {
+    // }
+    // });
+    // }
+
+    @Test
+    public void deletePostTest() {
+    }
 }
