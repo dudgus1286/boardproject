@@ -16,9 +16,11 @@ import com.example.boardproject.total.TotalPost;
 import com.example.boardproject.total.TotalPostListRow;
 
 public interface PostService {
-    PageResultDto getList(PageRequestDto requestDto);
+    PageResultDto<TotalListRowDto, TotalPostListRow> getList(PageRequestDto requestDto);
 
     TotalPostDto getRow(Long pno);
+
+    boolean deletePost(Long pno);
 
     public default TotalListRowDto entityToDto(TotalPostListRow row) {
         TotalListRowDto dto = new TotalListRowDto();
