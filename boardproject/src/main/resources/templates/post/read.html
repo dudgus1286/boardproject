@@ -12,9 +12,12 @@
 
   <div layout:fragment="mainContainer" class="mainContainer">
     <div class="postContainer">
+      <div class="individualPost missingLinkAlertDiv" th:if="${!result.oriCheck}">
+        <p>최초 발행된 게시글이 삭제되었습니다.</p>
+      </div>
           <!-- 이전에 발행된 글이 있을 경우 -->
-          <div class="timelineContainer prevPostContainer" th:if="${result.prevPostList}">
-            <div class="individualPost" th:each="prevPost : ${result.prevPostList}">
+          <div class="timelineContainer prevPostContainer" th:each="prevPost, idx : ${result.prevPostList}">
+            <div class="individualPost" >
               <div class="postInfo">
                 <div class="postCreateDate createDate">
                   작성일:
@@ -67,6 +70,11 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div class="individualPost missingLinkAlertDiv"
+            th:if="${!result.linkCheck && result.oriCheck && ((!idx.last && prevPost.post.pno != result.prevPostList.get(idx.index+1).post.pno) || (idx.last && prevPost.post.pno != result.post.lastReference))}">
+              <p>중간에 게시글이 삭제된 기록이 있습니다.</p>
             </div>
           </div>
           

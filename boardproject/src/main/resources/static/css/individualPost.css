@@ -165,3 +165,10 @@
   background-color: darkcyan;
   border: 1px solid black;
 }
+
+/* 이전글 삭제 알림 영역 */
+.missingLinkAlertDiv {
+  height: 75px;
+  text-align: center;
+  padding: 1em;
+}

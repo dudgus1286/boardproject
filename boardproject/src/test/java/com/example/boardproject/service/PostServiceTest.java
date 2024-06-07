@@ -16,25 +16,8 @@ public class PostServiceTest {
     private PostService service;
 
     @Test
-    public void getRow() {
-        TotalPostDto dto = service.getRow(77L);
-        System.out.println(dto.getPost());
-        for (TotalListRowDto prevRow : dto.getPrevPostList()) {
-            System.out.println(prevRow);
-        }
-        if (dto.getReplyList() != null) {
-            for (TotalListRowDto reply : dto.getReplyList()) {
-                System.out.println(reply);
-            }
-        }
-        System.out.println(dto.getLinkCheck());
-        System.out.println(dto.getOriCheck());
-        if (!dto.getLinkCheck()) {
-            System.out.println("상위글이 삭제되었습니다");
-        }
-        if (!dto.getOriCheck()) {
-            System.out.println("원본글이 삭제되었습니다");
-        }
+    public void deleteServiceTest() {
+        System.out.println(service.removePost(46L));
     }
 
 }

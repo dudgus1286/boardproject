@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.dto.PageResultDto;
+import com.example.boardproject.dto.PostDto;
 import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.service.PostService;
@@ -36,6 +37,12 @@ public class BoardController {
     public void getRead(@ModelAttribute("requestDto") PageRequestDto requestDto, Long pno, Model model) {
         log.info("getRead() " + pno);
         TotalPostDto dto = service.getRow(pno);
+        model.addAttribute("result", dto);
+    }
+
+    @GetMapping("/delete")
+    public void getDeletePage(PostDto dto, Model model) {
+        log.info("getDeletePage() " + dto);
         model.addAttribute("result", dto);
     }
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.boardproject.entity.Post;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
+        // 포스트 리스트 조회 시 사용함
         @Query("SELECT p1, u1, p2, u2 FROM Post p1 " +
                         " LEFT JOIN User u1 on p1.writer = u1 " +
                         " LEFT JOIN Post p2 on p1.lastReference = p2.pno " +
@@ -23,6 +24,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                         " ORDER BY p1.pno DESC")
         List<Object[]> findAllWithPrevPost(String keyword);
 
+        // 개별글 조회 시 사용
         @Query("SELECT p1, u1, p2, u2 FROM Post p1 " +
                         " LEFT JOIN User u1 on p1.writer = u1 " +
                         " LEFT JOIN Post p2 on p1.lastReference = p2.pno " +
@@ -31,12 +33,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                         " ORDER BY p1.pno DESC")
         List<Object[]> findWithPrevPost(Long pno);
 
+        // 댓글 조회 시 사용
         @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.lastReference in :postNums")
         List<Object[]> findByLastReferenceWithWriter(Long[] postNums);
 
         @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.lastReference = :pno")
         List<Object[]> findByLastReferenceWithWriter(Long pno);
 
+        // 최초글 조회 시 사용
         @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.pno = :pno")
         List<Object[]> findByPnoWithWriter(Long pno);
 }

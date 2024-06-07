@@ -119,7 +119,7 @@ public class PostRepositoryTest {
         } else {
             result1 = postRepository.findAllWithPrevPost();
         }
-        
+
         // TotalPostListRow 가 담긴 List 반환하는 메소드
         List<TotalPostListRow> list = new ArrayList<>();
         // 포스트 조회
@@ -197,7 +197,8 @@ public class PostRepositoryTest {
         // Pageable pageable = requestDto.getPageable(Sort.by("post").descending());
         // int start = (int) pageable.getOffset();
         // int end = Math.min((start + pageable.getPageSize()), list.size());
-        // Page<TotalPostListRow> totalPageList = new PageImpl<>(list.subList(start, end), pageable, list.size());
+        // Page<TotalPostListRow> totalPageList = new PageImpl<>(list.subList(start,
+        // end), pageable, list.size());
         // Function<TotalPostListRow, TotalListRowDto> fn = (entity ->
         // entityToDto(entity));
         // return new PageResultDto<TotalListRowDto, TotalPostListRow>(totalPageList,
@@ -207,7 +208,7 @@ public class PostRepositoryTest {
     @Transactional
     @Test
     public void getRow() {
-        Long pno = 30L;
+        Long pno = 77L;
         // 전체 데이터를 담을 객체 생성
         TotalPost totalPost = new TotalPost();
 
@@ -231,13 +232,16 @@ public class PostRepositoryTest {
         // originalReference와 lastReference를 기준으로 이전글을 조회해서 리스트로 담기
         // 개별글에 아예 이전글, 최초글 정보가 없는 경우인지 확인(맨 처음에 작성된 글인지 확인)
         if (totalPost.getPost().getOriginalReference() == null) {
+            System.out.println("최초글임");
             return;
-            }
+        }
 
         // 이전글 정보를 모두 담을 리스트 생성
         List<TotalPostListRow> prevPostList = new ArrayList<>();
-        // originalReference != lastReference 인지 체크
-        boolean check1 = totalPost.getPost().getOriginalReference() != totalPost.getPost().getLastReference() ? true : false;
+
+        // 조회하려는 개별글을 기준으로 originalReference != lastReference 인지 체크
+        boolean check1 = totalPost.getPost().getOriginalReference() != totalPost.getPost().getLastReference() ? true
+                : false;
 
         // 개별글 조회와 같이 조회된 이전글 정보 찾기
         TotalPostListRow prevPostRow = new TotalPostListRow();
@@ -250,31 +254,40 @@ public class PostRepositoryTest {
             List<Object[]> prevReplies = postRepository.findByLastReferenceWithWriter(prevPost.getPno());
             List<Post> prevPostReplyList = new ArrayList<>();
             List<User> prevPostReplyWriter = new ArrayList<>();
-            for (Object[] obj : prevReplies) {
-                Post prevReply = (Post) obj[0];
-                // 개별글 제외 다른 댓글도 있는 경우 댓글 리스트에 추가
-                if (prevReply.getPno() != totalPost.getPost().getPno()) {
-                    prevPostReplyList.add((Post) obj[0]);
-                    prevPostReplyWriter.add((User) obj[1]);
+            if (!prevReplies.isEmpty()) {
+                for (Object[] obj : prevReplies) {
+                    Post prevReply = (Post) obj[0];
+                    // 개별글 제외 다른 댓글도 있는 경우 댓글 리스트에 추가
+                    if (prevReply.getPno() != totalPost.getPost().getPno()) {
+                        prevPostReplyList.add((Post) obj[0]);
+                        prevPostReplyWriter.add((User) obj[1]);
+                    }
+                }
+                // 댓글 리스트가 비어있지 않으면 이전글 데이터로 추가
+                if (!prevPostReplyList.isEmpty()) {
+                    prevPostRow.setReplyList(prevPostReplyList);
+                    prevPostRow.setReplyWriters(prevPostReplyWriter);
                 }
             }
-            // 댓글 리스트가 비어있지 않으면 이전글 데이터로 추가
-            if (prevPostReplyList.size() > 0) {
-                prevPostRow.setReplyList(prevPostReplyList);
-                prevPostRow.setReplyWriters(prevPostReplyWriter);
-            }
+
+            // 이전글 리스트에 추가
+            prevPostList.add(prevPostRow);
+
             // 찾은 글이 최초글인 경우 이대로 리턴
             if (!check1) {
-                prevPostList.add(prevPostRow);
                 totalPost.setPrevPostList(prevPostList);
+                System.out.println("개별글 상위글이 최초글임");
+                System.out.println(prevPostRow);
                 return;
             }
+
         } else {
-            // 이전글을 찾지 못했다면(삭제된 경우) 체크
+            // 이전글 아이디는 있는데 찾지 못했다면(삭제된 경우) 체크
             totalPost.setLinkCheck(false);
             if (!check1) {
                 // 이전글 == 최초글인 경우 체크 후 리턴
                 totalPost.setOriCheck(false);
+                System.out.println("개별글 상위글이 최초글인데 삭제됨");
                 return;
             }
         }
@@ -282,74 +295,133 @@ public class PostRepositoryTest {
         // 최초글 정보 조회(삭제된 경우 oriCheck 체크)
         List<Object[]> originalObject = postRepository.findByPnoWithWriter(totalPost.getPost().getOriginalReference());
         TotalPostListRow oriPostRow = new TotalPostListRow();
-        Post oriPost = new Post();
-        if (originalObject != null) {
+        if (!originalObject.isEmpty()) {
+            // 메소드 시작
+            Post oriPost = new Post();
             for (Object[] obj : originalObject) {
                 oriPost = (Post) obj[0];
                 oriPostRow.setPost(oriPost);
                 oriPostRow.setWriter((User) obj[1]);
             }
-                    oriPostRow.setImageList(postImageRepository.findByPost(oriPost));
-                    List<Object[]> object2s = postRepository.findByLastReferenceWithWriter(oriPost.getPno());
-                    List<Post> oriPostReplyList = new ArrayList<>();
-                    List<User> oriPostReplyWriter = new ArrayList<>();
-                    if (object2s != null) {
-                        for (Object[] obj : object2s) {
-                            oriPostReplyList.add((Post) obj[0]);
-                            oriPostReplyWriter.add((User) obj[1]);
-                        }
-                        oriPostRow.setReplyList(oriPostReplyList);
-                        oriPostRow.setReplyWriters(oriPostReplyWriter);
-                    }
-                } else {
-                    totalPost.setOriCheck(false);
+            oriPostRow.setImageList(postImageRepository.findByPost(oriPost));
+            List<Object[]> oriPostReplies = postRepository.findByLastReferenceWithWriter(oriPost.getPno());
+            List<Post> oriPostReplyList = new ArrayList<>();
+            List<User> oriPostReplyWriter = new ArrayList<>();
+            if (!oriPostReplies.isEmpty()) {
+                for (Object[] obj : oriPostReplies) {
+                    oriPostReplyList.add((Post) obj[0]);
+                    oriPostReplyWriter.add((User) obj[1]);
                 }
+                oriPostRow.setReplyList(oriPostReplyList);
+                oriPostRow.setReplyWriters(oriPostReplyWriter);
+            }
+            // 메소드 끝
+        } else {
+            totalPost.setOriCheck(false);
+            if (!totalPost.getLinkCheck()) {
+                // 이전글이 삭제된 상황에서 최초글도 삭제되었으면 찾을 수 있는 게 없기 때문에 리턴
+                totalPost.setLinkCheck(false);
+                System.out.println("이전글도 상위글도 찾을 수 없음");
+                return;
+            }
+        }
 
-                try {
-                    while (prevPostRow.getPost().getPno() != totalPost.getPost().getOriginalReference()) {
-                        prevPostList.add(prevPostRow);
+        // 직전에 찾은 상위 글의 바로 위의 글 == 최초글이 되기 전까지 반복
+        Long lastRefNum = prevPost.getLastReference();
+        while (lastRefNum != totalPost.getPost().getOriginalReference()) {
+            TotalPostListRow prevPostRow1 = new TotalPostListRow();
+            // 이전글 조회
+            List<Object[]> prevPostObject = postRepository.findByPnoWithWriter(lastRefNum);
 
-                        List<Object[]> objects = postRepository
-                                .findByPnoWithWriter(prevPostRow.getPost().getLastReference());
-                        prevPostRow = new TotalPostListRow();
-
-                        if (objects != null) {
-                            for (Object[] objects2 : objects) {
-                                prevPostRow.setPost((Post) objects2[0]);
-                                prevPostRow.setWriter((User) objects2[1]);
-                                prevPostRow.setImageList(postImageRepository.findByPost((Post) objects2[0]));
-                                List<Object[]> prevPostReplies = postRepository
-                                        .findByLastReferenceWithWriter(prevPostRow.getPost().getPno());
-                                if (prevPostReplies != null) {
-                                    List<Post> post = new ArrayList<>();
-                                    List<User> user = new ArrayList<>();
-                                    for (Object[] objects3 : prevPostReplies) {
-                                        Post p = (Post) objects3[0];
-                                        Post p1 = prevPostList.get(prevPostList.size() - 1).getPost();
-                                        if (p.getPno() != p1.getPno()) {
-                                            post.add(p);
-                                            user.add((User) objects3[1]);
-                                        }
-                                    }
-                                    prevPostRow.setReplyList(post);
-                                    prevPostRow.setReplyWriters(user);
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    totalPost.setLinkCheck(false);
-
-                if (oriPostRow != null) {
-                    prevPostList.add(oriPostRow);
+            if (!prevPostObject.isEmpty()) {
+                // 최초글 조회할 때와 같은 코드 메소드로 처리
+                Post prevPost1 = new Post();
+                for (Object[] obj : prevPostObject) {
+                    prevPost1 = (Post) obj[0];
+                    prevPostRow1.setPost(prevPost1);
+                    prevPostRow1.setWriter((User) obj[1]);
                 }
+                prevPostRow1.setImageList(postImageRepository.findByPost(prevPost1));
+                List<Object[]> oriPostReplies = postRepository.findByLastReferenceWithWriter(prevPost1.getPno());
+                List<Post> oriPostReplyList = new ArrayList<>();
+                List<User> oriPostReplyWriter = new ArrayList<>();
+                if (!oriPostReplies.isEmpty()) {
+                    for (Object[] obj : oriPostReplies) {
+                        oriPostReplyList.add((Post) obj[0]);
+                        oriPostReplyWriter.add((User) obj[1]);
+                    }
+                    prevPostRow1.setReplyList(oriPostReplyList);
+                    prevPostRow1.setReplyWriters(oriPostReplyWriter);
+                }
+                // 메소드 끝
+            } else {
+                // 이전글을 조회할 수 없는 경우 linkCheck 체크 후 반복문에서 나옴
+                totalPost.setLinkCheck(false);
+                break;
             }
 
-            if (prevPostList != null) {
-                Collections.reverse(prevPostList);
-                totalPost.setPrevPostList(prevPostList);
-            }
-        
+            lastRefNum = prevPostRow1.getPost().getLastReference();
+            prevPostList.add(prevPostRow1);
+        }
+
+        // 마지막으로 최초글 조회된 경우 리스트에 추가
+        if (totalPost.getOriCheck()) {
+            prevPostList.add(oriPostRow);
+        }
+
+        // 찾을 수 있는 정보가 모두 입력된 리스트를 역순으로 정렬 후 totalPost에 담기
+        if (!prevPostList.isEmpty()) {
+            Collections.reverse(prevPostList);
+            totalPost.setPrevPostList(prevPostList);
+        }
+
+        System.out.println(totalPost.getOriCheck() ? "" : "최초글 삭제됨");
+        System.out.println(!totalPost.getLinkCheck() ? "상위글 삭제됨" : "");
+        for (TotalPostListRow obj : totalPost.getPrevPostList()) {
+            System.out.println(obj);
+        }
+        return;
+
+        // try {
+        // while (prevPostRow.getPost().getPno() !=
+        // totalPost.getPost().getOriginalReference()) {
+        // prevPostList.add(prevPostRow);
+
+        // List<Object[]> objects = postRepository
+        // .findByPnoWithWriter(prevPostRow.getPost().getLastReference());
+        // prevPostRow = new TotalPostListRow();
+
+        // if (objects != null) {
+        // for (Object[] objects2 : objects) {
+        // prevPostRow.setPost((Post) objects2[0]);
+        // prevPostRow.setWriter((User) objects2[1]);
+        // prevPostRow.setImageList(postImageRepository.findByPost((Post) objects2[0]));
+        // List<Object[]> prevPostReplies = postRepository
+        // .findByLastReferenceWithWriter(prevPostRow.getPost().getPno());
+        // if (prevPostReplies != null) {
+        // List<Post> post = new ArrayList<>();
+        // List<User> user = new ArrayList<>();
+        // for (Object[] objects3 : prevPostReplies) {
+        // Post p = (Post) objects3[0];
+        // Post p1 = prevPostList.get(prevPostList.size() - 1).getPost();
+        // if (p.getPno() != p1.getPno()) {
+        // post.add(p);
+        // user.add((User) objects3[1]);
+        // }
+        // }
+        // prevPostRow.setReplyList(post);
+        // prevPostRow.setReplyWriters(user);
+        // }
+        // }
+        // }
+        // }
+        // } catch (Exception e) {
+        // totalPost.setLinkCheck(false);
+
+        // if (oriPostRow != null) {
+        // prevPostList.add(oriPostRow);
+        // }
+        // }
 
         // return entityToDto(totalPost);
     }

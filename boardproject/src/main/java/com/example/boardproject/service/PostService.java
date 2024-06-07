@@ -20,7 +20,7 @@ public interface PostService {
 
     TotalPostDto getRow(Long pno);
 
-    boolean deletePost(Long pno);
+    boolean removePost(Long pno);
 
     public default TotalListRowDto entityToDto(TotalPostListRow row) {
         TotalListRowDto dto = new TotalListRowDto();
@@ -39,8 +39,8 @@ public interface PostService {
                 .writerNickname(writer.getNickname())
                 .build();
 
+        List<PostImageDto> postImageDtos = new ArrayList<>();
         try {
-            List<PostImageDto> postImageDtos = new ArrayList<>();
             if (row.getImageList() != null) {
                 postImageDtos = row.getImageList().stream().map(i -> {
                     return PostImageDto.builder()
@@ -53,15 +53,15 @@ public interface PostService {
                 postDto.setImageList(postImageDtos);
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         dto.setPost(postDto);
 
+        List<PostDto> prevPostList = new ArrayList<>();
         try {
             if (row.getPrevPost() != null) {
                 post = row.getPrevPost();
                 writer = row.getPrevPostWriter();
-                List<PostDto> prevPostList = new ArrayList<>();
                 postDto = PostDto.builder()
                         .pno(post.getPno())
                         .text(post.getText())
@@ -77,30 +77,35 @@ public interface PostService {
                 dto.setPrevPostList(prevPostList);
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
+        List<PostDto> replyList = new ArrayList<>();
         try {
             if (row.getReplyList() != null) {
-                List<PostDto> replyList = new ArrayList<>();
-                for (Post reply : row.getReplyList()) {
+                List<Post> reply = row.getReplyList();
+                List<User> replyWriter = row.getReplyWriters();
+
+                int test = 0;
+                for (int i = 0; i < row.getReplyList().size(); i++) {
+                    test += 1;
                     postDto = PostDto.builder()
-                            .pno(reply.getPno())
-                            .text(reply.getText())
-                            .createdAt(reply.getCreatedAt())
-                            .updatedAt(reply.getUpdatedAt())
-                            .originalReference(reply.getOriginalReference())
-                            .lastReference(reply.getLastReference())
-                            .uno(reply.getWriter().getUno())
-                            .writerId(reply.getWriter().getUserId())
-                            .writerNickname(reply.getWriter().getNickname())
+                            .pno(reply.get(i).getPno())
+                            .text(reply.get(i).getText())
+                            .createdAt(reply.get(i).getCreatedAt())
+                            .updatedAt(reply.get(i).getUpdatedAt())
+                            .originalReference(reply.get(i).getOriginalReference())
+                            .lastReference(reply.get(i).getLastReference())
+                            .uno(replyWriter.get(i).getUno())
+                            .writerId(replyWriter.get(i).getUserId())
+                            .writerNickname(replyWriter.get(i).getNickname())
                             .build();
                     replyList.add(postDto);
                 }
                 dto.setReplyList(replyList);
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         return dto;
     }
@@ -124,8 +129,6 @@ public interface PostService {
         dto.setPost(postDto);
 
         List<PostImageDto> postImageList = new ArrayList<>();
-        List<TotalListRowDto> prevPostList = new ArrayList<>();
-        List<TotalListRowDto> replyList = new ArrayList<>();
         try {
             if (tp.getImageList() != null) {
                 postImageList = tp.getImageList().stream().map(i -> {
@@ -139,29 +142,31 @@ public interface PostService {
                 postDto.setImageList(postImageList);
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
+        List<TotalListRowDto> prevPostList = new ArrayList<>();
         try {
             if (tp.getPrevPostList() != null) {
                 prevPostList = tp.getPrevPostList().stream().map(e -> entityToDto(e)).collect(Collectors.toList());
                 dto.setPrevPostList(prevPostList);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        List<TotalListRowDto> replyList = new ArrayList<>();
         try {
             if (tp.getReplList() != null) {
                 replyList = tp.getReplList().stream().map(e -> entityToDto(e)).collect(Collectors.toList());
                 dto.setReplyList(replyList);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (tp.getOriCheck() == false || tp.getLinkCheck() == false) {
-            dto.setOriCheck(tp.getOriCheck());
-            dto.setLinkCheck(tp.getLinkCheck());
-        }
+        dto.setOriCheck(tp.getOriCheck());
+        dto.setLinkCheck(tp.getLinkCheck());
 
         return dto;
     }
