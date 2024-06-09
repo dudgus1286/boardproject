@@ -86,7 +86,7 @@ main {
   background-color: white;
   width: 100%;
   /* 메뉴 열려있을 때 기본 설정 */
-  max-width: 1600px;
+  max-width: 1620px;
 }
 
 main .menutoggle {
@@ -122,14 +122,15 @@ main .mainHeader .timelineHeader {
 
 /* 하단 */
 footer {
+  margin-top: 75px;
   width: 100%;
-  max-width: 1600px;
+  max-width: 1620px;
 }
 
 footer .footerContainer {
   background-color: darkgray;
   color: white;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: 0 auto;
   text-align: center;
   height: 100px;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.dto.PageResultDto;
+import com.example.boardproject.dto.PostDto;
 import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.entity.Post;
@@ -188,10 +189,15 @@ public class PostServiceImpl implements PostService {
 
         // 최초글을 마지막으로 리스트에 추가
         if (totalPost.getOriCheck()) {
-            List<Post> replyList = oriPostRow.getReplyList();
-            for (int i = 0; i < replyList.size(); i++) {
-                if (replyList.get(i).getLastReference() == oriPostRow.getPost().getPno()) {
-                    // ㅅㄴㅁㄹㄴㅁㅇㄹ
+            // 객체에 담긴 최초글 댓글 리스트가 null 이 아니면
+            if (oriPostRow.getReplyList() != null) {
+                // 댓글 리스트 조회 후 최초글 바로 다음 글이 댓글 리스트에 있을 경우 댓글 리스트에서 제외
+                for (int i = 0; i < oriPostRow.getReplyList().size(); i++) {
+                    if (oriPostRow.getReplyList().get(i).getPno() == prevPostList.get(prevPostList.size()-1).getPost().getPno()) {
+                        oriPostRow.getReplyList().remove(i);
+                        break;
+                        
+                    }
                 }
             }
             prevPostList.add(oriPostRow);
@@ -203,6 +209,11 @@ public class PostServiceImpl implements PostService {
             totalPost.setPrevPostList(prevPostList);
         }
         return entityToDto(totalPost);
+    }
+
+    @Override
+    public PostDto getDeletePage(Long pno) {
+        return null;
     }
 
     @Override
@@ -320,7 +331,7 @@ public class PostServiceImpl implements PostService {
         if (!rowPostReplies.isEmpty()) {
             for (Object[] obj : rowPostReplies) {
                 Post rowPostReply = (Post) obj[0];
-                // 직전에 찾은 글 제외 다른 댓글이 있는 경우 이전글 댓글 리스트에 추가
+                // 직전에 찾은 글을 제외 다른 댓글이 있는 경우 이전글 댓글 리스트에 추가
                 if (list.size() != 0) {
                     if (rowPostReply.getPno() != list.get(list.size() - 1).getPost().getPno()) {
                         rowPostReplyList.add(rowPostReply);
@@ -338,4 +349,6 @@ public class PostServiceImpl implements PostService {
         }
         return row;
     }
+
+    
 }

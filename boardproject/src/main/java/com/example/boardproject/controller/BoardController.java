@@ -41,9 +41,9 @@ public class BoardController {
     }
 
     @GetMapping("/delete")
-    public void getDeletePage(PostDto dto, Model model) {
-        log.info("getDeletePage() " + dto);
-        model.addAttribute("result", dto);
+    public void getDeletePage(Long pno, Model model) {
+        log.info("getDeletePage() " + pno);
+        model.addAttribute("result", service.getDeletePage(pno));
     }
 
 }

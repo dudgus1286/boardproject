@@ -11,6 +11,7 @@ import com.example.boardproject.dto.PostImageDto;
 import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.entity.Post;
+import com.example.boardproject.entity.PostImage;
 import com.example.boardproject.entity.User;
 import com.example.boardproject.total.TotalPost;
 import com.example.boardproject.total.TotalPostListRow;
@@ -20,7 +21,29 @@ public interface PostService {
 
     TotalPostDto getRow(Long pno);
 
+    PostDto getDeletePage(Long pno);
+
     boolean removePost(Long pno);
+
+    public default PostDto entityToDto(Post post, User writer, List<PostImage> list) {
+        PostDto dto = PostDto.builder()
+        .pno(post.getPno())
+        .text(post.getText())
+        .createdAt(post.getCreatedAt())
+        .updatedAt(post.getUpdatedAt())
+        .originalReference(post.getOriginalReference())
+        .lastReference(post.getLastReference())
+        .uno(writer.getUno())
+        .writerId(writer.getUserId())
+        .writerNickname(writer.getNickname())
+        .build();
+
+        return null;
+    }
+
+    public default Post dtoToEntity(PostDto dto) {
+        return null;
+    }
 
     public default TotalListRowDto entityToDto(TotalPostListRow row) {
         TotalListRowDto dto = new TotalListRowDto();

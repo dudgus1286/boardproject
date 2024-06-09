@@ -40,7 +40,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.lastReference = :pno")
         List<Object[]> findByLastReferenceWithWriter(Long pno);
 
-        // 최초글 조회 시 사용
+        // 최초글, 삭제할 글 조회 시 사용
         @Query("SELECT p, u FROM Post p LEFT JOIN User u ON p.writer = u WHERE p.pno = :pno")
         List<Object[]> findByPnoWithWriter(Long pno);
 }
