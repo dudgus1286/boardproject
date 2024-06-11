@@ -4,6 +4,7 @@
     <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}">
     <link rel="stylesheet" th:href="@{/css/individualPost.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/deleteCheck.css}">
   </th:block>
   <div layout:fragment="mainHeader" class="mainHeader">
     <!-- 검색폼 여부와 상관없이 상단 여백 -->
@@ -11,45 +12,53 @@
   </div>
 
   <div layout:fragment="mainContainer" class="mainContainer">
-    <div class="postContainer">
-          
-          <!-- 개별글 영역 -->
-            <div class="individualPost">
-              <div class="postInfo">
-                <div class="postCreateDate createDate">
-                  작성일:
-                  <span th:text="${#temporals.format(result.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
-                  <span th:if="${#temporals.format(result.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
-                </div>
-                <div class="writer">
-                  <div class="writerImg">
-                    <a href="게시글작성자">
-                    <img src="http://via.placeholder.com/50.jpg" alt="" />
-                    </a>
-                  </div>
-                  <span class="writerNickname textBold">
-                    <a href="게시글작성자" th:text="${result.writerNickname}">
-                      작성자닉네임
-                    </a>
-                  </span>
-                </div>
-              </div>
-  
-              <div class="post">
-                <div class="postText">
-                  <p th:text="${result.text}">
-                      게시글 텍스트
-                  </p>
-                </div>
-                <div class="postImages" th:if="${result.imageList}">
-                  <div class="postImage" th:each="image : ${result.imageList}">
-                    <img src="http://via.placeholder.com/200.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-
+    <!-- 개별글 영역 -->
+      <div class="individualPost postContainer">
+        <div class="postInfo">
+          <div class="postCreateDate createDate">
+            작성일:
+            <span th:text="${#temporals.format(result.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
+            <span th:if="${#temporals.format(result.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
+          </div>
+          <div class="writer">
+            <div class="writerImg">
+              <a href="게시글작성자">
+              <img src="http://via.placeholder.com/50.jpg" alt="" />
+              </a>
             </div>
+            <span class="writerNickname textBold">
+              <a href="게시글작성자" th:text="${result.writerNickname}">
+                작성자닉네임
+              </a>
+            </span>
+          </div>
         </div>
+
+        <div class="post">
+          <div class="postText">
+            <p th:text="${result.text}">
+                게시글 텍스트
+            </p>
+          </div>
+          <div class="postImages" th:if="${result.imageList}">
+            <div class="postImage" th:each="image : ${result.imageList}">
+              <img src="http://via.placeholder.com/200.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="deleteCheck">
+        <p>해당 글을 삭제하겠습니까?</p>
+        <div class="deleteBtnDiv">
+          <button>예</button>
+          <button>아니오</button>
+        </div>
+        <form th:action="@{remove}">
+          <input type="hidden" name="remove" th:value="${result.pno}">
+        </form>
+      </div>
 
         <!-- 이미지 모달 -->
         <div class="modal hidden">

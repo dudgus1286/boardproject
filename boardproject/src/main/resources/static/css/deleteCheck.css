@@ -1,0 +1,14 @@
+.deleteCheck {
+  /* 배경색 */
+  background-color: aqua;
+
+  /* 테두리 설정 */
+  border-radius: 5px;
+  border: 1px solid black;
+  margin: 10px auto;
+  margin-bottom: 30px;
+  max-width: 950px;
+  width: 95%;
+
+  padding: 2em;
+}

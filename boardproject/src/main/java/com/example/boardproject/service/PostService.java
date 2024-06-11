@@ -27,30 +27,6 @@ public interface PostService {
 
     public default PostDto entityToDto(Post post, User writer, List<PostImage> list) {
         PostDto dto = PostDto.builder()
-        .pno(post.getPno())
-        .text(post.getText())
-        .createdAt(post.getCreatedAt())
-        .updatedAt(post.getUpdatedAt())
-        .originalReference(post.getOriginalReference())
-        .lastReference(post.getLastReference())
-        .uno(writer.getUno())
-        .writerId(writer.getUserId())
-        .writerNickname(writer.getNickname())
-        .build();
-
-        return null;
-    }
-
-    public default Post dtoToEntity(PostDto dto) {
-        return null;
-    }
-
-    public default TotalListRowDto entityToDto(TotalPostListRow row) {
-        TotalListRowDto dto = new TotalListRowDto();
-
-        Post post = row.getPost();
-        User writer = row.getWriter();
-        PostDto postDto = PostDto.builder()
                 .pno(post.getPno())
                 .text(post.getText())
                 .createdAt(post.getCreatedAt())
@@ -62,41 +38,34 @@ public interface PostService {
                 .writerNickname(writer.getNickname())
                 .build();
 
-        List<PostImageDto> postImageDtos = new ArrayList<>();
-        try {
-            if (row.getImageList() != null) {
-                postImageDtos = row.getImageList().stream().map(i -> {
-                    return PostImageDto.builder()
-                            .ino(i.getIno())
-                            .path(i.getPath())
-                            .uuid(i.getUuid())
-                            .imgName(i.getImgName())
-                            .build();
-                }).collect(Collectors.toList());
-                postDto.setImageList(postImageDtos);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (list != null) {
+            List<PostImageDto> postImageDtos = list.stream().map(i -> {
+                return PostImageDto.builder()
+                        .ino(i.getIno())
+                        .path(i.getPath())
+                        .uuid(i.getUuid())
+                        .imgName(i.getImgName())
+                        .build();
+            }).collect(Collectors.toList());
+            dto.setImageList(postImageDtos);
         }
-        dto.setPost(postDto);
+
+        return dto;
+    }
+
+    public default Post dtoToEntity(PostDto dto) {
+        return null;
+    }
+
+    public default TotalListRowDto entityToDto(TotalPostListRow row) {
+        TotalListRowDto dto = new TotalListRowDto();
+
+        dto.setPost(entityToDto(row.getPost(), row.getWriter(), row.getImageList()));
 
         List<PostDto> prevPostList = new ArrayList<>();
         try {
             if (row.getPrevPost() != null) {
-                post = row.getPrevPost();
-                writer = row.getPrevPostWriter();
-                postDto = PostDto.builder()
-                        .pno(post.getPno())
-                        .text(post.getText())
-                        .createdAt(post.getCreatedAt())
-                        .updatedAt(post.getUpdatedAt())
-                        .originalReference(post.getOriginalReference())
-                        .lastReference(post.getLastReference())
-                        .uno(writer.getUno())
-                        .writerId(writer.getUserId())
-                        .writerNickname(writer.getNickname())
-                        .build();
-                prevPostList.add(postDto);
+                prevPostList.add(entityToDto(row.getPrevPost(), row.getPrevPostWriter(), null));
                 dto.setPrevPostList(prevPostList);
             }
         } catch (Exception e) {
@@ -109,21 +78,8 @@ public interface PostService {
                 List<Post> reply = row.getReplyList();
                 List<User> replyWriter = row.getReplyWriters();
 
-                int test = 0;
                 for (int i = 0; i < row.getReplyList().size(); i++) {
-                    test += 1;
-                    postDto = PostDto.builder()
-                            .pno(reply.get(i).getPno())
-                            .text(reply.get(i).getText())
-                            .createdAt(reply.get(i).getCreatedAt())
-                            .updatedAt(reply.get(i).getUpdatedAt())
-                            .originalReference(reply.get(i).getOriginalReference())
-                            .lastReference(reply.get(i).getLastReference())
-                            .uno(replyWriter.get(i).getUno())
-                            .writerId(replyWriter.get(i).getUserId())
-                            .writerNickname(replyWriter.get(i).getNickname())
-                            .build();
-                    replyList.add(postDto);
+                    replyList.add(entityToDto(reply.get(i), replyWriter.get(i), null));
                 }
                 dto.setReplyList(replyList);
             }
@@ -136,37 +92,7 @@ public interface PostService {
     public default TotalPostDto entityToDto(TotalPost tp) {
         TotalPostDto dto = new TotalPostDto();
 
-        Post post = tp.getPost();
-        User writer = tp.getWriter();
-        PostDto postDto = PostDto.builder()
-                .pno(post.getPno())
-                .text(post.getText())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .originalReference(post.getOriginalReference())
-                .lastReference(post.getLastReference())
-                .uno(writer.getUno())
-                .writerId(writer.getUserId())
-                .writerNickname(writer.getNickname())
-                .build();
-        dto.setPost(postDto);
-
-        List<PostImageDto> postImageList = new ArrayList<>();
-        try {
-            if (tp.getImageList() != null) {
-                postImageList = tp.getImageList().stream().map(i -> {
-                    return PostImageDto.builder()
-                            .ino(i.getIno())
-                            .path(i.getPath())
-                            .uuid(i.getUuid())
-                            .imgName(i.getImgName())
-                            .build();
-                }).collect(Collectors.toList());
-                postDto.setImageList(postImageList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dto.setPost(entityToDto(tp.getPost(), tp.getWriter(), tp.getImageList()));
 
         List<TotalListRowDto> prevPostList = new ArrayList<>();
         try {

@@ -193,10 +193,11 @@ public class PostServiceImpl implements PostService {
             if (oriPostRow.getReplyList() != null) {
                 // 댓글 리스트 조회 후 최초글 바로 다음 글이 댓글 리스트에 있을 경우 댓글 리스트에서 제외
                 for (int i = 0; i < oriPostRow.getReplyList().size(); i++) {
-                    if (oriPostRow.getReplyList().get(i).getPno() == prevPostList.get(prevPostList.size()-1).getPost().getPno()) {
+                    if (oriPostRow.getReplyList().get(i).getPno() == prevPostList.get(prevPostList.size() - 1).getPost()
+                            .getPno()) {
                         oriPostRow.getReplyList().remove(i);
                         break;
-                        
+
                     }
                 }
             }
@@ -213,7 +214,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getDeletePage(Long pno) {
-        return null;
+        List<Object[]> result = postRepository.findByPnoWithWriter(pno);
+        PostDto dto = new PostDto();
+        for (Object[] objects : result) {
+            Post post = (Post) objects[0];
+            dto = entityToDto(post, (User) objects[1], postImageRepository.findByPost(post));
+        }
+        return dto;
     }
 
     @Override
@@ -350,5 +357,4 @@ public class PostServiceImpl implements PostService {
         return row;
     }
 
-    
 }
