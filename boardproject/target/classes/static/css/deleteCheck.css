@@ -12,3 +12,15 @@
 
   padding: 2em;
 }
+
+.deleteBtnDiv {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.deleteBtnDiv button {
+  font-size: 1.1em;
+  margin-left: 30px;
+  padding: 5px;
+  width: 150px;
+}

@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.dto.PageResultDto;
-import com.example.boardproject.dto.PostDto;
 import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
@@ -41,9 +41,20 @@ public class BoardController {
     }
 
     @GetMapping("/delete")
-    public void getDeletePage(Long pno, Model model) {
+    public void getDeletePage(@ModelAttribute("requestDto") PageRequestDto requestDto, Long pno, Model model) {
         log.info("getDeletePage() " + pno);
         model.addAttribute("result", service.getDeletePage(pno));
+        model.addAttribute("requestDto", requestDto);
+    }
+
+    @PostMapping("/remove")
+    public String postMethodName(Long pno, RedirectAttributes rttr) {
+        log.info("remove() " + pno);
+        if (service.removePost(pno)) {
+            rttr.addFlashAttribute("deletePno", pno);
+        }
+
+        return "redirect:/post/list";
     }
 
 }

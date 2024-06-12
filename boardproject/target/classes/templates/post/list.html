@@ -151,6 +151,10 @@
   </div>
 
   <th:block layout:fragment="javascript">
+    <script>
+      const deletePno = "[[${deletePno}]]";
+      if (deletePno) alert(deletePno + "번이 삭제되었습니다");
+    </script>
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>
     <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->

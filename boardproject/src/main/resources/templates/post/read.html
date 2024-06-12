@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
   <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}">
+    <!-- <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}"> -->
     <link rel="stylesheet" th:href="@{/css/individualPost.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
   </th:block>
@@ -118,7 +118,7 @@
                 <p>
                   <a th:href="@{list(page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn blueBtn">목록</a>
                   <a href="#" class="mainPostBtn yellowBtn">수정</a>
-                  <a th:href="@{delete(pno=${result.post.pno})}" class="mainPostBtn redBtn">삭제</a>
+                  <a th:href="@{delete(pno=${result.post.pno}, page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn redBtn">삭제</a>
                 </p>
                 <div class="replyThreadToggle">
                   <p class="textBold">

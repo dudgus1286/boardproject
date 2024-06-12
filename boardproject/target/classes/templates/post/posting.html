@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css">
+    <!-- <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}"> -->
+    <link rel="stylesheet" th:href="@{/css/individualPost.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+  </th:block>
+  <div layout:fragment="mainHeader" class="mainHeader">
+    <!-- 검색폼 여부와 상관없이 상단 여백 -->
+    <div class="timelineHeader"></div>
+  </div>
+
+  <div layout:fragment="mainContainer" class="mainContainer">
+    <!-- 포스트 작성, 포스트 수정 -->
+  </div>
+
+  <th:block layout:fragment="javascript">
+    <script th:src="@{/js/toggle.js}"></script>
+    <script th:src="@{/js/postContainerEvent.js}"></script>
+    <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
+  </th:block>
+</html>

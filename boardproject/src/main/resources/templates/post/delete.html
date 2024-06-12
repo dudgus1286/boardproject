@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
   <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}">
     <link rel="stylesheet" th:href="@{/css/individualPost.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
     <link rel="stylesheet" th:href="@{/css/deleteCheck.css}">
@@ -52,11 +51,14 @@
       <div class="deleteCheck">
         <p>해당 글을 삭제하겠습니까?</p>
         <div class="deleteBtnDiv">
-          <button>예</button>
-          <button>아니오</button>
+          <button class="deleteBtn">예</button>
+          <button class="readBtn">아니오</button>
         </div>
-        <form th:action="@{remove}">
-          <input type="hidden" name="remove" th:value="${result.pno}">
+        <form th:action="@{remove}" id="actionForm" method="post">
+          <input type="hidden" id="pno" name="pno" th:value="${result.pno}">
+          <input type="hidden" id="page" name="page" th:value="${requestDto.page}">
+          <input type="hidden" id="type" name="type" th:value="${requestDto.type}">
+          <input type="hidden" id="keyword" name="keyword" th:value="${requestDto.keyword}">
         </form>
       </div>
 
@@ -80,6 +82,7 @@
   <th:block layout:fragment="javascript">
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>
+    <script th:src="@{/js/delete.js}"></script>
     <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
   </th:block>
 </html>
