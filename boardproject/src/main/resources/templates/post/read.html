@@ -79,7 +79,7 @@
           </div>
           
           <!-- 개별글 영역 -->
-          <div class="timelineContainer postContainer">
+          <div class="timelineContainer">
             <div class="individualPost" id="mainPost">
               <div class="postInfo">
                 <div class="postCreateDate createDate">
@@ -163,7 +163,7 @@
                 <h2>댓글 : <span th:text="${result.replyList.size()}"></span> </h2>
               </div>
           <!-- 댓글이 있을 경우 -->
-          <div class="timelineContainer postContainer" th:if="${result.replyList}">
+          <div class="timelineContainer" th:if="${result.replyList}">
             <div class="individualPost" th:each="reply : ${result.replyList}">
               <div class="postInfo">
                 <div class="postCreateDate createDate">

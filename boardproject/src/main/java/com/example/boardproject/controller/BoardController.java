@@ -18,6 +18,7 @@ import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -48,13 +49,18 @@ public class BoardController {
     }
 
     @PostMapping("/remove")
-    public String postMethodName(Long pno, RedirectAttributes rttr) {
-        log.info("remove() " + pno);
+    public String removePost(Long pno, RedirectAttributes rttr) {
+        log.info("removePost() " + pno);
         if (service.removePost(pno)) {
             rttr.addFlashAttribute("deletePno", pno);
         }
 
         return "redirect:/post/list";
+    }
+
+    @GetMapping("/posting")
+    public void getPosting() {
+        log.info("getPosting()");
     }
 
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
   <th:block layout:fragment="css">
-    <!-- <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}"> -->
     <link rel="stylesheet" th:href="@{/css/individualPost.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/posting.css}">
   </th:block>
   <div layout:fragment="mainHeader" class="mainHeader">
     <!-- 검색폼 여부와 상관없이 상단 여백 -->
@@ -11,7 +11,25 @@
   </div>
 
   <div layout:fragment="mainContainer" class="mainContainer">
-    <!-- 포스트 작성, 포스트 수정 -->
+    <!-- 포스트 작성 영역 -->
+    <div class="postingDiv">
+
+      <h2>글 작성하기</h2>
+
+      <div class="postingDiv2">
+        <form action="" method="post" id="postingForm">
+
+            <div class="postTextDiv">
+              <p>
+                <label for="text" class="textBold">텍스트</label>
+              </p>
+              <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea>
+              <button type="submit" class="textBold">올리기</button>
+            </div>
+
+        </form>
+      </div>
+    </div>
   </div>
 
   <th:block layout:fragment="javascript">

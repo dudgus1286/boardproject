@@ -101,15 +101,17 @@
 /* 개별글 페이지 */
 #mainPost {
   background-color: coral;
-  max-width: 1250px;
+  max-width: 1100px;
   width: 99%;
   margin-bottom: 20px;
 }
 
+/* 개별글 하단부 여유 추가 */
 .replyThreadToggle {
   margin-top: 10px;
 }
 
+/* 개별글 하단 버튼 */
 .mainPostBtn {
   border: 1px solid black;
   border-radius: 5px;
@@ -129,6 +131,7 @@
   background-color: rgb(255, 30, 30);
 }
 
+/* 댓글/글타래 추가 영역 */
 .replyThread {
   text-align: left;
 }
@@ -144,22 +147,24 @@
   height: 2em;
 }
 
-.replyForm {
+.replyForm,
+.postTextDiv {
   padding-bottom: 20px;
   width: 100%;
   max-width: 950px;
   margin: 0 auto;
 }
-.replyTextarea textarea {
+.replyTextarea textarea,
+.postTextDiv textarea {
   width: 100%;
   max-width: 950px;
   border: 1px solid gray;
   resize: none;
   margin: 5px auto;
 }
-.replyThread #text {
-}
-.replyThread button {
+
+.replyThread button,
+.postTextDiv button {
   height: 2em;
   width: 100px;
   background-color: darkcyan;
