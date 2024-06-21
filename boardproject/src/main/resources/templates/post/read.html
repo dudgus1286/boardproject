@@ -150,7 +150,7 @@
                         <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br />
                         <button type="submit" class="textBold">올리기</button>
                       </div>
-                      <input type="hidden" name="postNo" th:value="${result.post.pno}" />
+                      <input type="hidden" name="lastReference" th:value="${result.post.pno}" />
                     </form>
                   </div>
                 </div>
@@ -238,6 +238,12 @@
         </div>
   </div>
 
+  <!-- 글 수정용 원본자료 -->
+   <form action="">
+    <input type="hidden" name="pno" id="pno">
+    <input type="hidden" name="" >
+    <input type="hidden" name="">
+   </form>
   <th:block layout:fragment="javascript">
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>
