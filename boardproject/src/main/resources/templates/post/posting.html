@@ -15,9 +15,10 @@
     <div class="postingDiv">
 
       <h2>글 작성하기</h2>
+      <div class="originalPost" th:if="${dto}"></div>
 
       <div class="postingDiv2">
-        <form action="" method="post" id="postingForm">
+        <form th:action="@{createPost}" method="post" id="postingForm">
 
             <div class="postTextDiv">
               <p>
@@ -26,7 +27,10 @@
               <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea>
               <button type="submit" class="textBold">올리기</button>
             </div>
-
+            <input type="hidden" name="uno" value="1">
+            <input type="hidden" name="pno" th:if="${dto}" th:value="${dto.pno}">
+            <input type="hidden" name="originalReference" th:if="${dto}" th:value="${dto.originalReference}">
+            <input type="hidden" name="lastReference" th:if="${dto}" th:value="${dto.lastReference}">
         </form>
       </div>
     </div>

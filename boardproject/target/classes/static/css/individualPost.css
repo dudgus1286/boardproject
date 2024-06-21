@@ -163,6 +163,10 @@
   margin: 5px auto;
 }
 
+.postingDiv textarea {
+  height: 130px;
+}
+
 .replyThread button,
 .postTextDiv button {
   height: 2em;

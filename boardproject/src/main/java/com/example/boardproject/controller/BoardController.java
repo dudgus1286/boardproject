@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.boardproject.dto.PageRequestDto;
 import com.example.boardproject.dto.PageResultDto;
+import com.example.boardproject.dto.PostDto;
 import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.service.PostService;
@@ -19,6 +20,7 @@ import com.example.boardproject.total.TotalPostListRow;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -58,9 +60,23 @@ public class BoardController {
         return "redirect:/post/list";
     }
 
+    // @GetMapping("/posting")
+    // public void getPosting() {
+    // log.info("getPosting()");
+    // }
+
     @GetMapping("/posting")
-    public void getPosting() {
-        log.info("getPosting()");
+    public void getPosting(PostDto dto, Model model) {
+        log.info("getPosting() {}", dto);
+        model.addAttribute("dto", dto);
+    }
+
+    @PostMapping("/createPost")
+    public String createPost(PostDto dto, RedirectAttributes rttr) {
+        log.info("createPost " + dto);
+        // rttr.addAttribute("pno", service.createPost(dto));
+
+        return "redirect:/post/read";
     }
 
 }

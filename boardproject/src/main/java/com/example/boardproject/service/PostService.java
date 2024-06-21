@@ -25,6 +25,8 @@ public interface PostService {
 
     boolean removePost(Long pno);
 
+    Long createPost(PostDto post);
+
     public default PostDto entityToDto(Post post, User writer, List<PostImage> list) {
         PostDto dto = PostDto.builder()
                 .pno(post.getPno())
@@ -54,7 +56,13 @@ public interface PostService {
     }
 
     public default Post dtoToEntity(PostDto dto) {
-        return null;
+        return Post.builder()
+                .pno(dto.getPno())
+                .text(dto.getText())
+                .writer(User.builder().uno(dto.getUno()).build())
+                .originalReference(dto.getOriginalReference())
+                .lastReference(dto.getLastReference())
+                .build();
     }
 
     public default TotalListRowDto entityToDto(TotalPostListRow row) {

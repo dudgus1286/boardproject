@@ -433,4 +433,14 @@ public class PostRepositoryTest {
         postRepository.deleteById(pno);
         // System.out.println(postRepository.findById(1L).get());
     }
+
+    @Test
+    public void createPostTest() {
+        Long uno = 1L;
+        Long pno = postRepository.save(Post.builder()
+                .text("안녕하세요?")
+                .writer(User.builder().uno(uno).build())
+                .build()).getPno();
+        System.out.println(pno);
+    }
 }

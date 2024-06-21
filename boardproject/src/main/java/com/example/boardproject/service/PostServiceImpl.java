@@ -235,6 +235,11 @@ public class PostServiceImpl implements PostService {
         return true;
     }
 
+    @Override
+    public Long createPost(PostDto dto) {
+        return postRepository.save(dtoToEntity(dto)).getPno();
+    }
+
     public List<TotalPostListRow> getTotalPostListRow(List<Object[]> result) {
         // TotalPostListRow 가 담긴 List 반환하는 메소드
         List<TotalPostListRow> list = new ArrayList<>();
