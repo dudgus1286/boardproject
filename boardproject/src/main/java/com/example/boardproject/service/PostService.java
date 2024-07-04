@@ -31,6 +31,7 @@ public interface PostService {
         PostDto dto = PostDto.builder()
                 .pno(post.getPno())
                 .text(post.getText())
+                // .text(post.getText().replace("\r\n", "<br/>"))
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
                 .originalReference(post.getOriginalReference())

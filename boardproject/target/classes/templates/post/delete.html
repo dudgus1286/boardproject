@@ -12,71 +12,70 @@
 
   <div layout:fragment="mainContainer" class="mainContainer">
     <!-- 개별글 영역 -->
-      <div class="individualPost postContainer">
-        <div class="postInfo">
-          <div class="postCreateDate createDate">
-            작성일:
-            <span th:text="${#temporals.format(result.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
-            <span th:if="${#temporals.format(result.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
-          </div>
-          <div class="writer">
-            <div class="writerImg">
-              <a href="게시글작성자">
-              <img src="http://via.placeholder.com/50.jpg" alt="" />
-              </a>
-            </div>
-            <span class="writerNickname textBold">
-              <a href="게시글작성자" th:text="${result.writerNickname}">
-                작성자닉네임
-              </a>
-            </span>
-          </div>
+    <div class="individualPost postContainer">
+      <div class="postInfo">
+        <div class="postCreateDate createDate">
+          작성일:
+          <span th:text="${#temporals.format(result.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
+          <span th:if="${#temporals.format(result.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
         </div>
-
-        <div class="post">
-          <div class="postText">
-            <p th:text="${result.text}">
-                게시글 텍스트
-            </p>
+        <div class="writer">
+          <div class="writerImg">
+            <a href="게시글작성자">
+              <img src="http://via.placeholder.com/50.jpg" alt=""/>
+            </a>
           </div>
-          <div class="postImages" th:if="${result.imageList}">
-            <div class="postImage" th:each="image : ${result.imageList}">
-              <img src="http://via.placeholder.com/200.jpg" alt="" />
-            </div>
-          </div>
+          <span class="writerNickname textBold">
+            <a href="게시글작성자" th:text="${result.writerNickname}">
+              작성자닉네임
+            </a>
+          </span>
         </div>
-
       </div>
 
-      <div class="deleteCheck">
-        <p>해당 글을 삭제하겠습니까?</p>
-        <div class="deleteBtnDiv">
-          <button class="deleteBtn">예</button>
-          <button class="readBtn">아니오</button>
+      <div class="post">
+        <div class="postText">
+          <pre th:text="${result.text}"></pre>
         </div>
-        <form th:action="@{remove}" id="actionForm" method="post">
-          <input type="hidden" id="pno" name="pno" th:value="${result.pno}">
-          <input type="hidden" id="page" name="page" th:value="${requestDto.page}">
-          <input type="hidden" id="type" name="type" th:value="${requestDto.type}">
-          <input type="hidden" id="keyword" name="keyword" th:value="${requestDto.keyword}">
-        </form>
+        <div class="postImages" th:if="${result.imageList}">
+          <div class="postImage" th:each="image : ${result.imageList}">
+            <img src="http://via.placeholder.com/200.jpg" alt=""/>
+          </div>
+        </div>
       </div>
 
-        <!-- 이미지 모달 -->
-        <div class="modal hidden">
-            <div class="modalBody">
-              <div class="modalBodyInfo">
-                <p>작성자: <span class="writerNickname textBold">김모 씨</span></p>
-                <p>원본글 링크</p>
-              </div>
-              <div class="modalBodyImage">
-                <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
-              </div>
-              <div class="modalBodyClose">
-                <button type="button" class="modalBodyCloseBtn">닫기</button>
-              </div>
-            </div>
+    </div>
+
+    <div class="deleteCheck">
+      <p>해당 글을 삭제하겠습니까?</p>
+      <div class="deleteBtnDiv">
+        <button class="deleteBtn">예</button>
+        <button class="readBtn">아니오</button>
+      </div>
+      <form th:action="@{remove}" id="actionForm" method="post">
+        <input type="hidden" id="pno" name="pno" th:value="${result.pno}">
+        <input type="hidden" id="page" name="page" th:value="${requestDto.page}">
+        <input type="hidden" id="type" name="type" th:value="${requestDto.type}">
+        <input type="hidden" id="keyword" name="keyword" th:value="${requestDto.keyword}">
+      </form>
+    </div>
+
+    <!-- 이미지 모달 -->
+    <div class="modal hidden">
+      <div class="modalBody">
+        <div class="modalBodyInfo">
+          <p>작성자:
+            <span class="writerNickname textBold">김모 씨</span></p>
+          <p>원본글 링크</p>
         </div>
+        <div class="modalBodyImage">
+          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)"/>
+        </div>
+        <div class="modalBodyClose">
+          <button type="button" class="modalBodyCloseBtn">닫기</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <th:block layout:fragment="javascript">

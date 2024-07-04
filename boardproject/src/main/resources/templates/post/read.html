@@ -15,235 +15,238 @@
       <div class="individualPost missingLinkAlertDiv" th:if="${!result.oriCheck}">
         <p>최초 발행된 게시글이 삭제되었습니다.</p>
       </div>
-          <!-- 이전에 발행된 글이 있을 경우 -->
-          <div class="timelineContainer prevPostContainer" th:each="prevPost, idx : ${result.prevPostList}">
-            <div class="individualPost" >
-              <div class="postInfo">
-                <div class="postCreateDate createDate">
-                  작성일:
-                  <span th:text="${#temporals.format(prevPost.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
-                  <span th:if="${#temporals.format(prevPost.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(prevPost.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
-                </div>
-                <div class="writer">
-                  <div class="writerImg">
-                    <a href="게시글작성자">
-                    <img src="http://via.placeholder.com/50.jpg" alt="" />
-                    </a>
-                  </div>
-                  <span class="writerNickname textBold">
-                    <a href="게시글작성자" th:text="${prevPost.post.writerNickname}">
-                      작성자닉네임
-                    </a>
-                  </span>
-                </div>
-              </div>
-  
-              <div class="post">
-                <div class="postText">
-                  <p>
-                    <a th:href="@{read#mainPost(pno=${prevPost.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" th:text="${prevPost.post.text}">
-                      게시글 텍스트
-                    </a>
-                  </p>
-                </div>
-                <div class="postImages" th:if="${prevPost.post.imageList}">
-                  <div class="postImage" th:each="image : ${prevPost.post.imageList}">
-                    <img src="http://via.placeholder.com/200.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-  
-              <div class="nextPosts" th:if="${prevPost.replyList != null && prevPost.replyList.size() > 0}">
-                <div class="nextPostsCount">
-                  <p class="textBold">
-                    덧글 개수:
-                    <span th:text="${prevPost.replyList.size()}">(0)</span>
-                  </p>
-                </div>
-                <div class="nextPostsList hidden">
-                  <div class="nextPost" th:each="prevReply : ${prevPost.replyList}">
-                    <p>
-                      <span class="createDate" th:text="${#temporals.format(prevPost.post.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
-                      <a href="댓글작성자" class="nextNickname textBold" th:text="${prevReply.writerNickname}">작성자</a>:
-                      <a th:href="@{read#mainPost(pno=${prevReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${prevReply.text}">댓글 내용</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
+      <!-- 이전에 발행된 글이 있을 경우 -->
+      <div class="timelineContainer prevPostContainer" th:each="prevPost, idx : ${result.prevPostList}">
+        <div class="individualPost">
+          <div class="postInfo">
+            <div class="postCreateDate createDate">
+              작성일:
+              <span th:text="${#temporals.format(prevPost.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
+              <span th:if="${#temporals.format(prevPost.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(prevPost.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
             </div>
-
-            <div class="individualPost missingLinkAlertDiv"
-            th:if="${!result.linkCheck && result.oriCheck && ((!idx.last && prevPost.post.pno != result.prevPostList.get(idx.index+1).post.pno) || (idx.last && prevPost.post.pno != result.post.lastReference))}">
-              <p>중간에 게시글이 삭제된 기록이 있습니다.</p>
+            <div class="writer">
+              <div class="writerImg">
+                <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt=""/>
+                </a>
+              </div>
+              <span class="writerNickname textBold">
+                <a href="게시글작성자" th:text="${prevPost.post.writerNickname}">
+                  작성자닉네임
+                </a>
+              </span>
             </div>
           </div>
-          
-          <!-- 개별글 영역 -->
-          <div class="timelineContainer">
-            <div class="individualPost" id="mainPost">
-              <div class="postInfo">
-                <div class="postCreateDate createDate">
-                  작성일:
-                  <span th:text="${#temporals.format(result.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
-                  <span th:if="${#temporals.format(result.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
-                </div>
-                <div class="writer">
-                  <div class="writerImg">
-                    <a href="게시글작성자">
-                    <img src="http://via.placeholder.com/50.jpg" alt="" />
-                    </a>
-                  </div>
-                  <span class="writerNickname textBold">
-                    <a href="게시글작성자" th:text="${result.post.writerNickname}">
-                      작성자닉네임
-                    </a>
-                  </span>
-                </div>
+
+          <div class="post">
+            <div class="postText">
+              <p>
+                <a th:href="@{read#mainPost(pno=${prevPost.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}">
+                  <pre th:text="${prevPost.post.text}"></pre>
+                </a>
+              </p>
+            </div>
+            <div class="postImages" th:if="${prevPost.post.imageList}">
+              <div class="postImage" th:each="image : ${prevPost.post.imageList}">
+                <img src="http://via.placeholder.com/200.jpg" alt=""/>
               </div>
-  
-              <div class="post">
-                <div class="postText">
-                  <p th:text="${result.post.text}">
-                      게시글 텍스트
-                  </p>
-                </div>
-                <div class="postImages" th:if="${result.post.imageList}">
-                  <div class="postImage" th:each="image : ${result.post.imageList}">
-                    <img src="http://via.placeholder.com/200.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-  
-              <div class="nextPosts">
+            </div>
+          </div>
+
+          <div class="nextPosts" th:if="${prevPost.replyList != null && prevPost.replyList.size() > 0}">
+            <div class="nextPostsCount">
+              <p class="textBold">
+                덧글 개수:
+                <span th:text="${prevPost.replyList.size()}">(0)</span>
+              </p>
+            </div>
+            <div class="nextPostsList hidden">
+              <div class="nextPost" th:each="prevReply : ${prevPost.replyList}">
                 <p>
-                  <a th:href="@{list(page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn blueBtn">목록</a>
-                  <a href="#" class="mainPostBtn yellowBtn">수정</a>
-                  <a th:href="@{delete(pno=${result.post.pno}, page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn redBtn">삭제</a>
+                  <span class="createDate" th:text="${#temporals.format(prevPost.post.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
+                  <a href="댓글작성자" class="nextNickname textBold" th:text="${prevReply.writerNickname}">작성자</a>:
+                  <a th:href="@{read#mainPost(pno=${prevReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${prevReply.text}">댓글 내용</a>
                 </p>
-                <div class="replyThreadToggle">
-                  <p class="textBold">
-                    해당 글에 댓글 작성 / 글타래에 추가
-                  </p>
-                </div>
-                <div class="replyThread hidden">
-                  <!-- 글타래 추가폼 -->
-                  <div class="updateThread">
-                    <form action="" method="get" class="threadForm" id="threadForm">
-                      <label for="myThread" class="textBold">글타래에 추가하기</label>
-                      <select name="myThread" id="myThread" form="threadForm">
-                        <option value="thread1">글타래 1</option>
-                        <option value="thread2">글타래 2</option>
-                        <option value="thread3">글타래 3</option>
-                      </select>
-                      <button type="submit" class="textBold">추가하기</button>
-                      <input type="hidden" name="postNo" th:value="${result.post.pno}"/>
-                    </form>
-                  </div>
-
-                  <!-- 댓글 작성폼 -->
-                  <div class="createReply">
-                    <form action="" method="get" class="replyForm">
-                      <p>
-                        <label for="text" class="textBold">덧글 작성하기</label>
-                      </p>
-                      <div class="replyTextarea">
-                        <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br />
-                        <button type="submit" class="textBold">올리기</button>
-                      </div>
-                      <input type="hidden" name="lastReference" th:value="${result.post.pno}" />
-                    </form>
-                  </div>
-                </div>
-              </div>
-              
-              </div>
-              </div>
-              
-              <div style="max-width: 980px; margin: 0 auto; width: 98%;">
-                <h2>댓글 : <span th:text="${result.replyList.size()}"></span> </h2>
-              </div>
-          <!-- 댓글이 있을 경우 -->
-          <div class="timelineContainer" th:if="${result.replyList}">
-            <div class="individualPost" th:each="reply : ${result.replyList}">
-              <div class="postInfo">
-                <div class="postCreateDate createDate">
-                  작성일:
-                  <span th:text="${#temporals.format(reply.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
-                  <span th:if="${#temporals.format(reply.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(reply.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
-                </div>
-                <div class="writer">
-                  <div class="writerImg">
-                    <a href="게시글작성자">
-                    <img src="http://via.placeholder.com/50.jpg" alt="" />
-                    </a>
-                  </div>
-                  <span class="writerNickname textBold">
-                    <a href="게시글작성자" th:text="${reply.post.writerNickname}">
-                      작성자닉네임
-                    </a>
-                  </span>
-                </div>
-              </div>
-  
-              <div class="post">
-                <div class="postText">
-                  <p>
-                    <a th:href="@{read#mainPost(pno=${reply.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" th:text="${reply.post.text}">
-                      게시글 텍스트
-                    </a>
-                  </p>
-                </div>
-                <div class="postImages" th:if="${reply.post.imageList}">
-                  <div class="postImage" th:each="image : ${reply.post.imageList}">
-                    <img src="http://via.placeholder.com/200.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
-  
-              <div class="nextPosts" th:if="${reply.replyList}">
-                <div class="nextPostsCount">
-                  <p class="textBold">
-                    덧글 개수:
-                    <span th:text="${reply.replyList.size()}">(0)</span>
-                  </p>
-                </div>
-                <div class="nextPostsList hidden">
-                  <div class="nextPost" th:each="reReply : ${reply.replyList}">
-                    <p>
-                      <span class="createDate" th:text="${#temporals.format(reReply.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
-                      <a href="댓글작성자" class="nextNickname textBold" th:text="${reReply.writerNickname}">작성자</a>:
-                      <a th:href="@{read#mainPost(pno=${reReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${reReply.text}">댓글 내용</a>
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 이미지 모달 -->
-        <div class="modal hidden">
-            <div class="modalBody">
-              <div class="modalBodyInfo">
-                <p>작성자: <span class="writerNickname textBold">김모 씨</span></p>
-                <p>원본글 링크</p>
+        <div class="individualPost missingLinkAlertDiv" th:if="${!result.linkCheck && result.oriCheck && ((!idx.last && prevPost.post.pno != result.prevPostList.get(idx.index+1).post.lastReference) || (idx.last && prevPost.post.pno != result.post.lastReference))}">
+          <p>중간에 게시글이 삭제된 기록이 있습니다.</p>
+        </div>
+      </div>
+
+      <!-- 개별글 영역 -->
+      <div class="timelineContainer">
+        <div class="individualPost" id="mainPost">
+          <div class="postInfo">
+            <div class="postCreateDate createDate">
+              작성일:
+              <span th:text="${#temporals.format(result.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
+              <span th:if="${#temporals.format(result.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(result.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
+            </div>
+            <div class="writer">
+              <div class="writerImg">
+                <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt=""/>
+                </a>
               </div>
-              <div class="modalBodyImage">
-                <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)" />
-              </div>
-              <div class="modalBodyClose">
-                <button type="button" class="modalBodyCloseBtn">닫기</button>
+              <span class="writerNickname textBold">
+                <a href="게시글작성자" th:text="${result.post.writerNickname}">
+                  작성자닉네임
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="postText">
+              <pre th:text="${result.post.text}"></pre>
+            </div>
+            <div class="postImages" th:if="${result.post.imageList}">
+              <div class="postImage" th:each="image : ${result.post.imageList}">
+                <img src="http://via.placeholder.com/200.jpg" alt=""/>
               </div>
             </div>
+          </div>
+
+          <div class="nextPosts">
+            <p>
+              <a th:href="@{list(page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn blueBtn">목록</a>
+              <a th:href="@{posting(pno=${result.post.pno})}" class="mainPostBtn yellowBtn">수정</a>
+              <a th:href="@{delete(pno=${result.post.pno}, page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn redBtn">삭제</a>
+            </p>
+            <div class="replyThreadToggle">
+              <p class="textBold">
+                해당 글에 댓글 작성 / 글타래에 추가
+              </p>
+            </div>
+            <div class="replyThread hidden">
+              <!-- 글타래 추가폼 -->
+              <div class="updateThread">
+                <form action="" method="get" class="threadForm" id="threadForm">
+                  <label for="myThread" class="textBold">글타래에 추가하기</label>
+                  <select name="myThread" id="myThread" form="threadForm">
+                    <option value="thread1">글타래 1</option>
+                    <option value="thread2">글타래 2</option>
+                    <option value="thread3">글타래 3</option>
+                  </select>
+                  <button type="submit" class="textBold">추가하기</button>
+                  <input type="hidden" name="postNo" th:value="${result.post.pno}"/>
+                </form>
+              </div>
+
+              <!-- 댓글 작성폼 -->
+              <div class="createReply">
+                <form th:action="@{createPost}" method="post" class="replyForm">
+                  <p>
+                    <label for="text" class="textBold">덧글 작성하기</label>
+                  </p>
+                  <div class="replyTextarea">
+                    <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br/>
+                    <button type="submit" class="textBold">올리기</button>
+                  </div>
+                  <input type="hidden" name="lastReference" th:value="${result.post.pno}"/>
+                  <input type="hidden" name="originalReference" th:value="${result.post.originalReference}" th:if="${result.post.originalReference}"/>
+                  <input type="hidden" name="originalReference" th:value="${result.post.pno}" th:unless="${result.post.originalReference}"/>
+                  <input type="hidden" name="uno" value="31">
+                </form>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <div style="max-width: 980px; margin: 0 auto; width: 98%;">
+        <h2>댓글 :
+          <span th:text="${result.replyList.size()}"></span>
+        </h2>
+      </div>
+      <!-- 댓글이 있을 경우 -->
+      <div class="timelineContainer" th:if="${result.replyList}">
+        <div class="individualPost" th:each="reply : ${result.replyList}">
+          <div class="postInfo">
+            <div class="postCreateDate createDate">
+              작성일:
+              <span th:text="${#temporals.format(reply.post.createdAt, 'yyyy-MM-dd HH:mm')}">yyyy-MM-dd</span>
+              <span th:if="${#temporals.format(reply.post.updatedAt,'yyyy-MM-dd HH:mm') != #temporals.format(reply.post.createdAt,'yyyy-MM-dd HH:mm')}">(수정됨)</span>
+            </div>
+            <div class="writer">
+              <div class="writerImg">
+                <a href="게시글작성자">
+                  <img src="http://via.placeholder.com/50.jpg" alt=""/>
+                </a>
+              </div>
+              <span class="writerNickname textBold">
+                <a href="게시글작성자" th:text="${reply.post.writerNickname}">
+                  작성자닉네임
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="postText">
+              <p>
+                <a th:href="@{read#mainPost(pno=${reply.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}">
+                  <pre>[[${reply.post.text}]]</pre>
+                </a>
+              </p>
+            </div>
+            <div class="postImages" th:if="${reply.post.imageList}">
+              <div class="postImage" th:each="image : ${reply.post.imageList}">
+                <img src="http://via.placeholder.com/200.jpg" alt=""/>
+              </div>
+            </div>
+          </div>
+
+          <div class="nextPosts" th:if="${reply.replyList}">
+            <div class="nextPostsCount">
+              <p class="textBold">
+                덧글 개수:
+                <span th:text="${reply.replyList.size()}">(0)</span>
+              </p>
+            </div>
+            <div class="nextPostsList hidden">
+              <div class="nextPost" th:each="reReply : ${reply.replyList}">
+                <p>
+                  <span class="createDate" th:text="${#temporals.format(reReply.createdAt, 'yyyy-MM-dd HH:mm')}">(yyyy-MM-dd)</span>
+                  <a href="댓글작성자" class="nextNickname textBold" th:text="${reReply.writerNickname}">작성자</a>:
+                  <a th:href="@{read#mainPost(pno=${reReply.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="nextText" th:text="${reReply.text}">댓글 내용</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이미지 모달 -->
+    <div class="modal hidden">
+      <div class="modalBody">
+        <div class="modalBodyInfo">
+          <p>작성자:
+            <span class="writerNickname textBold">김모 씨</span></p>
+          <p>원본글 링크</p>
+        </div>
+        <div class="modalBodyImage">
+          <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)"/>
+        </div>
+        <div class="modalBodyClose">
+          <button type="button" class="modalBodyCloseBtn">닫기</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- 글 수정용 원본자료 -->
-   <form action="">
+  <form action="">
     <input type="hidden" name="pno" id="pno">
-    <input type="hidden" name="" >
     <input type="hidden" name="">
-   </form>
+    <input type="hidden" name="">
+  </form>
   <th:block layout:fragment="javascript">
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>

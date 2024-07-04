@@ -443,4 +443,10 @@ public class PostRepositoryTest {
                 .build()).getPno();
         System.out.println(pno);
     }
+
+    @Test
+    public void testtt1() {
+        System.out.println(postRepository.findById(182L).get());
+
+    }
 }

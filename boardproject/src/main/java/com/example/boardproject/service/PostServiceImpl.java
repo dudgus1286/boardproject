@@ -76,11 +76,16 @@ public class PostServiceImpl implements PostService {
             prevPost = (Post) obj[2];
             prevPostWriter = (User) obj[3];
         }
+        System.out.println("개별글+바로 이전글 조회" + totalPost.getPost().getLastReference());
+
         // 개별글의 이미지 리스트, 댓글 조회
         totalPost.setImageList(postImageRepository.findByPost(totalPost.getPost()));
+        System.out.println("개별글에 달린 이미지 조회");
+
         // 댓글 처리 (댓글의 댓글 리스트, 이미지 리스트)
         List<Object[]> result = postRepository.findByLastReferenceWithWriter(pno);
         totalPost.setReplList(getTotalPostListRow(result));
+        System.out.println("개별글에 달린 댓글 조회");
 
         // originalReference와 lastReference를 기준으로 이전글을 조회해서 리스트로 담기
         // 개별글에 아예 이전글, 최초글 정보가 없는 경우인지 확인(맨 처음에 작성된 글인지 확인)
@@ -93,8 +98,13 @@ public class PostServiceImpl implements PostService {
         List<TotalPostListRow> prevPostList = new ArrayList<>();
 
         // 조회하려는 개별글을 기준으로 originalReference != lastReference 인지 체크
-        boolean check1 = totalPost.getPost().getOriginalReference() != totalPost.getPost().getLastReference() ? true
+        // boolean check1 = totalPost.getPost().getOriginalReference() !=
+        // totalPost.getPost().getLastReference() ? true
+        // : false;
+        boolean check1 = !totalPost.getPost().getOriginalReference().equals(totalPost.getPost().getLastReference())
+                ? true
                 : false;
+        System.out.println("check1 : " + check1);
 
         // 개별글 조회와 같이 조회된 이전글 정보 찾기
         TotalPostListRow prevPostRow = new TotalPostListRow();
@@ -102,9 +112,11 @@ public class PostServiceImpl implements PostService {
             prevPostRow.setPost(prevPost);
             prevPostRow.setWriter(prevPostWriter);
             prevPostRow.setImageList(postImageRepository.findByPost(prevPost));
+            System.out.println("이전글 이미지 조회" + totalPost.getPost().getLastReference());
 
             // 이전글에 달린 댓글 조회
             List<Object[]> prevReplies = postRepository.findByLastReferenceWithWriter(prevPost.getPno());
+            System.out.println("이전글 댓글 조회" + totalPost.getPost().getLastReference());
             List<Post> prevPostReplyList = new ArrayList<>();
             List<User> prevPostReplyWriter = new ArrayList<>();
             if (!prevReplies.isEmpty()) {
@@ -150,6 +162,7 @@ public class PostServiceImpl implements PostService {
         TotalPostListRow oriPostRow = new TotalPostListRow();
         if (!originalObject.isEmpty()) {
             oriPostRow = getPrevPostReply(originalObject, prevPostList);
+            System.out.println("최초글 정보 조회" + +totalPost.getPost().getOriginalReference());
             if (!totalPost.getLinkCheck()) {
                 // 최초글은 조회되는데 개별글 바로 상단의 글은 조회 안 될 경우 바로 리턴
                 prevPostList.add(oriPostRow);
@@ -170,15 +183,21 @@ public class PostServiceImpl implements PostService {
 
         // 직전에 찾은 상위 글의 바로 위의 글 == 최초글이 되기 전까지 이전글 거슬러 올라가기 반복
         Long lastRefNum = prevPost.getLastReference();
-        while (lastRefNum != totalPost.getPost().getOriginalReference()) {
+        // while (lastRefNum != totalPost.getPost().getOriginalReference()) {
+        while (!lastRefNum.equals(totalPost.getPost().getOriginalReference())) {
             // 이전글 조회
             List<Object[]> prevPostObject = postRepository.findByPnoWithWriter(lastRefNum);
+            System.out.println("최초글 " + totalPost.getPost().getOriginalReference());
+            System.out.println("이전글의 이전글 조회 " + lastRefNum + " " +
+                    totalPost.getLinkCheck());
 
             if (!prevPostObject.isEmpty()) {
                 // 최초글 조회할 때와 같은 코드 메소드로 처리
-                TotalPostListRow prevPostRow1 = getPrevPostReply(prevPostObject, prevPostList);
-                lastRefNum = prevPostRow1.getPost().getLastReference();
+                TotalPostListRow prevPostRow1 = getPrevPostReply(prevPostObject,
+                        prevPostList);
                 prevPostList.add(prevPostRow1);
+                lastRefNum = prevPostRow1.getPost().getLastReference();
+                System.out.println("찾을 글 " + lastRefNum);
             } else {
                 // 이전글을 조회할 수 없는 경우 linkCheck 체크 후 반복문에서 나옴
                 totalPost.setLinkCheck(false);
@@ -287,7 +306,7 @@ public class PostServiceImpl implements PostService {
                 // 포스트별 이미지 분류
                 List<PostImage> imageList = new ArrayList<>();
                 for (PostImage postImage : images) {
-                    if (row.getPost().getPno() == postImage.getPost().getPno()) {
+                    if (row.getPost().getPno().equals(postImage.getPost().getPno())) {
                         imageList.add(postImage);
                     }
                 }
@@ -297,7 +316,7 @@ public class PostServiceImpl implements PostService {
                 List<User> replyWriters = new ArrayList<>();
                 for (Object[] replyObj : replies) {
                     Post reply = (Post) replyObj[0];
-                    if (row.getPost().getPno() == reply.getLastReference()) {
+                    if (row.getPost().getPno().equals(reply.getLastReference())) {
                         replyList.add(reply);
                         replyWriters.add((User) replyObj[1]);
                     }

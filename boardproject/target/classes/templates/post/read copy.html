@@ -41,8 +41,8 @@
           <div class="post">
             <div class="postText">
               <p>
-                <a th:href="@{read#mainPost(pno=${prevPost.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}">
-                  <pre th:text="${prevPost.post.text}"></pre>
+                <a th:href="@{read#mainPost(pno=${prevPost.post.pno},page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" th:text="${prevPost.post.text}">
+                  <pre th:text="${prevpost.post.text}"></pre>
                 </a>
               </p>
             </div>
