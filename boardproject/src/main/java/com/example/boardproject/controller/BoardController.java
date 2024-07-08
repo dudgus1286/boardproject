@@ -19,8 +19,6 @@ import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -46,7 +44,7 @@ public class BoardController {
     @GetMapping("/delete")
     public void getDeletePage(@ModelAttribute("requestDto") PageRequestDto requestDto, Long pno, Model model) {
         log.info("포스트 삭제페이지 " + pno);
-        model.addAttribute("result", service.getDeletePage(pno));
+        model.addAttribute("result", service.getPage(pno));
         model.addAttribute("requestDto", requestDto);
     }
 
@@ -64,16 +62,11 @@ public class BoardController {
     public void getPosting(PostDto dto, Model model, Long pno) {
         log.info("포스트 작성페이지");
         if (pno != null) {
-            model.addAttribute("dto", service.getDeletePage(pno));
+            model.addAttribute("dto", service.getPage(pno));
         } else {
             model.addAttribute("dto", dto);
         }
     }
-
-    // @GetMapping("/modifying")
-    // public void getPostModifying(Long pno) {
-    // log.info("포스트 수정페이지 {}", pno);
-    // }
 
     @PostMapping("/createPost")
     public String createPost(PostDto dto, RedirectAttributes rttr) {

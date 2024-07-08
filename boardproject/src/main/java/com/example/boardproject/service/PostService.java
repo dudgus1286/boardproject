@@ -21,7 +21,7 @@ public interface PostService {
 
     TotalPostDto getRow(Long pno);
 
-    PostDto getDeletePage(Long pno);
+    PostDto getPage(Long pno);
 
     boolean removePost(Long pno);
 

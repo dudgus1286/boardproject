@@ -232,7 +232,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDto getDeletePage(Long pno) {
+    public PostDto getPage(Long pno) {
         List<Object[]> result = postRepository.findByPnoWithWriter(pno);
         PostDto dto = new PostDto();
         for (Object[] objects : result) {

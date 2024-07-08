@@ -1,35 +1,20 @@
 package com.example.boardproject.dto;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Builder
-@ToString
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class PostImageDto {
-    private Long ino;
-
-    private String path;
+public class UploadResultDto implements Serializable {
+    private String folderPath;
 
     private String uuid;
 
-    private String imgName;
+    private String fileName;
 
     public String getImageURL() {
         String fullPath = "";
         try {
-            fullPath = URLEncoder.encode(path + "/" + uuid + "_" + imgName, "UTF-8");
+            fullPath = URLEncoder.encode(folderPath + "/" + uuid + "_" + fileName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -39,7 +24,7 @@ public class PostImageDto {
     public String getThumbImageURL() {
         String fullPath = "";
         try {
-            fullPath = URLEncoder.encode(path + "/s_" + uuid + "_" + imgName, "UTF-8");
+            fullPath = URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
