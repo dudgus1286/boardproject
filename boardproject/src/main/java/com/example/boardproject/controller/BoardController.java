@@ -59,13 +59,9 @@ public class BoardController {
     }
 
     @GetMapping("/posting")
-    public void getPosting(PostDto dto, Model model, Long pno) {
+    public void getPosting(PostDto dto, Model model) {
         log.info("포스트 작성페이지");
-        if (pno != null) {
-            model.addAttribute("dto", service.getPage(pno));
-        } else {
-            model.addAttribute("dto", dto);
-        }
+        model.addAttribute("dto", dto);
     }
 
     @PostMapping("/createPost")

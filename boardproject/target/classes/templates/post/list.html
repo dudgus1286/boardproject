@@ -86,8 +86,8 @@
             </p>
           </div>
           <div class="postImages" th:if="${post.post.imageList}">
-            <div class="postImage" th:each="image : ${post.post.imageList}">
-              <img src="http://via.placeholder.com/200.jpg" alt=""/>
+            <div class="postImage" th:each="image : ${post.post.imageList}" th:attr="data-file=${image.getImageURL()},data-writer=${post.post.writerNickname},data-pno=${post.post.pno},data-page=${requestDto.page},data-type=${requestDto.type},data-keyword=${requestDto.keyword}">
+              <img th:src="|/upload/display?fileName=${image.getThumbImageURL()}|" alt=""/>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
         <div class="nextPosts" th:if="${post.replyList}">
           <div class="nextPostsCount">
             <p class="textBold">
-              덧글 개수:
+              댓글 개수:
               <span th:text="${post.replyList.size()}">(0)</span>
             </p>
           </div>
@@ -138,9 +138,11 @@
     <div class="modal hidden">
       <div class="modalBody">
         <div class="modalBodyInfo">
-          <p>작성자:
-            <span class="writerNickname textBold">김모 씨</span></p>
-          <p>원본글 링크</p>
+          <p>
+            <span class="writerNickname textBold">김모 씨</span>
+            :
+            <span class="postLink">원본글 링크</span>
+          </p>
         </div>
         <div class="modalBodyImage">
           <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)"/>

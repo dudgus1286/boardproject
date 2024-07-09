@@ -47,8 +47,8 @@
               </p>
             </div>
             <div class="postImages" th:if="${prevPost.post.imageList}">
-              <div class="postImage" th:each="image : ${prevPost.post.imageList}">
-                <img src="http://via.placeholder.com/200.jpg" alt=""/>
+              <div class="postImage" th:each="image : ${prevPost.post.imageList}" th:attr="data-file=${image.getImageURL()},data-writer=${prevPost.post.writerNickname},data-pno=${prevPost.post.pno},data-page=${requestDto.page},data-type=${requestDto.type},data-keyword=${requestDto.keyword}">
+                <img th:src="|/upload/display?fileName=${image.getThumbImageURL()}|" alt=""/>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <div class="nextPosts" th:if="${prevPost.replyList != null && prevPost.replyList.size() > 0}">
             <div class="nextPostsCount">
               <p class="textBold">
-                덧글 개수:
+                댓글 개수:
                 <span th:text="${prevPost.replyList.size()}">(0)</span>
               </p>
             </div>
@@ -105,8 +105,8 @@
               <pre th:text="${result.post.text}"></pre>
             </div>
             <div class="postImages" th:if="${result.post.imageList}">
-              <div class="postImage" th:each="image : ${result.post.imageList}">
-                <img src="http://via.placeholder.com/200.jpg" alt=""/>
+              <div class="postImage" th:each="image : ${result.post.imageList}" th:attr="data-file=${image.getImageURL()},data-writer=${result.post.writerNickname},data-pno=${result.post.pno}">
+                <img th:src="|/upload/display?fileName=${image.getThumbImageURL()}|" alt=""/>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
           <div class="nextPosts">
             <p>
               <a th:href="@{list(page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn blueBtn">목록</a>
-              <a th:href="@{posting(pno=${result.post.pno})}" class="mainPostBtn yellowBtn">수정</a>
+              <!--<a th:href="@{posting(pno=${result.post.pno})}" class="mainPostBtn yellowBtn">수정</a>-->
               <a th:href="@{delete(pno=${result.post.pno}, page=${requestDto.page}, type=${requestDto.type}, keyword=${requestDto.keyword})}" class="mainPostBtn redBtn">삭제</a>
             </p>
             <div class="replyThreadToggle">
@@ -141,7 +141,7 @@
               <div class="createReply">
                 <form th:action="@{createPost}" method="post" class="replyForm">
                   <p>
-                    <label for="text" class="textBold">덧글 작성하기</label>
+                    <label for="text" class="textBold">댓글 작성하기</label>
                   </p>
                   <div class="replyTextarea">
                     <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br/>
@@ -196,8 +196,8 @@
               </p>
             </div>
             <div class="postImages" th:if="${reply.post.imageList}">
-              <div class="postImage" th:each="image : ${reply.post.imageList}">
-                <img src="http://via.placeholder.com/200.jpg" alt=""/>
+              <div class="postImage" th:each="image : ${reply.post.imageList}" th:attr="data-file=${image.getImageURL()},data-writer=${reply.post.writerNickname},data-pno=${reply.post.pno}">
+                <img th:src="|/upload/display?fileName=${image.getThumbImageURL()}|" alt=""/>
               </div>
             </div>
           </div>
@@ -205,7 +205,7 @@
           <div class="nextPosts" th:if="${reply.replyList}">
             <div class="nextPostsCount">
               <p class="textBold">
-                덧글 개수:
+                댓글 개수:
                 <span th:text="${reply.replyList.size()}">(0)</span>
               </p>
             </div>
@@ -227,9 +227,11 @@
     <div class="modal hidden">
       <div class="modalBody">
         <div class="modalBodyInfo">
-          <p>작성자:
-            <span class="writerNickname textBold">김모 씨</span></p>
-          <p>원본글 링크</p>
+          <p>
+            <span class="writerNickname textBold">김모 씨</span>
+            :
+            <span class="postLink">원본글 링크</span>
+          </p>
         </div>
         <div class="modalBodyImage">
           <img src="https://picsum.photos/id/237/2000/2000" alt="" onclick="window.open(this.src)"/>
