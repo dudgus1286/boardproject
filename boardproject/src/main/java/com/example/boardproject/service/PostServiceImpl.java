@@ -256,7 +256,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Long createPost(PostDto dto) {
-        return postRepository.save(dtoToEntity(dto)).getPno();
+        Long pno = postRepository.save((Post) dtoToEntity(dto).get("post")).getPno();
+
+        if (dtoToEntity(dto).get("imgList") != null) {
+            List<PostImage> postImages = (List<PostImage>) dtoToEntity(dto).get("imgList");
+            postImages.forEach(image -> postImageRepository.save(image));
+        }
+        return pno;
     }
 
     public List<TotalPostListRow> getTotalPostListRow(List<Object[]> result) {

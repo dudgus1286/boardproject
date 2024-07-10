@@ -19,6 +19,7 @@ import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -65,13 +66,19 @@ public class BoardController {
     }
 
     @PostMapping("/createPost")
-    public String createPost(PostDto dto, RedirectAttributes rttr) {
+    public String createPost(PostDto dto) {
         log.info("포스트 작성 " + dto);
-        // rttr.addAttribute("pno", service.createPost(dto));
         Long pno = service.createPost(dto);
 
         // return "redirect:/post/read";
         return String.format("redirect:/post/read?pno=%d#mainPost", pno);
+    }
+
+    @PostMapping("/modifyPost")
+    public String postMethodName(PostDto dto, Long pno) {
+        log.info(pno + " 번 포스트 수정 " + dto);
+
+        return null;
     }
 
 }

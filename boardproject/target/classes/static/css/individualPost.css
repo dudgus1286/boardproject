@@ -83,12 +83,12 @@
 }
 
 /* 포스트 이미지 영역 */
-.individualPost .post .postImages {
+.postImages {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-.individualPost .post .postImages .postImage {
+.postImages .postImage {
   border: 1px solid black;
   border-radius: 5px;
   margin: 5px;

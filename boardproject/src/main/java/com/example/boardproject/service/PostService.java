@@ -1,7 +1,9 @@
 package com.example.boardproject.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.example.boardproject.dto.PageRequestDto;
@@ -56,14 +58,31 @@ public interface PostService {
         return dto;
     }
 
-    public default Post dtoToEntity(PostDto dto) {
-        return Post.builder()
+    public default Map<String, Object> dtoToEntity(PostDto dto) {
+        Map<String, Object> entityMap = new HashMap<>();
+
+        Post post = Post.builder()
                 .pno(dto.getPno())
                 .text(dto.getText())
                 .writer(User.builder().uno(dto.getUno()).build())
                 .originalReference(dto.getOriginalReference())
                 .lastReference(dto.getLastReference())
                 .build();
+        entityMap.put("post", post);
+
+        List<PostImageDto> postImageDtos = dto.getImageList();
+        if (postImageDtos != null && postImageDtos.size() > 0) {
+            List<PostImage> postImages = postImageDtos.stream().map(iDto -> {
+                return PostImage.builder()
+                        .path(iDto.getPath())
+                        .uuid(iDto.getUuid())
+                        .imgName(iDto.getImgName())
+                        .build();
+            }).collect(Collectors.toList());
+            entityMap.put("imgList", postImages);
+        }
+
+        return entityMap;
     }
 
     public default TotalListRowDto entityToDto(TotalPostListRow row) {

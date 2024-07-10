@@ -14,10 +14,9 @@
     <!-- 포스트 작성 영역 -->
     <div class="postingDiv">
 
-      <h2>글 작성하기</h2>
-      <div class="originalPost" th:if="${dto}"></div>
+      <h2 style="width:980px;max-width:98%;margin:0 auto">글 작성하기</h2>
 
-      <div class="postingDiv2">
+      <div class="postingDiv2 individualPost">
         <form th:action="@{createPost}" method="post" id="postingForm">
           <div class="postTextDiv">
             <p>
@@ -26,12 +25,14 @@
             <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5" cols="3" wrap="hard">[[${dto.text}]]</textarea>
             <button type="submit" class="textBold">올리기</button>
           </div>
-          <input type="hidden" name="uno" th:value="${dto.uno}" th:if="${dto.uno}">
-          <input type="hidden" name="uno" value="1" th:unless="${dto.uno}">
-          <input type="hidden" name="pno" th:value="${dto.pno}" th:if="${dto.pno}">
-          <input type="hidden" name="originalReference" th:value="${dto.originalReference}" th:if="${dto.originalReference}">
-          <input type="hidden" name="lastReference" th:value="${dto.lastReference}" th:if="${dto.lastReference}">
+          <input type="hidden" name="uno" value="1">
         </form>
+        <div class="postImages">
+          <div class="postImage">
+            <img src="http://via.placeholder.com/200.jpg" alt=""/>
+            <button class="imgRemoveBtn">지우기</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
