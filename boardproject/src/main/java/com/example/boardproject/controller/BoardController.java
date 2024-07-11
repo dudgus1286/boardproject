@@ -2,6 +2,7 @@ package com.example.boardproject.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +18,9 @@ import com.example.boardproject.dto.TotalListRowDto;
 import com.example.boardproject.dto.TotalPostDto;
 import com.example.boardproject.service.PostService;
 import com.example.boardproject.total.TotalPostListRow;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,8 +70,12 @@ public class BoardController {
     }
 
     @PostMapping("/createPost")
-    public String createPost(PostDto dto) {
+    public String createPost(@Valid PostDto dto, BindingResult result) {
         log.info("포스트 작성 " + dto);
+
+        if (result.hasErrors()) {
+            return "/post/posting";
+        }
         Long pno = service.createPost(dto);
 
         // return "redirect:/post/read";

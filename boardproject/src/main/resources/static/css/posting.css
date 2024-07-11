@@ -3,12 +3,19 @@
   padding: 10px;
 }
 
-.postingDiv2 .postImage {
+.uploadResult .postImage {
   position: relative;
 }
 
-.postingDiv2 .postImage .imgRemoveBtn {
+.uploadResult .postImage .imgRemoveBtn {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.uploadResult .postImage p {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  text-shadow: -1px 0px 1px white, 0px 1px 1px white, 1px 0px 1px white, 0px -1px 1px white;
 }

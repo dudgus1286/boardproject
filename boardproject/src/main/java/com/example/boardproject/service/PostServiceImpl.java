@@ -260,7 +260,11 @@ public class PostServiceImpl implements PostService {
 
         if (dtoToEntity(dto).get("imgList") != null) {
             List<PostImage> postImages = (List<PostImage>) dtoToEntity(dto).get("imgList");
-            postImages.forEach(image -> postImageRepository.save(image));
+
+            postImages.forEach(image -> {
+                image.setPost(Post.builder().pno(pno).build());
+                postImageRepository.save(image);
+            });
         }
         return pno;
     }

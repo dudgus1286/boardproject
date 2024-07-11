@@ -181,6 +181,17 @@
   border: 1px solid black;
 }
 
+input::file-selector-button {
+  height: 2em;
+  border: 1px solid black;
+  background-color: goldenrod;
+  width: 80px;
+}
+
+input[type="file"] {
+  background-color: gainsboro;
+}
+
 /* 이전글 삭제 알림 영역 */
 .missingLinkAlertDiv {
   height: 75px;

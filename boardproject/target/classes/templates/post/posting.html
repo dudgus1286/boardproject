@@ -17,29 +17,41 @@
       <h2 style="width:980px;max-width:98%;margin:0 auto">글 작성하기</h2>
 
       <div class="postingDiv2 individualPost">
-        <form th:action="@{createPost}" method="post" id="postingForm">
+        <form th:action="@{createPost}" method="post" id="postingForm" th:object="${postDto}">
           <div class="postTextDiv">
-            <p>
-              <label for="text" class="textBold">텍스트</label>
-            </p>
-            <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5" cols="3" wrap="hard">[[${dto.text}]]</textarea>
+            <div>
+              <p>
+                <label for="text" class="textBold">텍스트 ::
+                </label>
+                <span class="textBold" th:if="${#fields.hasErrors('text')}" th:errors="*{text}" style="color:red"></span>
+              </p>
+              <textarea name="text" id="text" placeholder="여기에 작성할 글을 입력하시오" rows="5" cols="3" wrap="hard">[[${postDto.text}]]</textarea>
+            </div>
+
+            <div style="margin-bottom:15px">
+              <input type="file" name="fileInput" id="fileInput" accept=".gif, .jpg, .png" multiple="multiple">
+            </div>
             <button type="submit" class="textBold">올리기</button>
           </div>
           <input type="hidden" name="uno" value="1">
+          <input type="hidden" name="lastReference" th:value="${postDto.lastReference}" th:if="${postDto.lastReference}"/>
+          <input type="hidden" name="originalReference" th:value="${postDto.originalReference}" th:if="${postDto.originalReference}"/>
         </form>
-        <div class="postImages">
-          <div class="postImage">
-            <img src="http://via.placeholder.com/200.jpg" alt=""/>
-            <button class="imgRemoveBtn">지우기</button>
-          </div>
+        <div class="postImages uploadResult">
+          <!-- <div class="postImage"> <img src="http://via.placeholder.com/200.jpg" alt=""/> <button class="imgRemoveBtn">지우기</button> <p>이미지 이름.jpg</p> </div> -->
         </div>
       </div>
     </div>
   </div>
 
   <th:block layout:fragment="javascript">
+    <script>
+      const csrfValue = '[[${_csrf.token}]]';
+    </script>
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>
+    <script th:src="@{/js/posting.js}"></script>
+    <script th:src="@{/js/upload.js}"></script>
     <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
   </th:block>
 

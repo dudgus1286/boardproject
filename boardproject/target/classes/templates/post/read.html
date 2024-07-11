@@ -4,6 +4,7 @@
     <!-- <link rel="stylesheet" th:href="@{/css/searchFormDiv.css}"> -->
     <link rel="stylesheet" th:href="@{/css/individualPost.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/posting.css}">
   </th:block>
   <div layout:fragment="mainHeader" class="mainHeader">
     <!-- 검색폼 여부와 상관없이 상단 여백 -->
@@ -139,12 +140,15 @@
 
               <!-- 댓글 작성폼 -->
               <div class="createReply">
-                <form th:action="@{createPost}" method="post" class="replyForm">
+                <form th:action="@{createPost}" method="post" class="replyForm" id="postingForm" th:object="${postDto}">
                   <p>
                     <label for="text" class="textBold">댓글 작성하기</label>
                   </p>
                   <div class="replyTextarea">
                     <textarea name="text" id="text" placeholder="여기에 댓글을 입력하시오" rows="5"></textarea><br/>
+		<div style="margin-bottom:15px">
+	              <input type="file" name="fileInput" id="fileInput" accept=".gif, .jpg, .png" multiple="multiple">
+            	</div>
                     <button type="submit" class="textBold">올리기</button>
                   </div>
                   <input type="hidden" name="lastReference" th:value="${result.post.pno}"/>
@@ -152,6 +156,7 @@
                   <input type="hidden" name="originalReference" th:value="${result.post.pno}" th:unless="${result.post.originalReference}"/>
                   <input type="hidden" name="uno" value="31">
                 </form>
+		<div class="postImages uploadResult"></div>
               </div>
             </div>
           </div>
@@ -249,9 +254,15 @@
     <input type="hidden" name="">
     <input type="hidden" name="">
   </form>
+
   <th:block layout:fragment="javascript">
+	<script>
+      		const csrfValue = '[[${_csrf.token}]]';
+	</script>
     <script th:src="@{/js/toggle.js}"></script>
     <script th:src="@{/js/postContainerEvent.js}"></script>
+	<script th:src="@{/js/posting.js}"></script>
+	<script th:src="@{/js/upload.js}"></script>
     <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
   </th:block>
 </html>
