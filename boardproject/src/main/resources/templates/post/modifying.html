@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/individualPost.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+    <link rel="stylesheet" th:href="@{/css/posting.css}">
+  </th:block>
+  <div layout:fragment="mainHeader" class="mainHeader">
+    <!-- 검색폼 여부와 상관없이 상단 여백 -->
+    <div class="timelineHeader"></div>
+  </div>
+
+  <div layout:fragment="mainContainer" class="mainContainer">
+    <!-- 포스트 작성 영역 -->
+    <div class="postingDiv">
+
+      <h2 style="width:980px;max-width:98%;margin:0 auto">글 수정하기</h2>
+      <div class="originalPost"></div>
+
+      <div class="postingDiv2 individualPost">
+        <form th:action="@{createPost}" method="post" id="postingForm" th:object="${postDto}">
+          <div class="postTextDiv">
+            <div>
+              <p>
+                <label for="text" class="textBold">텍스트 ::
+                </label>
+                <!-- <span class="textBold" th:if="${#fields.hasErrors('text')}" th:errors="*{text}" style="color:red"></span> -->
+              </p>
+              <textarea name="text" id="text" placeholder="여기에 작성할 글을 입력하시오" rows="5" cols="3" wrap="hard">[[${dto.text}]]</textarea>
+            </div>
+
+            <div style="margin-bottom:15px">
+              <input type="file" name="fileInput" id="fileInput" accept=".gif, .jpg, .png" multiple="multiple">
+            </div>
+            <button type="submit" class="textBold">올리기</button>
+          </div>
+          <input type="hidden" name="uno" th:value="${dto.uno}">
+          <input type="hidden" name="pno" th:value="${dto.pno}">
+          <input type="hidden" name="originalReference" th:value="${dto.originalReference}" th:if="${dto.originalReference}">
+          <input type="hidden" name="lastReference" th:value="${dto.lastReference}" th:if="${dto.lastReference}">
+        </form>
+        <div class="postImages uploadResult">
+          <div class="uploadPostImage" th:each="image : ${dto.imageList}" th:if="${dto.imageList}" th:attr="data-name=${image.imgName},data-path=${image.path},data-uuid=${image.uuid}">
+            <img th:src="|/upload/display?fileName=${image.getThumbImageURL()}|" alt="">
+            <button class="imgRemoveBtn" th:attr="data-file=${image.getImageURL}">지우기</button>
+            <p th:text="${image.imgName}">파일명</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="javascript">
+    <script>
+      const csrfValue = '[[${_csrf.token}]]';
+    </script>
+    <script th:src="@{/js/toggle.js}"></script>
+    <script th:src="@{/js/postContainerEvent.js}"></script>
+    <script th:src="@{/js/modifying.js}"></script>
+    <script th:src="@{/js/upload.js}"></script>
+    <!-- <script th:src="@{/js/toggleSFormless.js}"></script> -->
+  </th:block>
+
+</html>

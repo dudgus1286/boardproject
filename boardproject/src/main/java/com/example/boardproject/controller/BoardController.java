@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -80,6 +81,12 @@ public class BoardController {
 
         // return "redirect:/post/read";
         return String.format("redirect:/post/read?pno=%d#mainPost", pno);
+    }
+
+    @GetMapping("/modifying")
+    public void getMethodName(Long pno, Model model) {
+        log.info("포스트 수정페이지" + pno);
+        model.addAttribute("dto", service.getPage(pno));
     }
 
     @PostMapping("/modifyPost")

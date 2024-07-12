@@ -9,7 +9,7 @@ function checkExtension(fileName) {
 function showUploadImages(arr) {
   let tags = "";
   arr.forEach((obj) => {
-    tags += `<div class="postImage" data-name="${obj.fileName}" data-path="${obj.folderPath}" data-uuid="${obj.uuid}">`;
+    tags += `<div class="uploadPostImage" data-name="${obj.fileName}" data-path="${obj.folderPath}" data-uuid="${obj.uuid}">`;
     tags += `<img src="/upload/display?fileName=${obj.thumbImageURL}" alt=""/>`;
     tags += `<button class="imgRemoveBtn" data-file=${obj.imageURL}>지우기</button>`;
     tags += `<p>${obj.fileName}</p></div>`;
@@ -23,6 +23,10 @@ fileInput.addEventListener("change", (e) => {
 
   for (let index = 0; index < files.length; index++) {
     if (checkExtension(files[index].name)) {
+      if (uploadResult.querySelectorAll(".uploadPostImage").length >= 4) {
+        alert("한 게시물에 삽입하는 이미지는 4 개를 초과할 수 없습니다");
+        return;
+      }
       formData.append("uploadFiles", files[index]);
     }
   }
@@ -45,7 +49,15 @@ postingForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const form = e.target;
 
-  const attachInfos = document.querySelectorAll(".uploadResult .postImage");
+  const text = document.querySelector("#text");
+  var pattern = /\s/g;
+  if (text.value == "" || text.value.match(pattern)) {
+    alert("텍스트는 비어둘 수 없습니다.");
+    text.focus();
+    return;
+  }
+
+  const attachInfos = document.querySelectorAll(".uploadResult .uploadPostImage");
 
   let result = "";
   attachInfos.forEach((obj, idx) => {

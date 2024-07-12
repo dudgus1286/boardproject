@@ -3,17 +3,23 @@
   padding: 10px;
 }
 
-.uploadResult .postImage {
+.uploadResult .uploadPostImage {
   position: relative;
 }
 
-.uploadResult .postImage .imgRemoveBtn {
+.uploadResult .uploadPostImage .imgRemoveBtn {
   position: absolute;
   top: 5px;
   right: 5px;
+
+  height: 1.5em;
+  width: 50px;
+  background-color: whitesmoke;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 
-.uploadResult .postImage p {
+.uploadResult .uploadPostImage p {
   position: absolute;
   bottom: 5px;
   left: 5px;
